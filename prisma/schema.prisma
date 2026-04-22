@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Usuarios
+model User {
+  id            String          @id @default(cuid())
+  email         String?         @unique
+  name          String?
+  image         String?
+  role          Role            @default(USER)
+  watchHistory  WatchProgress[]
+  watchlist     Watchlist[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// Series (ej: "Parashá en un minuto", "Estudiemos las Parashot")
+model Series {
+  id          String     @id @default(cuid())
+  title       String     
+  slug        String     @unique
+  description String     @db.Text
+  thumbnail   String
+  category    Category
+  episodes    Episode[]
+  watchlist   Watchlist[]
+  createdAt   DateTime   @default(now())
+  
+  @@index([category])
+}
+
+enum Category {
+  PARASHOT
+  FESTIVIDADES
+  CUENTOS
+  EDUCATIVO
+}
+
+// Episodios/Videos individuales
+model Episode {
+  id            String          @id @default(cuid())
+  title         String          
+  slug          String          @unique
+  description   String          @db.Text
+  youtubeId     String          
+  thumbnail     String          
+  duration      Int             
+  views         Int             @default(0) 
+  episodeNum    Int?            
+  parashaNum    Int?            
+  
+  seriesId      String?
+  series        Series?         @relation(fields: [seriesId], references: [id])
+  
+  category      Category
+  subcategory   String?         
+  
+  featured      Boolean         @default(false) 
+  publishedAt   DateTime
+  progress      WatchProgress[]
+  
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  
+  @@index([category])
+  @@index([parashaNum])
+  @@index([publishedAt])
+  @@index([views])
+}
+
+// Progreso de visualización
+model WatchProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  episodeId   String
+  timestamp   Int       
+  completed   Boolean   @default(false)
+  
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  episode     Episode   @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  
+  lastWatched DateTime  @default(now())
+  
+  @@unique([userId, episodeId])
+  @@index([userId])
+  @@index([lastWatched])
+}
+
+// Watchlist (Mi Lista)
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  seriesId  String?
+  episodeId String?
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  series    Series?  @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  
+  addedAt   DateTime @default(now())
+  
+  @@unique([userId, seriesId])
+  @@index([userId])
+}
