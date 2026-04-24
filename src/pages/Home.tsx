@@ -9,7 +9,7 @@ export function Home() {
   const featuredVideo = getFeaturedVideos()[0] || videos[0];
   const parashotSeries = getSeriesByCategory('PARASHOT');
   const festividadesSeries = getSeriesByCategory('FESTIVIDADES');
-  const cuentosSeries = getSeriesByCategory('CUENTOS E HISTORIAS');
+  const cuentosSeries = getSeriesByCategory('CUENTOS');
 
   const { progressItems, loading: progressLoading } = useContinueWatching();
   const { recommendations, loading: recLoading } = useRecommendations({ userId: MOCK_USER_ID });
@@ -55,7 +55,7 @@ export function Home() {
         )}
 
         {parashotSeries.length > 0 && <SeriesCarousel title="Parashot" series={parashotSeries} viewMoreLink={parashotSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/parashot" : undefined} />}
-        {cuentosSeries.length > 0 && <SeriesCarousel title="Cuentos e Historias" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
+        {cuentosSeries.length > 0 && <SeriesCarousel title="Cuentos" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
         {festividadesSeries.length > 0 && <SeriesCarousel title="Festividades" series={festividadesSeries} viewMoreLink={festividadesSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/festividades" : undefined} />}
       </div>
     </div>

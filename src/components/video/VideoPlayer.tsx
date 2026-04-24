@@ -208,8 +208,12 @@ export const VideoPlayer = memo(function VideoPlayer({
   const startPlayback = (timeSec: number) => {
     dismissPrompt();
     setHasStarted(true);
-    setPlaying(true);
     setVideoEnded(false);
+    
+    // Tiny delay before setting playing=true to allow the player to mount correctly
+    setTimeout(() => {
+      setPlaying(true);
+    }, 50);
     
     // We delay the seek slightly to ensure ReactPlayer has mounted and initialized
     if (timeSec > 0) {
@@ -217,9 +221,17 @@ export const VideoPlayer = memo(function VideoPlayer({
          if (playerRef.current && (playerRef.current as any).seekTo) {
              (playerRef.current as any).seekTo(timeSec, 'seconds');
          }
-      }, 300);
+      }, 400);
     }
   };
+
+  // Cleanup on unmount to prevent memory leaks and play() interruptions
+  useEffect(() => {
+    return () => {
+      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+      setPlaying(false);
+    };
+  }, [setPlaying]);
 
   // --- RENDERING ---
   return (

@@ -24,13 +24,24 @@ export function Shorts() {
     
     if (newIndex !== activeIndex && newIndex >= 0 && newIndex < shorts.length) {
       setActiveIndex(newIndex);
-      setIsPlaying(true); // reset playing state when changing video
+      // Wait a tiny bit before playing the new video to ensure the DOM has settled
+      setIsPlaying(false);
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 50);
     }
   };
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      setIsPlaying(false);
+    };
+  }, []);
 
   return (
     <div className="absolute top-[64px] left-0 right-0 bottom-0 bg-black overflow-hidden flex justify-center z-40">

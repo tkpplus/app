@@ -22,6 +22,12 @@ export function SeriesDetail() {
       
       if (info) {
         let results = getVideosBySeries(slug);
+        
+        // Filtrar shorts de las series, EXCEPTO para "especiales"
+        if (slug !== 'especiales') {
+          results = results.filter((v: any) => !v.isShort);
+        }
+        
         // Sort by episodeNum if available
         results = results.sort((a, b) => ((a as any).episodeNum || 0) - ((b as any).episodeNum || 0));
         setVideos(results);
