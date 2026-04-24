@@ -22,6 +22,10 @@ export function SeriesCard({
           alt={title}
           className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-60"
           loading="lazy"
+          onError={(e) => {
+             // Fallback image in case user hasn't uploaded local cover yet
+            (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
+          }}
         />
         
         {/* Overlay gradient */}

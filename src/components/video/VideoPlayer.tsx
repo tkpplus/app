@@ -261,9 +261,9 @@ export const VideoPlayer = memo(function VideoPlayer({
         </div>
       )}
 
-      {/* 2. THE REAL PLAYER (Lazy loaded internally by ReactPlayer but we mount it after interaction for best config passing) */}
-      {hasStarted && (
-        React.createElement(ReactPlayer as any, {
+      {/* 2. THE REAL PLAYER (Pre-loaded but hidden or under the facade) */}
+      <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-300 ${hasStarted ? 'opacity-100' : 'opacity-0'}`}>
+        {React.createElement(ReactPlayer as any, {
           ref: playerRef,
           url: `https://www.youtube.com/watch?v=${video.youtubeId}`,
           width: "100%",
@@ -288,10 +288,9 @@ export const VideoPlayer = memo(function VideoPlayer({
                 playsinline: 1
               }
             }
-          },
-          className: "absolute inset-0 z-0 pointer-events-none"
-        })
-      )}
+          }
+        })}
+      </div>
 
       {/* 3. CUSTOM CONTROLS OVERLAY */}
       {hasStarted && !videoEnded && (

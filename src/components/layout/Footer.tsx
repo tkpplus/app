@@ -1,16 +1,19 @@
+import { Link } from 'react-router-dom';
+
 export function Footer() {
   return (
     <footer className="border-t border-border bg-surface py-12 mt-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
-            <span className="text-xl font-bold font-display text-primary tracking-tight">
-              Torah Kids
-            </span>
-            <span className="text-xl font-bold font-display text-accent-orange tracking-tight ml-2">
-              Puppets
-            </span>
-            <p className="mt-4 text-sm text-text-muted">
+            <Link to="/" className="flex items-center gap-2 mb-4 inline-flex">
+              <img src="/_24b4f57c-d78a-4277-a8a5-d85c5b967dc6.png" alt="Torah Kids Puppets Logo" className="h-8 w-auto grayscale mix-blend-screen opacity-70" />
+              <div className="font-display font-bold text-2xl tracking-tight select-none flex items-center mb-0.5 opacity-90">
+                <span className="text-white">TKP</span>
+                <span className="text-torah-gold font-black">+</span>
+              </div>
+            </Link>
+            <p className="text-sm text-text-muted mt-2">
               Educación judía entretenida y accesible para niños y familias en todo el mundo.
             </p>
           </div>

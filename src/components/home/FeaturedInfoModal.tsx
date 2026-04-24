@@ -42,7 +42,7 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
 
           <div className="absolute bottom-10 left-8 max-w-2xl">
             <h2 className="text-4xl md:text-6xl font-display font-extrabold text-white mb-6 drop-shadow-2xl leading-none">
-              {video.title}
+              {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
             </h2>
             <div className="flex gap-4">
               <button
@@ -61,13 +61,16 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
         {/* Body Info */}
         <div className="p-8 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-10 bg-[#181818]">
           <div className="md:col-span-2 text-gray-300 text-lg leading-relaxed">
-            <div className="flex items-center gap-4 mb-6 text-sm font-bold tracking-wide">
-              <span className="text-green-400">98% Coincidencia</span>
-              <span className="text-gray-400">2024</span>
+            <div className="flex items-center flex-wrap gap-4 mb-6 text-sm font-bold tracking-wide">
+              <span className="text-green-400">Recomendado</span>
+              <span className="text-gray-400">{new Date(video.publishedAt || Date.now()).getFullYear()}</span>
+              {video.episodeNum && (
+                <span className="text-white px-2 py-0.5 rounded-sm bg-white/10">T{video.seasonNum || 1} • E{video.episodeNum}</span>
+              )}
               <span className="border border-gray-500 px-1.5 py-0.5 rounded text-gray-400">
                 HD
               </span>
-              <span>{video.duration} min</span>
+              <span>{Math.floor(video.duration / 60)} min</span>
             </div>
             <p className="font-medium text-white/90">
               {video.description || 'Sin descripción disponible.'}

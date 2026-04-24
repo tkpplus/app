@@ -9,9 +9,7 @@ export function Home() {
   const featuredVideo = getFeaturedVideos()[0] || videos[0];
   const parashotSeries = getSeriesByCategory('PARASHOT');
   const festividadesSeries = getSeriesByCategory('FESTIVIDADES');
-  const cuentosSeries = getSeriesByCategory('CUENTOS');
-  // educativos is currently not defined in seriesData, keeping it empty or mapping if exists
-  const educativosSeries = getSeriesByCategory('EDUCATIVO');
+  const cuentosSeries = getSeriesByCategory('CUENTOS E HISTORIAS');
 
   const { progressItems, loading: progressLoading } = useContinueWatching();
   const { recommendations, loading: recLoading } = useRecommendations({ userId: MOCK_USER_ID });
@@ -50,12 +48,15 @@ export function Home() {
         )}
         
         {!recLoading && recommendations.length > 0 && (
-          <VideoCarousel title="Nuestra selección de episodios" videos={recommendations.slice(0, 8)} />
+          <VideoCarousel 
+            title="Nuestra selección de episodios" 
+            videos={recommendations.filter((v: any) => !v.isShort).slice(0, 8)} 
+          />
         )}
 
-        {parashotSeries.length > 0 && <SeriesCarousel title="Especial Parashot" series={parashotSeries} viewMoreLink={parashotSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/parashot" : undefined} />}
-        {cuentosSeries.length > 0 && <SeriesCarousel title="Los Mejores Cuentos" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
-        {festividadesSeries.length > 0 && <SeriesCarousel title="Festividades Próximas" series={festividadesSeries} viewMoreLink={festividadesSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/festividades" : undefined} />}
+        {parashotSeries.length > 0 && <SeriesCarousel title="Parashot" series={parashotSeries} viewMoreLink={parashotSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/parashot" : undefined} />}
+        {cuentosSeries.length > 0 && <SeriesCarousel title="Cuentos e Historias" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
+        {festividadesSeries.length > 0 && <SeriesCarousel title="Festividades" series={festividadesSeries} viewMoreLink={festividadesSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/festividades" : undefined} />}
       </div>
     </div>
   );

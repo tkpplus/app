@@ -74,6 +74,8 @@ export function VideoCarousel({ title, videos, viewMoreLink }: VideoCarouselProp
                 isNew={new Date(video.publishedAt) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)}
                 progressPercentage={video.progressPercentage}
                 isCompleted={video.isCompleted}
+                seasonNum={video.seasonNum}
+                episodeNum={video.episodeNum}
               />
             </div>
           ))}

@@ -12,6 +12,8 @@ interface VideoCardProps {
   category?: string;
   progressPercentage?: number; // 0 to 1
   isCompleted?: boolean;
+  seasonNum?: number | null;
+  episodeNum?: number | null;
 }
 
 export function VideoCard({
@@ -23,7 +25,9 @@ export function VideoCard({
   isNew,
   category,
   progressPercentage,
-  isCompleted
+  isCompleted,
+  seasonNum,
+  episodeNum
 }: VideoCardProps) {
   
   // Format duration from seconds to M:SS or H:MM:SS
@@ -73,12 +77,12 @@ export function VideoCard({
               <span className="text-[10px] uppercase tracking-wider font-semibold text-accent-orange mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-50 line-clamp-1">{category}</span>
            )}
            <h4 className="font-bold text-xs md:text-sm text-white leading-tight mb-1 line-clamp-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
-               {title.replace('Torah Kids Puppets | ', '').replace('Parashá ', '').replace('Parashat ', '').trim()}
+               {title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
            </h4>
            
            <div className="flex justify-between items-center mt-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
-                <span className="text-[10px] text-gray-400 flex items-center gap-1">
-                    ⏱ {formatDuration(duration)}
+                <span className="text-[10px] text-gray-400 flex items-center gap-1 font-medium">
+                    {episodeNum ? `T${seasonNum || 1} • E${episodeNum}` : 'Video'} • ⏱ {formatDuration(duration)}
                 </span>
            </div>
         </div>

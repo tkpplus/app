@@ -34,12 +34,25 @@ export function HeroBanner({ video }: HeroBannerProps) {
         {/* Content Container */}
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
+            {video.category && (
+              <div className="mb-3 flex items-center gap-2">
+                <span className="rounded bg-primary/90 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-sm">
+                  {video.category}
+                </span>
+                {video.episodeNum && (
+                  <span className="rounded bg-black/60 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm border border-white/10">
+                    T{video.seasonNum || 1} • E{video.episodeNum}
+                  </span>
+                )}
+              </div>
+            )}
+            
             <h1 className="mb-4 text-3xl font-bold font-display leading-tight text-white md:text-5xl lg:text-6xl text-shadow-sm drop-shadow-md line-clamp-4 relative z-20">
-              {video.title}
+              {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
             </h1>
             
             <p className="mb-8 line-clamp-3 text-sm md:text-base lg:text-lg text-white/90 max-w-xl font-medium drop-shadow relative z-20">
-              {video.description}
+              {video.description.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
             </p>
             
             <div className="flex flex-wrap items-center gap-4 relative z-20">

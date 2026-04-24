@@ -85,12 +85,18 @@ export function Watch() {
                 </div>
               )}
               <h1 className="text-2xl md:text-3xl font-bold font-display text-white mb-2">
-                {video.title}
+                {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
               </h1>
-              <div className="flex items-center gap-4 text-sm font-medium text-white/60">
+              <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-white/60">
                 <span>{new Date(video.publishedAt).getFullYear()}</span>
+                {video.episodeNum && (
+                  <>
+                    <span>•</span>
+                    <span className="text-white">T{video.seasonNum || 1} • E{video.episodeNum}</span>
+                  </>
+                )}
                 <span>•</span>
-                <span>{Math.floor(video.duration / 60)} min</span>
+                <span>{Math.floor(video.duration / 60)} min {video.duration % 60} s</span>
                 <span>•</span>
                 <span>{video.views.toLocaleString()} vistas</span>
               </div>

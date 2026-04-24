@@ -8,6 +8,7 @@ export function Shorts() {
   const [shorts, setShorts] = useState(getShortVideos());
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true); // Must start muted to bypass browser Autoplay policies
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export function Shorts() {
                   height: "100%",
                   playing: activeIndex === index && isPlaying,
                   loop: true,
-                  muted: false,
+                  muted: isMuted,
                   config: {
                     youtube: {
                       playerVars: { 
@@ -98,7 +99,7 @@ export function Shorts() {
               <div className="flex justify-between items-end w-full">
                 {/* Meta */}
                 <div className="flex flex-col gap-2 w-3/4 mb-4">
-                  <h3 className="text-white font-bold text-lg leading-tight line-clamp-2">{video.title}</h3>
+                  <h3 className="text-white font-bold text-lg leading-tight line-clamp-2">{video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}</h3>
                   {video.category && (
                      <span className="text-primary text-xs font-bold uppercase tracking-wider bg-black/50 w-max px-2 py-1 rounded-md backdrop-blur-sm">
                        {video.category}
@@ -109,6 +110,16 @@ export function Shorts() {
 
                 {/* Vertical Actions */}
                 <div className="flex flex-col gap-4 items-center mb-4 pointer-events-auto">
+                   <div className="flex flex-col items-center gap-1 group cursor-pointer" onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}>
+                     <div className="p-3 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-white/20 transition">
+                       {isMuted ? (
+                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
+                       ) : (
+                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+                       )}
+                     </div>
+                   </div>
+
                    <div className="flex flex-col items-center gap-1 group cursor-pointer">
                      <div className="p-3 rounded-full bg-black/40 backdrop-blur-md text-white group-hover:text-primary transition">
                        <Heart className="w-6 h-6" />
