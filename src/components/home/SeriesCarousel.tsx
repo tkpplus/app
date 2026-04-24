@@ -69,6 +69,7 @@ export function SeriesCarousel({ title, series, viewMoreLink }: SeriesCarouselPr
                 id={s.id}
                 title={s.title}
                 thumbnail={s.thumbnail}
+                description={s.description}
               />
             </div>
           ))}

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { HeroBanner } from '../components/home/HeroBanner';
 import { VideoCarousel } from '../components/home/VideoCarousel';
 import { SeriesCarousel } from '../components/home/SeriesCarousel';
@@ -6,7 +7,12 @@ import { useContinueWatching } from '../hooks/useVideoProgress';
 import { useRecommendations, MOCK_USER_ID } from '../hooks/useRecommendations';
 
 export function Home() {
-  const featuredVideo = getFeaturedVideos()[0] || videos[0];
+  const featuredVideo = useMemo(() => {
+    const featuredVideos = getFeaturedVideos();
+    const sourceVideos = featuredVideos.length > 0 ? featuredVideos : videos;
+    const randomIndex = Math.floor(Math.random() * sourceVideos.length);
+    return sourceVideos[randomIndex];
+  }, []);
   const parashotSeries = getSeriesByCategory('PARASHOT');
   const festividadesSeries = getSeriesByCategory('FESTIVIDADES');
   const cuentosSeries = getSeriesByCategory('CUENTOS');

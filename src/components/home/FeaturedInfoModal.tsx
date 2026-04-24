@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,19 +10,31 @@ interface FeaturedInfoModalProps {
 
 export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalProps) {
   const navigate = useNavigate();
+  
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen || !video) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex justify-center items-center p-4 md:p-8 animate-fade-in">
+    <div className="fixed inset-0 z-[100] flex justify-center items-center sm:p-6 p-2">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-lg"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
         onClick={onClose}
       ></div>
 
       {/* Modal Container */}
-      <div className="bg-[#181818] w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl relative z-10 animate-scale-in border border-gray-700">
+      <div className="bg-[#181818] w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] rounded-2xl overflow-y-auto shadow-2xl relative z-10 animate-scale-in border border-white/10 scrollbar-hide">
         
         <button
           onClick={onClose}
@@ -32,16 +44,16 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
         </button>
 
         {/* Header Image */}
-        <div className="relative h-64 md:h-[450px] w-full">
+        <div className="relative h-64 md:h-[400px] w-full shrink-0">
           <img
             src={video.thumbnail}
             className="w-full h-full object-cover"
             alt={video.title}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-[#181818]/60 to-transparent"></div>
 
-          <div className="absolute bottom-10 left-8 max-w-2xl">
-            <h2 className="text-4xl md:text-6xl font-display font-extrabold text-white mb-6 drop-shadow-2xl leading-none">
+          <div className="absolute bottom-6 left-6 md:left-10 max-w-2xl px-2">
+            <h2 className="text-3xl md:text-[3.5rem] font-display font-bold text-white mb-6 drop-shadow-lg leading-none">
               {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
             </h2>
             <div className="flex gap-4">
@@ -50,50 +62,50 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
                   onClose();
                   navigate(`/watch/${video.id}`);
                 }}
-                className="bg-white text-black px-8 py-3 rounded-md font-bold text-xl flex items-center gap-3 hover:bg-gray-200 transition-colors shadow-xl"
+                className="bg-white text-black px-6 py-2.5 md:px-8 md:py-3 rounded-[4px] font-bold text-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors shadow-lg"
               >
-                <Play className="h-5 w-5 fill-current" /> Reproducir
+                <Play className="h-6 w-6 md:h-7 md:w-7 fill-current" /> Reproducir
               </button>
             </div>
           </div>
         </div>
 
         {/* Body Info */}
-        <div className="p-8 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-10 bg-[#181818]">
-          <div className="md:col-span-2 text-gray-300 text-lg leading-relaxed">
-            <div className="flex items-center flex-wrap gap-4 mb-6 text-sm font-bold tracking-wide">
-              <span className="text-green-400">Recomendado</span>
-              <span className="text-gray-400">{new Date(video.publishedAt || Date.now()).getFullYear()}</span>
+        <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 bg-[#181818]">
+          <div className="md:col-span-2 text-[#e5e5e5] text-sm md:text-lg leading-relaxed">
+            <div className="flex items-center flex-wrap gap-3 mb-4 font-bold tracking-wide">
+              <span className="text-[#46d369]">98% Coincidencia</span>
+              <span className="text-[#bcbcbc]">{new Date(video.publishedAt || Date.now()).getFullYear()}</span>
               {video.episodeNum && (
-                <span className="text-white px-2 py-0.5 rounded-sm bg-white/10">T{video.seasonNum || 1} • E{video.episodeNum}</span>
+                <span className="text-white px-1 py-0.5 rounded-sm bg-white/10 text-sm">T{video.seasonNum || 1} • E{video.episodeNum}</span>
               )}
-              <span className="border border-gray-500 px-1.5 py-0.5 rounded text-gray-400">
+              <span className="border border-gray-600 px-1 py-0 rounded-[3px] text-[#bcbcbc] text-xs">
                 HD
               </span>
-              <span>{Math.floor(video.duration / 60)} min</span>
+              <span className="text-[#bcbcbc]">{Math.floor(video.duration ? video.duration / 60 : 20)}:34 min</span>
             </div>
-            <p className="font-medium text-white/90">
+            <p className="font-medium text-white/95 text-[15px] sm:text-[17px]">
               {video.description || 'Sin descripción disponible.'}
             </p>
           </div>
-          <div className="text-sm text-gray-400 space-y-4">
+          <div className="text-sm text-[#777] space-y-4">
             <div className="space-y-1">
-              <span className="text-gray-500 block text-xs uppercase tracking-wider">
+              <span className="block text-xs uppercase tracking-wider">
                 Elenco:
               </span>
               <p className="text-white">Yosef, Benny, Aharón, Keter, Dr. Avraham</p>
             </div>
             <div className="space-y-1">
-              <span className="text-gray-500 block text-xs uppercase tracking-wider">
+              <span className="block text-xs uppercase tracking-wider">
                 Géneros:
               </span>
               <p className="text-white">Educativo, Judío, Infantil</p>
             </div>
             <div className="space-y-1">
-              <span className="text-gray-500 block text-xs uppercase tracking-wider">
-                Categoría:
+              <span className="block text-xs uppercase tracking-wider">
+                Vibra:
               </span>
-              <p className="text-white">{video.category}</p>
+              <p className="text-white">Divertido, Inspirador, Con Valores</p>
             </div>
           </div>
         </div>

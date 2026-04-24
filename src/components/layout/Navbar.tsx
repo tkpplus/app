@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Bell, User } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { SearchOverlay } from './SearchOverlay';
 
@@ -17,8 +17,8 @@ export function Navbar() {
               <Link to="/" className="flex items-center gap-3">
                 <img src="/_24b4f57c-d78a-4277-a8a5-d85c5b967dc6.png" alt="Torah Kids Puppets Logo" className="h-10 w-auto" />
                 <div className="font-display font-bold text-3xl tracking-tight select-none flex items-center mb-1">
-                  <span className="text-white">TKP</span>
-                  <span className="text-torah-gold font-black">+</span>
+                  <span className="text-primary">TKP</span>
+                  <span className="text-white font-black">+</span>
                 </div>
               </Link>
               
@@ -50,12 +50,6 @@ export function Navbar() {
               >
                 <Search className="h-5 w-5" />
               </button>
-              <button className="text-text-muted hover:text-primary transition-colors p-2 hidden sm:block">
-                <Bell className="h-5 w-5" />
-              </button>
-              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-primary-hover font-medium cursor-pointer">
-                <User className="h-5 w-5" />
-              </div>
             </div>
           </div>
         </div>
