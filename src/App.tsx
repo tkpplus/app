@@ -13,6 +13,9 @@ import { FestividadesIndex } from './pages/FestividadesIndex';
 import { CuentosIndex } from './pages/CuentosIndex';
 import { SeriesDetail } from './pages/SeriesDetail';
 import { Shorts } from './pages/Shorts';
+import { About } from './pages/About';
+import { Privacy } from './pages/Privacy';
+import { Terms } from './pages/Terms';
 
 export default function App() {
   return (
@@ -20,6 +23,9 @@ export default function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/watch/:id" element={<Watch />} />
           <Route path="/shorts" element={<Shorts />} />
           <Route path="/category/parashot" element={<ParashotIndex />} />

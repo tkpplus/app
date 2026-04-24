@@ -28,9 +28,9 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-text-main mb-4 font-display tracking-wide uppercase text-sm">Plataforma</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-text-muted hover:text-primary transition-colors">Acerca de nosotros</a></li>
-              <li><a href="#" className="text-sm text-text-muted hover:text-primary transition-colors">Canal de YouTube</a></li>
-              <li><a href="#" className="text-sm text-text-muted hover:text-primary transition-colors">Contacto</a></li>
+              <li><Link to="/about" className="text-sm text-text-muted hover:text-primary transition-colors">Acerca de nosotros</Link></li>
+              <li><a href="https://youtube.com/@torahkidspuppets" target="_blank" rel="noopener noreferrer" className="text-sm text-text-muted hover:text-primary transition-colors">Canal de YouTube</a></li>
+              <li><a href="mailto:hola@torahkidspuppets.com" className="text-sm text-text-muted hover:text-primary transition-colors">Contacto</a></li>
             </ul>
           </div>
         </div>
@@ -39,8 +39,8 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Torah Kids Puppets. Todos los derechos reservados.
           </p>
           <div className="flex space-x-6 text-xs text-text-muted">
-            <a href="#" className="hover:text-primary transition-colors">Privacidad</a>
-            <a href="#" className="hover:text-primary transition-colors">Términos</a>
+            <Link to="/privacy" className="hover:text-primary transition-colors">Privacidad</Link>
+            <Link to="/terms" className="hover:text-primary transition-colors">Términos</Link>
           </div>
         </div>
       </div>
