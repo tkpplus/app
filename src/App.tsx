@@ -17,16 +17,14 @@ import { Shorts } from './pages/Shorts';
 import { About } from './pages/About';
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
+import { MyList } from './pages/MyList';
 import { IntroAnimation } from './components/ui/IntroAnimation';
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(() => {
-    return !sessionStorage.getItem('hasSeenIntro');
-  });
+  const [showIntro, setShowIntro] = useState(true);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    sessionStorage.setItem('hasSeenIntro', 'true');
   };
 
   return (
@@ -46,6 +44,7 @@ export default function App() {
           <Route path="/category/cuentos" element={<CuentosIndex />} />
           <Route path="/series/:slug" element={<SeriesDetail />} />
           <Route path="/series" element={<FestividadesIndex />} /> {/* Placeholder to prevent 404 */}
+          <Route path="/mi-lista" element={<MyList />} />
           {/* Default fallback route */}
           <Route path="*" element={<Home />} />
         </Route>

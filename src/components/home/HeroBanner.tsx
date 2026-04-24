@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Plus, Info } from 'lucide-react';
+import { Play, Plus, Check, Info } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { FeaturedInfoModal } from './FeaturedInfoModal';
+import { useWatchlist } from '../../hooks/useWatchlist';
 
 interface HeroBannerProps {
   video: any;
@@ -10,6 +11,7 @@ interface HeroBannerProps {
 
 export function HeroBanner({ video }: HeroBannerProps) {
   const [showInfo, setShowInfo] = useState(false);
+  const { toggleWatchlist, isInWatchlist } = useWatchlist();
 
   if (!video) return null;
 
@@ -74,9 +76,23 @@ export function HeroBanner({ video }: HeroBannerProps) {
               
               <Button 
                 size="lg" 
+                onClick={() => toggleWatchlist(video.id)}
+                variant={isInWatchlist(video.id) ? "default" : "outline"} 
+                className={`gap-2 h-14 px-8 rounded-lg font-semibold text-base shadow-lg transition-colors ${
+                  isInWatchlist(video.id) 
+                  ? 'bg-primary border-primary text-white hover:bg-primary/90' 
+                  : 'bg-[#44444b] text-white border-transparent hover:bg-[#52525a] hover:text-white'
+                }`}
+              >
+                {isInWatchlist(video.id) ? <Check className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
+                {isInWatchlist(video.id) ? 'En mi lista' : 'Mi lista'}
+              </Button>
+              
+              <Button 
+                size="lg" 
                 variant="outline" 
                 onClick={() => setShowInfo(true)}
-                className="gap-2 bg-[#44444b] text-white border-transparent hover:bg-[#52525a] hover:text-white transition-all h-14 px-8 rounded-lg font-semibold text-base shadow-lg"
+                className="gap-2 bg-transparent text-white border-white/30 hover:bg-white/10 hover:text-white transition-all h-14 px-8 rounded-lg font-semibold text-base shadow-lg"
               >
                 <Info className="h-6 w-6" />
                 Más Info

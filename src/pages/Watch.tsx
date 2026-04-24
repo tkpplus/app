@@ -1,8 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Share2, Plus } from 'lucide-react';
+import { ArrowLeft, Share2, Plus, Check } from 'lucide-react';
 import { getVideoById, videos } from '../data/seed';
 import { Button } from '../components/ui/Button';
 import { useVideoProgress } from '../hooks/useVideoProgress';
+import { useWatchlist } from '../hooks/useWatchlist';
 import { useRecommendations, MOCK_USER_ID } from '../hooks/useRecommendations';
 import { VideoPlayer } from '../components/video/VideoPlayer';
 import { VideoCarousel } from '../components/home/VideoCarousel'; // Importamos el carousel para la banda de episodios
@@ -16,6 +17,7 @@ export function Watch() {
   
   const { initialProgress, isCompleted, loading: progressLoading, saveProgress } = useVideoProgress(video?.id || null);
   const { recommendations, loading: recLoading } = useRecommendations({ episodeId: video?.id || undefined, userId: MOCK_USER_ID });
+  const { toggleWatchlist, isInWatchlist } = useWatchlist();
 
   if (!video) {
     return (
@@ -105,9 +107,17 @@ export function Watch() {
             </div>
 
             <div className="flex items-center gap-3">
-              <Button variant="outline" className="gap-2 font-semibold bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white">
-                <Plus className="h-4 w-4" />
-                Mi lista
+              <Button 
+                onClick={() => toggleWatchlist(video.id)}
+                variant={isInWatchlist(video.id) ? "default" : "outline"} 
+                className={`gap-2 font-semibold transition-colors ${
+                  isInWatchlist(video.id) 
+                  ? 'bg-primary border-primary text-white hover:bg-primary/90' 
+                  : 'bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                {isInWatchlist(video.id) ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                {isInWatchlist(video.id) ? 'En mi lista' : 'Mi lista'}
               </Button>
               <Button variant="outline" size="icon" className="rounded-full bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white">
                 <Share2 className="h-4 w-4" />

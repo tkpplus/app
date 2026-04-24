@@ -9,7 +9,7 @@ import { useRecommendations, MOCK_USER_ID } from '../hooks/useRecommendations';
 export function Home() {
   const featuredVideo = useMemo(() => {
     const featuredVideos = getFeaturedVideos();
-    const sourceVideos = featuredVideos.length > 0 ? featuredVideos : videos;
+    const sourceVideos = featuredVideos.length > 0 ? featuredVideos : videos.filter(v => !v.isShort);
     const randomIndex = Math.floor(Math.random() * sourceVideos.length);
     return sourceVideos[randomIndex];
   }, []);

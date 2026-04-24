@@ -36,6 +36,9 @@ export function Navbar() {
                   <Link to="/category/cuentos" className="px-3 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text-main hover:bg-background transition-colors">
                     Cuentos
                   </Link>
+                  <Link to="/mi-lista" className="px-3 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text-main hover:bg-background transition-colors">
+                    Mi Lista
+                  </Link>
                   <Link to="/shorts" className="px-3 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text-main hover:bg-background transition-colors flex items-center gap-1">
                     Shorts
                   </Link>

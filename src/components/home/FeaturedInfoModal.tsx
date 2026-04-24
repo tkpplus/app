@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { X, Play } from 'lucide-react';
+import { X, Play, Plus, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useWatchlist } from '../../hooks/useWatchlist';
 
 interface FeaturedInfoModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface FeaturedInfoModalProps {
 
 export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalProps) {
   const navigate = useNavigate();
+  const { toggleWatchlist, isInWatchlist } = useWatchlist();
   
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -70,6 +72,17 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
                 className="bg-white text-black px-8 py-3 rounded-full font-bold text-lg flex items-center justify-center gap-3 hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]"
               >
                 <Play className="h-6 w-6 fill-current" /> Reproducir
+              </button>
+              <button
+                onClick={() => toggleWatchlist(video.id)}
+                className={`px-8 py-3 rounded-full font-bold text-lg flex items-center justify-center gap-3 hover:scale-105 transition-transform border ${
+                  isInWatchlist(video.id)
+                  ? 'bg-primary border-primary text-white shadow-[0_0_30px_rgba(255,255,255,0.1)]'
+                  : 'bg-black/40 border-white/30 text-white backdrop-blur-md'
+                }`}
+              >
+                {isInWatchlist(video.id) ? <Check className="h-6 w-6" /> : <Plus className="h-6 w-6" />} 
+                {isInWatchlist(video.id) ? 'En mi lista' : 'Mi lista'}
               </button>
             </div>
           </div>

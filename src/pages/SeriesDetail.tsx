@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Play, Plus, Volume2, VolumeX } from 'lucide-react';
+import { ArrowLeft, Play, Plus, Check, Volume2, VolumeX } from 'lucide-react';
 import { VideoCard } from '../components/video/VideoCard';
 import { Button } from '../components/ui/Button';
 import { getSeriesById, getVideosBySeries } from '../data/seed';
+import { useWatchlist } from '../hooks/useWatchlist';
 
 export function SeriesDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -12,6 +13,7 @@ export function SeriesDetail() {
   const [loading, setLoading] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const { toggleWatchlist, isInWatchlist } = useWatchlist();
 
   useEffect(() => {
     setLoading(true);
@@ -106,10 +108,21 @@ export function SeriesDetail() {
                     </Link>
                   </Button>
                 )}
-                <Button size="lg" variant="outline" className="gap-2 font-semibold bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white">
-                  <Plus className="h-5 w-5" />
-                  Mi lista
-                </Button>
+                {trailerVideo && (
+                  <Button 
+                    size="lg" 
+                    onClick={() => toggleWatchlist(trailerVideo.id)}
+                    variant={isInWatchlist(trailerVideo.id) ? "default" : "outline"} 
+                    className={`gap-2 font-semibold transition-colors ${
+                      isInWatchlist(trailerVideo.id) 
+                      ? 'bg-primary border-primary text-white hover:bg-primary/90' 
+                      : 'bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {isInWatchlist(trailerVideo.id) ? <Check className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
+                    {isInWatchlist(trailerVideo.id) ? 'En mi lista' : 'Mi lista'}
+                  </Button>
+                )}
               </div>
           </div>
           
