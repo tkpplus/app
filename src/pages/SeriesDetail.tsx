@@ -4,7 +4,6 @@ import { ArrowLeft, Play, Plus, Volume2, VolumeX } from 'lucide-react';
 import { VideoCard } from '../components/video/VideoCard';
 import { Button } from '../components/ui/Button';
 import { getSeriesById, getVideosBySeries } from '../data/seed';
-import ReactPlayer from 'react-player';
 
 export function SeriesDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -57,41 +56,33 @@ export function SeriesDetail() {
       <div className="relative w-full h-[50vh] md:h-[65vh] bg-black overflow-hidden border-b border-border">
         
         {/* Background Visuals */}
-        <div className="absolute inset-0 pointer-events-none">
-           {trailerVideo ? (
-             <div className={`w-full h-full transform scale-[1.35] transition-opacity duration-1000 ${isVideoReady ? 'opacity-50' : 'opacity-0'}`}>
-                {React.createElement(ReactPlayer as any, {
-                  url: `https://www.youtube.com/watch?v=${trailerVideo.youtubeId}`,
-                  width: "100%",
-                  height: "100%",
-                  playing: true,
-                  muted: isMuted,
-                  loop: true,
-                  onReady: () => setIsVideoReady(true),
-                  config: {
-                    youtube: {
-                      playerVars: { 
-                        controls: 0, modestbranding: 1, rel: 0, disablekb: 1, fs: 0, playsinline: 1
-                      }
-                    }
-                  },
-                  style: { pointerEvents: 'none' }
-                })}
+        <div className="absolute inset-0 z-0 pointer-events-none bg-background overflow-hidden">
+          {trailerVideo ? (
+             <div className="absolute inset-0 w-full h-full transform scale-[1.35] md:scale-[1.1] opacity-60">
+               <iframe
+                 src={`https://www.youtube.com/embed/${trailerVideo.youtubeId}?autoplay=1&mute=${isMuted ? '1' : '0'}&controls=0&loop=1&playlist=${trailerVideo.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3`}
+                 title="Background Video"
+                 className="w-full h-full pointer-events-none"
+                 allow="autoplay; encrypted-media"
+               />
              </div>
            ) : null}
            
-           <img 
-             src={seriesInfo.thumbnail} 
-             alt={seriesInfo.title}
-             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isVideoReady ? 'opacity-0' : 'opacity-40'}`}
-             onError={(e) => {
-               (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
-             }}
-           />
+           {/* Fallback/Thumbnail Overlay */}
+           <div className={`absolute inset-0 w-full h-full mix-blend-overlay ${trailerVideo ? 'opacity-30' : 'opacity-40'}`}>
+             <img 
+               src={seriesInfo.thumbnail} 
+               alt={seriesInfo.title}
+               className="w-full h-full object-cover blur-sm"
+               onError={(e) => {
+                 (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
+               }}
+             />
+           </div>
         </div>
 
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/20 to-transparent pointer-events-none" />
         
         <div className="absolute inset-0 flex flex-col justify-end pb-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl relative z-10">

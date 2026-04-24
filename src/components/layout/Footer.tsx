@@ -8,7 +8,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 inline-flex">
               <img src="/logo.png" alt="Torah Kids Puppets Logo" className="h-8 w-auto grayscale mix-blend-screen opacity-70" />
-              <div className="font-display font-bold text-2xl tracking-tight select-none flex items-center mb-0.5 opacity-90">
+              <div className="font-logo font-bold text-2xl tracking-tight select-none flex items-center mb-0.5 opacity-90">
                 <span className="text-primary">TKP</span>
                 <span className="text-white font-black">+</span>
               </div>

@@ -17,18 +17,29 @@ export function HeroBanner({ video }: HeroBannerProps) {
     <>
       <div className="relative mb-12 w-full min-h-[50vh] md:min-h-[65vh] xl:min-h-[75vh] flex items-center pt-24 pb-20 md:pt-32 md:pb-32 overflow-hidden">
         {/* Background Image Container */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Thumbnail on the right */}
-          <div className="absolute top-0 right-0 w-full md:w-[85%] lg:w-3/4 xl:w-2/3 h-full overflow-hidden">
-              <img
-              src={video.thumbnail}
-              alt={video.title}
-              className="w-full h-full object-cover transition-transform duration-1000 scale-[1.02]"
-              />
-              {/* Gradients to fade out the left and bottom edges of the thumbnail */}
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/80 to-background" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 z-0 pointer-events-none bg-background overflow-hidden">
+          {/* YouTube Background Video */}
+          <div className="absolute inset-0 w-full h-full transform scale-[1.3] md:scale-[1.1] opacity-60">
+            <iframe
+              src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3`}
+              title="Background Video"
+              className="w-full h-full pointer-events-none"
+              allow="autoplay; encrypted-media"
+            />
           </div>
+          
+          {/* Fallback/Thumbnail Overlay */}
+          <div className="absolute inset-0 w-full h-full mix-blend-overlay opacity-30">
+              <img
+                src={video.thumbnail}
+                alt=""
+                className="w-full h-full object-cover blur-sm"
+              />
+          </div>
+
+          {/* Gradients to fade out the left and bottom edges and create a vignette effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
         </div>
 
         {/* Content Container */}

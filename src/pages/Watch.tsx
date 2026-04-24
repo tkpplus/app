@@ -28,15 +28,16 @@ export function Watch() {
     );
   }
 
-  // Filtrar recomendaciones para "Siguiente episodio"
-  const nextEpisode = recommendations.find(v => 
-    video.seriesId && v.seriesId === video.seriesId && (v as any).episodeNum === ((video as any).episodeNum || 0) + 1
-  );
-  
   // Todos los episodios de la MISMA serie
   const seriesEpisodes = video.seriesId 
     ? videos.filter(v => v.seriesId === video.seriesId).sort((a, b) => ((a as any).episodeNum || 0) - ((b as any).episodeNum || 0))
     : [];
+
+  // Buscar el siguiente episodio basado en el índice
+  const currentIndex = seriesEpisodes.findIndex(v => v.id === video.id);
+  const nextEpisode = currentIndex >= 0 && currentIndex < seriesEpisodes.length - 1 
+    ? seriesEpisodes[currentIndex + 1] 
+    : undefined;
 
   return (
     <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 py-0 sm:py-8 overflow-hidden">
@@ -64,6 +65,7 @@ export function Watch() {
             </div>
           ) : (
             <VideoPlayer 
+              key={video.id}
               video={video} 
               nextEpisode={nextEpisode}
               initialProgress={initialProgress}

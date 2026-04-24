@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import { Home } from './pages/Home';
@@ -16,10 +17,21 @@ import { Shorts } from './pages/Shorts';
 import { About } from './pages/About';
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
+import { IntroAnimation } from './components/ui/IntroAnimation';
 
 export default function App() {
+  const [showIntro, setShowIntro] = useState(() => {
+    return !sessionStorage.getItem('hasSeenIntro');
+  });
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+    sessionStorage.setItem('hasSeenIntro', 'true');
+  };
+
   return (
     <BrowserRouter>
+      {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />

@@ -71,7 +71,7 @@ export function SearchOverlay({
         <div className="w-full max-w-7xl pb-20">
           <h3 className="text-xl font-bold text-gray-400 mb-6 px-2">
             Resultados para "{searchTerm}"{' '}
-            <span className="text-accent-orange">
+            <span className="text-primary">
               ({filteredVideos.length})
             </span>
           </h3>
@@ -82,28 +82,31 @@ export function SearchOverlay({
                 <div
                   key={video.id}
                   onClick={() => handlePlay(video.id)}
-                  className="relative aspect-video rounded-md overflow-hidden cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group bg-[#202020] border border-transparent hover:border-gray-500"
+                  className="relative aspect-video rounded-md overflow-hidden cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group bg-[#202020] border border-transparent hover:border-white/20"
                 >
                   <img
                     src={video.thumbnail}
                     alt={video.title}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:opacity-40 transition-opacity"
+                    className="w-full h-full object-cover group-hover:blur-sm transition-all duration-500"
                   />
                   <div className="absolute top-2 right-2 opacity-80 group-hover:opacity-0 transition-opacity">
                     <div className="bg-black/60 rounded px-1.5 py-0.5 text-[10px] font-bold text-white">
-                      {video.duration} min
+                      {video.duration ? `${Math.floor(video.duration / 60)} min` : 'HD'}
                     </div>
                   </div>
-                  <div className="absolute inset-0 flex flex-col justify-end p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-t from-black via-black/80 to-transparent">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-xs pl-0.5 shadow-lg">
-                        <Play className="w-4 h-4 fill-current" />
-                      </div>
-                    </div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/40">
+                     <div className="w-12 h-12 rounded-full border border-white flex items-center justify-center text-white shadow-lg bg-black/40 backdrop-blur-md transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                       <Play className="w-5 h-5 fill-current ml-1" />
+                     </div>
+                  </div>
+                  <div className="absolute bottom-0 w-full p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-2 group-hover:translate-y-0">
                     <h4 className="font-bold text-sm text-white leading-tight mb-1 line-clamp-2">
-                      {video.title}
+                      {video.title.replace('Torah Kids Puppets | ', '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').trim()}
                     </h4>
+                    {video.category && (
+                      <span className="text-xs text-primary font-semibold">{video.category}</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -111,23 +114,29 @@ export function SearchOverlay({
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-gray-500">
               <div className="text-6xl mb-4">🤷‍♂️</div>
-              <p className="text-xl font-bold">
-                Benny no encontró videos con ese nombre.
+              <p className="text-xl font-bold font-display">
+                No encontramos títulos que coincidan con tu búsqueda.
+              </p>
+              <p className="text-sm mt-2 text-gray-600">
+                Prueba con otras palabras o navega por las categorías.
               </p>
             </div>
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl opacity-50 hover:opacity-100 transition-opacity">
-          {['Janucá', 'Shabat', 'Parashá', 'Pesaj'].map((tag) => (
-            <button
-              key={tag}
-              onClick={() => setSearchTerm(tag)}
-              className="p-4 border border-gray-700 rounded-xl hover:bg-white/10 text-gray-300 font-bold transition-colors"
-            >
-              {tag}
-            </button>
-          ))}
+        <div className="flex flex-col items-center w-full max-w-4xl opacity-70 hover:opacity-100 transition-opacity">
+          <p className="text-gray-400 mb-6 font-medium tracking-wide uppercase text-sm">Búsquedas sugeridas</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {['Bereshit', 'Noaj', 'Pesaj', 'Janucá', 'Shabat', 'Cuentos', 'Moshé'].map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSearchTerm(tag)}
+                className="px-6 py-3 bg-white/5 border border-white/10 rounded-full hover:bg-white hover:text-black text-gray-300 font-bold transition-all shadow-lg hover:scale-105"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>

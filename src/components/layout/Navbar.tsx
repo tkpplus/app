@@ -16,7 +16,7 @@ export function Navbar() {
             <div className="flex items-center gap-8">
               <Link to="/" className="flex items-center gap-3">
                 <img src="/logo.png" alt="Torah Kids Puppets Logo" className="h-10 w-auto" />
-                <div className="font-display font-bold text-3xl tracking-tight select-none flex items-center mb-1">
+                <div className="font-logo font-bold text-3xl tracking-tight select-none flex items-center mb-1">
                   <span className="text-primary">TKP</span>
                   <span className="text-white font-black">+</span>
                 </div>

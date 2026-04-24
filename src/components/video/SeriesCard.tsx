@@ -88,57 +88,57 @@ export function SeriesCard({
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setShowInfo(false)}></div>
           
-          <div className="bg-[#181818] border border-white/10 rounded-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl relative animate-scale-in z-10 scrollbar-hide">
+          <div className="bg-surface border border-white/5 rounded-3xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl relative animate-scale-in z-10 scrollbar-hide">
             <button 
               onClick={() => setShowInfo(false)}
-              className="absolute top-4 right-4 z-30 p-2 bg-[#181818] hover:bg-white rounded-full text-white hover:text-black transition-colors shadow-lg"
+              className="absolute top-6 right-6 z-30 p-2 bg-black/40 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black transition-all rounded-full shadow-lg"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
             
             {/* Header Image */}
-            <div className="relative h-64 md:h-[400px] w-full shrink-0">
+            <div className="relative h-72 md:h-[450px] w-full shrink-0">
               <img src={thumbnail} alt={title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-[#181818]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
               
-              <div className="absolute bottom-6 left-6 md:left-10 max-w-2xl px-2">
-                <h2 className="text-3xl md:text-[3.5rem] font-display font-bold text-white mb-6 drop-shadow-lg leading-none">{title}</h2>
+              <div className="absolute bottom-8 left-8 md:left-12 max-w-2xl px-2">
+                {category && (
+                  <span className="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-3 block opacity-90">{category}</span>
+                )}
+                <h2 className="text-4xl md:text-[4rem] font-display font-bold text-white mb-8 drop-shadow-xl leading-tight">{title}</h2>
                 <div className="flex gap-4">
-                  <Link to={`/series/${id}`} onClick={() => setShowInfo(false)} className="bg-white text-black px-6 py-2.5 md:px-8 md:py-3 rounded-[4px] font-bold text-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors shadow-lg">
-                    <Play className="h-6 w-6 md:h-7 md:w-7 fill-current" /> Reproducir
+                  <Link to={`/series/${id}`} onClick={() => setShowInfo(false)} className="bg-white text-black px-8 py-3 rounded-full font-bold text-lg flex items-center justify-center gap-3 hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                    <Play className="h-6 w-6 fill-current" /> Reproducir
                   </Link>
                 </div>
               </div>
             </div>
             
             {/* Body Info */}
-            <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 bg-[#181818]">
-              <div className="md:col-span-2 text-[#e5e5e5] text-sm md:text-lg leading-relaxed">
-                <div className="flex items-center flex-wrap gap-3 mb-4 font-bold tracking-wide">
+            <div className="p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14 bg-surface">
+              <div className="md:col-span-2 text-text-muted text-base md:text-lg leading-relaxed">
+                <div className="flex items-center flex-wrap gap-4 mb-6 font-semibold tracking-wide">
                   <span className="text-[#46d369]">98% Coincidencia</span>
-                  <span className="text-[#bcbcbc]">2024</span>
-                  {category && (
-                    <span className="text-white px-1 py-0.5 rounded-sm bg-white/10 text-sm uppercase">{category}</span>
-                  )}
-                  <span className="border border-gray-600 px-1 py-0 rounded-[3px] text-[#bcbcbc] text-xs">HD</span>
+                  <span className="text-white/60">2024</span>
+                  <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/60 text-xs">HD</span>
                 </div>
-                <p className="font-medium text-white/95 text-[15px] sm:text-[17px] mb-6">
+                <p className="font-medium text-white/90 text-lg sm:text-xl leading-relaxed mb-6">
                   {description}
                 </p>
               </div>
               
-              <div className="text-sm text-[#777] space-y-4">
-                <div className="space-y-1">
-                  <span className="block text-xs uppercase tracking-wider">Elenco:</span>
-                  <p className="text-white">Yosef, Benny, Aharón, Keter, Dr. Avraham</p>
+              <div className="text-sm text-text-muted space-y-6">
+                <div className="space-y-1.5">
+                  <span className="block text-xs uppercase tracking-[0.15em] opacity-60">Elenco:</span>
+                  <p className="text-white/90 font-medium">Yosef, Benny, Aharón, Keter, Dr. Avraham</p>
                 </div>
-                <div className="space-y-1">
-                  <span className="block text-xs uppercase tracking-wider">Géneros:</span>
-                  <p className="text-white">Educativo, Judío, Infantil</p>
+                <div className="space-y-1.5">
+                  <span className="block text-xs uppercase tracking-[0.15em] opacity-60">Géneros:</span>
+                  <p className="text-white/90 font-medium">Educativo, Judío, Infantil</p>
                 </div>
-                <div className="space-y-1">
-                  <span className="block text-xs uppercase tracking-wider">Vibra:</span>
-                  <p className="text-white">Divertido, Inspirador, Con Valores</p>
+                <div className="space-y-1.5">
+                  <span className="block text-xs uppercase tracking-[0.15em] opacity-60">Mood:</span>
+                  <p className="text-white/90 font-medium">Sofisticado, Inspirador, Con Valores</p>
                 </div>
               </div>
             </div>
