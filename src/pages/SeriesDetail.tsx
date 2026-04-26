@@ -6,6 +6,7 @@ import { Button } from '../components/ui/Button';
 import { getSeriesById, getVideosBySeries } from '../data/seed';
 import { useWatchlist } from '../hooks/useWatchlist';
 import { VideoCarousel } from '../components/home/VideoCarousel';
+import { getSeriesCover } from '../utils/covers';
 
 export function SeriesDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -91,7 +92,7 @@ export function SeriesDetail() {
            {/* Fallback/Thumbnail Overlay */}
            <div className={`absolute inset-0 w-full h-full mix-blend-overlay ${trailerVideo ? 'opacity-30' : 'opacity-40'}`}>
              <img 
-               src={seriesInfo.thumbnail} 
+               src={getSeriesCover(seriesInfo.id, seriesInfo.thumbnail)} 
                alt={seriesInfo.title}
                className="w-full h-full object-cover blur-sm"
                onError={(e) => {

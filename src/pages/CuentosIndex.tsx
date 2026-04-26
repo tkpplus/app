@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
 import { getSeriesByCategory } from '../data/seed';
+import { getSeriesCover } from '../utils/covers';
 
 export function CuentosIndex() {
   const cuentosSeries = getSeriesByCategory('CUENTOS');
@@ -25,7 +26,7 @@ export function CuentosIndex() {
               className="group relative flex aspect-[3/4] w-full flex-col justify-end overflow-hidden rounded-md bg-surface transition-all duration-300 hover:scale-105 hover:ring-4 hover:ring-white/30 hover:shadow-xl hover:shadow-black/50"
             >
               <img
-                src={series.thumbnail}
+                src={getSeriesCover(series.id, series.thumbnail)}
                 alt={series.title}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 referrerPolicy="no-referrer"

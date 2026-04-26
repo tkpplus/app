@@ -55,6 +55,27 @@ async function startServer() {
   // Dado que la BD de Postgres puede no estar enlazada en el entorno actual, 
   // usamos un fallback en memoria para que la funcionalidad sea 100% interactiva en la demo.
   const mockProgressDB = new Map<string, any>();
+  
+  // Seed with some initial data so "Continue watching" is visible for demo purposes
+  mockProgressDB.set('mock-user-1_8rAPAkIKRHE', {
+    id: 'mock-user-1_8rAPAkIKRHE',
+    userId: 'mock-user-1',
+    episodeId: '8rAPAkIKRHE',
+    timestamp: 120, // 2 minutes in
+    percentage: 0.15,
+    completed: false,
+    lastWatched: new Date().toISOString()
+  });
+  
+  mockProgressDB.set('mock-user-1_bUu2W_fGqo8', {
+    id: 'mock-user-1_bUu2W_fGqo8',
+    userId: 'mock-user-1',
+    episodeId: 'bUu2W_fGqo8',
+    timestamp: 300, // 5 minutes in
+    percentage: 0.45,
+    completed: false,
+    lastWatched: new Date().toISOString()
+  });
 
   // POST /api/progress
   apiRouter.post('/progress', async (req, res) => {
@@ -107,6 +128,11 @@ async function startServer() {
           where: { userId, completed: false },
           orderBy: { lastWatched: 'desc' }
         });
+        
+        // If prisma is empty, fallback to mock DB so we always show Continue Watching in demo
+        if (progressList.length === 0) {
+          throw new Error("Fallback to mock");
+        }
       } catch(e) {
         progressList = Array.from(mockProgressDB.values())
           .filter(p => p.userId === userId && !p.completed)
@@ -130,6 +156,10 @@ async function startServer() {
         progress = await prisma.watchProgress.findUnique({
           where: { userId_episodeId: { userId, episodeId } }
         });
+        
+        if (!progress) {
+          throw new Error("Fallback to mock");
+        }
       } catch(e) {
         progress = mockProgressDB.get(`${userId}_${episodeId}`) || null;
       }

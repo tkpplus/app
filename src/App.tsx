@@ -18,6 +18,7 @@ import { About } from './pages/About';
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
 import { MyList } from './pages/MyList';
+import { Catalog } from './pages/Catalog';
 import { IntroAnimation } from './components/ui/IntroAnimation';
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/watch/:id" element={<Watch />} />

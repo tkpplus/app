@@ -2,9 +2,7 @@ import { useState, MouseEvent, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { Info, X, Play } from 'lucide-react';
-
-// Load covers from public directory if possible, or assets
-const coverModules = import.meta.glob('/src/assets/series-covers/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
+import { getSeriesCover } from '../../utils/covers';
 
 interface SeriesCardProps {
   id: string;
@@ -41,25 +39,7 @@ export function SeriesCard({
   }, [showInfo]);
 
   // Find matching custom covers for this series
-  const customCover = useMemo(() => {
-    const matched = Object.entries(coverModules)
-      .filter(([path]) => {
-        const filename = path.split('/').pop()?.toLowerCase() || '';
-        // match "bereshit.jpg", "bereshit_1.jpg", "bereshit-algo.jpg"
-        return filename.startsWith(id.toLowerCase() + '_') || 
-               filename.startsWith(id.toLowerCase() + '-') ||
-               filename.split('.')[0] === id.toLowerCase();
-      })
-      .map(([_, url]) => url as string);
-      
-    if (matched.length > 0) {
-      // Pick a random cover
-      return matched[Math.floor(Math.random() * matched.length)];
-    }
-    
-    // Fallback logic
-    return '/basic.png';
-  }, [id, thumbnail]);
+  const customCover = useMemo(() => getSeriesCover(id, thumbnail), [id, thumbnail]);
 
   return (
     <>
@@ -73,9 +53,7 @@ export function SeriesCard({
             loading="lazy"
             onError={(e) => {
                const target = e.target as HTMLImageElement;
-               if (target.src.includes('basic.png')) {
-                 target.src = '/basic.jpg';
-               } else if (target.src.includes('basic.jpg')) {
+               if (target.src !== thumbnail) {
                  target.src = thumbnail;
                } else {
                  target.src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";

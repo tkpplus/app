@@ -7,12 +7,24 @@ import { Button } from '../components/ui/Button';
 export function Shorts() {
   const [shorts, setShorts] = useState(getShortVideos());
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true); // Must start muted to bypass browser Autoplay policies
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const [readyStatuses, setReadyStatuses] = useState<Record<number, boolean>>({});
+
   useEffect(() => {
     setShorts(getShortVideos());
+  }, []);
+
+  const handleReady = (index: number) => {
+    setReadyStatuses(prev => ({ ...prev, [index]: true }));
+  };
+
+  useEffect(() => {
+    // start playing after mount to prevent StrictMode play() interruptions
+    const to = setTimeout(() => setIsPlaying(true), 150);
+    return () => clearTimeout(to);
   }, []);
 
   const handleScroll = () => {
@@ -67,9 +79,10 @@ export function Shorts() {
                   url={`https://www.youtube.com/watch?v=${video.youtubeId || video.id}`}
                   width="100%"
                   height="100%"
-                  playing={activeIndex === index && isPlaying}
+                  playing={activeIndex === index && isPlaying && !!readyStatuses[index]}
                   loop={true}
                   muted={isMuted}
+                  onReady={() => handleReady(index)}
                   config={{
                     youtube: {
                       playerVars: { 
