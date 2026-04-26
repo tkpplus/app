@@ -176,11 +176,51 @@ export function SeriesDetail() {
           Object.keys(videosBySeason).sort((a,b) => parseInt(a) - parseInt(b)).map(season => {
             const seasonVideos = videosBySeason[Number(season)];
             return (
-              <div key={season} className="-ml-4 sm:-ml-6 lg:-ml-8 -mr-4 sm:-mr-6 lg:-mr-8">
-                <VideoCarousel 
-                  title={`Temporada ${season}`} 
-                  videos={seasonVideos} 
-                />
+              <div key={season} className="space-y-6">
+                <h3 className="text-2xl font-bold text-white mb-6">Temporada {season}</h3>
+                <div className="flex flex-col gap-4">
+                  {seasonVideos.map((video, index) => (
+                    <Link
+                      key={video.id}
+                      to={`/watch/${video.id}`}
+                      className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl hover:bg-surface/60 transition-colors border border-transparent hover:border-white/10 group"
+                    >
+                      <div className="flex-shrink-0 w-full sm:w-48 aspect-video sm:h-28 bg-surface rounded-lg overflow-hidden relative shadow-lg">
+                        <img 
+                          src={video.thumbnail} 
+                          alt={video.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                          <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center bg-black/40 text-white backdrop-blur-sm">
+                            <Play className="h-5 w-5 fill-current ml-1" />
+                          </div>
+                        </div>
+                        {video.progressPercentage !== undefined && video.progressPercentage > 0 && !video.isCompleted && (
+                          <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800 z-10">
+                            <div 
+                              className="h-full bg-red-600" 
+                              style={{ width: `${Math.min(Math.max(video.progressPercentage * 100, 0), 100)}%` }} 
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col flex-1 justify-center">
+                        <div className="flex justify-between items-start sm:items-center mb-1">
+                          <h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-1">
+                            {video.episodeNum ? `${video.episodeNum}. ` : ''} {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
+                          </h4>
+                          <span className="text-sm font-medium text-text-muted whitespace-nowrap">
+                            {Math.floor(video.duration / 60)} {Math.floor(video.duration / 60) === 1 ? 'minuto' : 'min'}
+                          </span>
+                        </div>
+                        <p className="text-sm text-text-muted line-clamp-2 md:line-clamp-3 leading-relaxed mt-2 md:mt-1">
+                          {video.description}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
             );
           })

@@ -41,6 +41,19 @@ export function Watch() {
     ? seriesEpisodes[currentIndex + 1] 
     : undefined;
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: video.title,
+        text: `Encontré este episodio de TKP+ y pensé en ustedes: "${video.title}"`,
+        url: window.location.href,
+      }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(`Encontré este episodio de TKP+ y pensé en ustedes: "${video.title}" - ${window.location.href}`);
+      alert("Enlace copiado al portapapeles");
+    }
+  };
+
   return (
     <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 py-0 sm:py-8 overflow-hidden">
       
@@ -121,7 +134,12 @@ export function Watch() {
                 {isInWatchlist(video.id) ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                 {isInWatchlist(video.id) ? 'En mi lista' : 'Mi lista'}
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white">
+              <Button 
+                onClick={handleShare}
+                variant="outline" 
+                size="icon" 
+                className="rounded-full bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white"
+              >
                 <Share2 className="h-4 w-4" />
               </Button>
             </div>

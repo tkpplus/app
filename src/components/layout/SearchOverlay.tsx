@@ -3,6 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { X, Play } from 'lucide-react';
 import { videos } from '../../data/seed';
 
+function highlightText(text: string | null | undefined, highlight: string) {
+  if (!text) return '';
+  if (!highlight.trim()) return text;
+  const regex = new RegExp(`(${highlight.replace(/[/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+  const parts = text.toString().split(regex);
+  return (
+    <span>
+      {parts.map((part, i) =>
+        regex.test(part) ? (
+          <mark key={i} className="bg-primary text-black font-bold rounded px-1">{part}</mark>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </span>
+  );
+}
+
 export function SearchOverlay({
   isOpen,
   onClose,
@@ -34,12 +52,24 @@ export function SearchOverlay({
   if (!isOpen) return null;
 
   const filteredVideos = searchTerm
-    ? videos.filter(
-        (video) =>
-          video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          video.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          video.category.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? videos
+        .map(video => {
+          let score = 0;
+          const normalizedSearch = searchTerm.toLowerCase();
+          const titleMatch = video.title.toLowerCase().includes(normalizedSearch);
+          const categoryMatch = video.category.toLowerCase().includes(normalizedSearch);
+          const subcategoryMatch = video.subcategory?.toLowerCase().includes(normalizedSearch);
+          const descMatch = video.description?.toLowerCase().includes(normalizedSearch);
+
+          if (titleMatch) score += 3;
+          if (categoryMatch || subcategoryMatch) score += 2;
+          if (descMatch) score += 1;
+
+          return { video, score };
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map(item => item.video)
     : [];
 
   const handlePlay = (id: string) => {
@@ -102,10 +132,10 @@ export function SearchOverlay({
                   </div>
                   <div className="absolute bottom-0 w-full p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-2 group-hover:translate-y-0">
                     <h4 className="font-bold text-sm text-white leading-tight mb-1 line-clamp-2">
-                      {video.title.replace('Torah Kids Puppets | ', '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').trim()}
+                      {highlightText(video.title.replace('Torah Kids Puppets | ', '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').trim(), searchTerm)}
                     </h4>
                     {video.category && (
-                      <span className="text-xs text-primary font-semibold">{video.category}</span>
+                      <span className="text-xs text-primary font-semibold">{highlightText(video.category, searchTerm)}</span>
                     )}
                   </div>
                 </div>

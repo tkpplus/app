@@ -20,6 +20,7 @@ import { Terms } from './pages/Terms';
 import { MyList } from './pages/MyList';
 import { Catalog } from './pages/Catalog';
 import { IntroAnimation } from './components/ui/IntroAnimation';
+import { ShabbatModeProvider } from './context/ShabbatModeContext';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -29,9 +30,10 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
-      <Routes>
+    <ShabbatModeProvider>
+      <BrowserRouter>
+        {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
+        <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -51,7 +53,8 @@ export default function App() {
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ShabbatModeProvider>
   );
 }
 

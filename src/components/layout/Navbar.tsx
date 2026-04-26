@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X, Moon } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { SearchOverlay } from './SearchOverlay';
+import { useShabbatMode } from '../../context/ShabbatModeContext';
 
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isShabbatMode, toggleShabbatMode } = useShabbatMode();
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -54,6 +56,14 @@ export function Navbar() {
             </div>
             
             <div className="flex items-center gap-4">
+              <button 
+                onClick={toggleShabbatMode}
+                className={`text-text-muted transition-colors p-2 hover:scale-110 transform flex items-center gap-2 ${isShabbatMode ? 'text-primary' : 'hover:text-primary'}`}
+                title="Modo Shabat"
+              >
+                <Moon className={`h-5 w-5 ${isShabbatMode ? 'fill-primary' : ''}`} />
+              </button>
+              
               <button 
                 onClick={() => setIsSearchOpen(true)}
                 className="text-text-muted hover:text-primary transition-colors p-2 hover:scale-110 transform"

@@ -24,12 +24,22 @@ export function Terms() {
             Nos reservamos el derecho de modificar o descontinuar temporal o permanentemente recursos de la plataforma sin previo aviso. Continuamos innovando para ofrecer siempre un mejor servicio y un catálogo de contenido renovado.
           </p>
 
-          <h2 className="text-2xl font-bold text-white mt-8 mb-4">4. Limitación de Responsabilidad</h2>
+          <h2 className="text-2xl font-bold text-white mt-8 mb-4">4. Protección de Menores</h2>
           <p>
-            Al estar conectados mediante videos públicos embebidos (ej. YouTube) u otros servicios web en nuestro reproductor, dependemos de la disponibilidad del prestador de servicio de streaming de dichos videos.
+            TKP+ fomenta experiencias compartidas en familia. Aunque nuestro contenido está diseñado para ser apto y formativo para audiencias infantiles, recomendamos la supervisión permanente y el involucramiento parental durante el uso de la plataforma. La navegación principal debe ser responsabilidad de los padres o tutores.
           </p>
 
-          <h2 className="text-2xl font-bold text-white mt-8 mb-4">5. Contacto</h2>
+          <h2 className="text-2xl font-bold text-white mt-8 mb-4">5. Limitación de Responsabilidad</h2>
+          <p>
+            Al estar conectados mediante videos públicos embebidos (ej. YouTube) u otros servicios web en nuestro reproductor, dependemos de la disponibilidad del prestador de servicio de streaming de dichos videos. No nos responsabilizamos por fallos técnicos fuera de nuestro control.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mt-8 mb-4">6. Jurisdicción y Legislación Aplicable</h2>
+          <p>
+            Cualquier disputa, controversia o reclamación que surja en relación con el uso de TKP+ será resuelta de acuerdo con las leyes internacionales aplicables a servicios de contenido digital orientados al entorno web, quedando las partes sujetas a la jurisdicción de los tribunales correspondientes a la dirección legal de Torah Kids Puppets.
+          </p>
+
+          <h2 className="text-2xl font-bold text-white mt-8 mb-4">7. Contacto</h2>
           <p>
             Al igual que en nuestras políticas de privacidad, si tiene inquietudes acerca de estos términos, puede comunicarse a hola@torahkidspuppets.com.
           </p>

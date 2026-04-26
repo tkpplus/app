@@ -9,9 +9,9 @@ export function Privacy() {
             En Torah Kids Puppets (TKP+), nos tomamos muy en serio la privacidad de nuestros usuarios, especialmente porque gran parte de nuestra audiencia son familias y niños.
           </p>
           
-          <h2 className="text-2xl font-bold text-white mt-8 mb-4">1. Información que recopilamos</h2>
+          <h2 className="text-2xl font-bold text-white mt-8 mb-4">1. Recopilación y almacenamiento de información</h2>
           <p>
-            Al visitar nuestra plataforma, actualmente no requerimos un registro obligatorio y nos limitamos a almacenar de forma local en su dispositivo el progreso de los videos que usted está viendo (para la función de "Continuar viendo"). No compartimos ni vendemos esta información a terceros.
+            Al utilizar nuestra plataforma, recopilamos información sobre el progreso y la interacción con los videos (para la función de "Continuar viendo" y "Mi Lista"). Esta información se almacena localmente en su dispositivo (mediante LocalStorage y tecnologías similares) y en nuestros sistemas internos para sincronizar su experiencia y asegurar que nunca pierda su progreso de visualización, brindando una experiencia de streaming continua y personalizada.
           </p>
           
           <h2 className="text-2xl font-bold text-white mt-8 mb-4">2. Uso de la información</h2>
