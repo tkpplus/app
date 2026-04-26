@@ -1,7 +1,10 @@
-import { useState, MouseEvent, useEffect } from 'react';
+import { useState, MouseEvent, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { Info, X, Play } from 'lucide-react';
+
+// Load covers from public directory if possible, or assets
+const coverModules = import.meta.glob('/src/assets/series-covers/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
 
 interface SeriesCardProps {
   id: string;
@@ -37,13 +40,32 @@ export function SeriesCard({
     };
   }, [showInfo]);
 
+  // Find matching custom covers for this series
+  const customCover = useMemo(() => {
+    const matched = Object.entries(coverModules)
+      .filter(([path]) => {
+        const filename = path.split('/').pop()?.toLowerCase() || '';
+        // match "bereshit.jpg", "bereshit_1.jpg", "bereshit-algo.jpg"
+        return filename.startsWith(id.toLowerCase() + '_') || 
+               filename.startsWith(id.toLowerCase() + '-') ||
+               filename.split('.')[0] === id.toLowerCase();
+      })
+      .map(([_, url]) => url as string);
+      
+    if (matched.length > 0) {
+      // Pick a random cover
+      return matched[Math.floor(Math.random() * matched.length)];
+    }
+    return thumbnail;
+  }, [id, thumbnail]);
+
   return (
     <>
       <Link to={`/series/${id}`} className="group relative flex flex-col w-full h-full">
         {/* Thumbnail Container */}
         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md cursor-pointer transition-all duration-300 transform hover:scale-105 hover:z-50 hover:shadow-2xl bg-[#202020] border border-transparent hover:border-gray-500">
           <img
-            src={thumbnail}
+            src={customCover}
             alt={title}
             className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-60"
             loading="lazy"
@@ -98,7 +120,7 @@ export function SeriesCard({
             
             {/* Header Image */}
             <div className="relative h-72 md:h-[450px] w-full shrink-0">
-              <img src={thumbnail} alt={title} className="w-full h-full object-cover" />
+              <img src={customCover} alt={title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
               
               <div className="absolute bottom-8 left-8 md:left-12 max-w-2xl px-2">
