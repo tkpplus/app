@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Plus, Check, Info } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { FeaturedInfoModal } from './FeaturedInfoModal';
 import { useWatchlist } from '../../hooks/useWatchlist';
+
+// Dynamically import all images in the hero-covers directory
+const coverModules = import.meta.glob('/src/assets/hero-covers/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
 
 interface HeroBannerProps {
   video: any;
@@ -13,6 +16,31 @@ export function HeroBanner({ video }: HeroBannerProps) {
   const [showInfo, setShowInfo] = useState(false);
   const { toggleWatchlist, isInWatchlist } = useWatchlist();
 
+  // Find matching custom covers for the series
+  const seriesCovers = useMemo(() => {
+    if (!video) return [];
+    const seriesId = video.seriesId || 'default';
+    
+    // Find images that start with the seriesId
+    const matched = Object.entries(coverModules)
+      .filter(([path]) => {
+        const filename = path.split('/').pop()?.toLowerCase() || '';
+        return filename.startsWith(seriesId.toLowerCase() + '_');
+      })
+      .map(([_, url]) => url as string);
+      
+    return matched;
+  }, [video]);
+
+  // Pick a random cover or fallback to the video thumbnail
+  const randomCover = useMemo(() => {
+    if (seriesCovers.length > 0) {
+      const idx = Math.floor(Math.random() * seriesCovers.length);
+      return seriesCovers[idx];
+    }
+    return video?.thumbnail;
+  }, [seriesCovers, video?.thumbnail]);
+
   if (!video) return null;
 
   return (
@@ -20,20 +48,10 @@ export function HeroBanner({ video }: HeroBannerProps) {
       <div className="relative mb-12 w-full min-h-[50vh] md:min-h-[65vh] xl:min-h-[75vh] flex items-center pt-24 pb-20 md:pt-32 md:pb-32 overflow-hidden">
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-background overflow-hidden">
-          {/* YouTube Background Video */}
-          <div className="absolute inset-0 w-full h-full transform scale-[1.3] md:scale-[1.1] opacity-60">
-            <iframe
-              src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3`}
-              title="Background Video"
-              className="w-full h-full pointer-events-none"
-              allow="autoplay; encrypted-media"
-            />
-          </div>
-          
-          {/* Fallback/Thumbnail Overlay */}
+          {/* Fallback/Custom Cover Overlay */}
           <div className="absolute inset-0 w-full h-full mix-blend-overlay opacity-30">
               <img
-                src={video.thumbnail}
+                src={randomCover}
                 alt=""
                 className="w-full h-full object-cover blur-sm"
               />

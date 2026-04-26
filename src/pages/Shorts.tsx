@@ -63,16 +63,33 @@ export function Shorts() {
 
             <div className="relative z-10 w-full h-full flex items-center justify-center cursor-pointer" onClick={togglePlayPause}>
               {Math.abs(activeIndex - index) <= 1 ? ( // Only render current, prev, next
-                activeIndex === index && isPlaying ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.youtubeId || video.id}?autoplay=1&mute=${isMuted ? '1' : '0'}&controls=0&loop=1&playlist=${video.youtubeId || video.id}&modestbranding=1&rel=0&playsinline=1&showinfo=0`}
-                    title="Short Video"
-                    className="absolute inset-0 w-full h-full pointer-events-none border-0"
-                    allow="autoplay; encrypted-media"
-                  />
-                ) : (
-                  <img src={video.thumbnail} alt={video.title} className="w-full object-contain h-full relative z-10" />
-                )
+                <ReactPlayer
+                  url={`https://www.youtube.com/watch?v=${video.youtubeId || video.id}`}
+                  width="100%"
+                  height="100%"
+                  playing={activeIndex === index && isPlaying}
+                  loop={true}
+                  muted={isMuted}
+                  config={{
+                    youtube: {
+                      playerVars: { 
+                        controls: 0, 
+                        modestbranding: 1, 
+                        rel: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        playsinline: 1,
+                        mute: isMuted ? 1 : 0
+                      }
+                    }
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    pointerEvents: 'none' // Prevent YouTube clicks, we'll do our own
+                  }}
+                />
               ) : (
                 <img src={video.thumbnail} alt={video.title} className="w-full object-contain h-full relative z-10" />
               )}

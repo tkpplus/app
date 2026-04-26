@@ -24,7 +24,7 @@ export function Home() {
   const continueWatchingVideos = progressItems
     .map(p => {
       const video = getVideoById(p.episodeId);
-      if (!video) return null;
+      if (!video || video.isShort) return null;
       return {
         ...video,
         progressPercentage: p.percentage,
@@ -36,7 +36,7 @@ export function Home() {
   const SHOW_VIEW_MORE_THRESHOLD = 6;
 
   return (
-    <div className="relative flex flex-col pb-16 bg-background min-h-screen z-0">
+    <div className="relative flex flex-col pb-16 bg-background min-h-screen">
       <div className="absolute top-0 w-full h-[80vh] md:h-[100vh] z-[-1] overflow-hidden pointer-events-none">
         <img 
           src="/_31caec9e-f0b9-408a-b9c2-55dbbdeea961.png" 

@@ -1,12 +1,19 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Search, Menu, X } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { SearchOverlay } from './SearchOverlay';
 
 export function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -53,9 +60,42 @@ export function Navbar() {
               >
                 <Search className="h-5 w-5" />
               </button>
+              
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden text-text-muted hover:text-primary transition-colors p-2"
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-surface/95 border-b border-border animate-fade-in pb-4 px-4 pt-2 shadow-2xl backdrop-blur-xl">
+            <div className="flex flex-col space-y-2">
+              <Link onClick={() => setIsMobileMenuOpen(false)} to="/" className="px-3 py-3 rounded-md text-base font-medium text-text-main hover:bg-white/10 transition-colors">
+                Inicio
+              </Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/parashot" className="px-3 py-3 rounded-md text-base font-medium text-text-muted hover:text-text-main hover:bg-white/10 transition-colors">
+                Parashot
+              </Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/festividades" className="px-3 py-3 rounded-md text-base font-medium text-text-muted hover:text-text-main hover:bg-white/10 transition-colors">
+                Festividades
+              </Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} to="/category/cuentos" className="px-3 py-3 rounded-md text-base font-medium text-text-muted hover:text-text-main hover:bg-white/10 transition-colors">
+                Cuentos
+              </Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} to="/mi-lista" className="px-3 py-3 rounded-md text-base font-medium text-text-muted hover:text-text-main hover:bg-white/10 transition-colors">
+                Mi Lista
+              </Link>
+              <Link onClick={() => setIsMobileMenuOpen(false)} to="/shorts" className="px-3 py-3 rounded-md text-base font-medium text-text-muted hover:text-text-main hover:bg-white/10 transition-colors flex items-center gap-1">
+                Shorts
+              </Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />

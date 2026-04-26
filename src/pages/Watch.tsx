@@ -102,7 +102,9 @@ export function Watch() {
                 <span>•</span>
                 <span>{Math.floor(video.duration / 60)} min {video.duration % 60} s</span>
                 <span>•</span>
-                <span>{video.views.toLocaleString()} vistas</span>
+                <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/90 text-xs">
+                  {video.youtubeId ? 'HD' : '4K'}
+                </span>
               </div>
             </div>
 
@@ -129,6 +131,16 @@ export function Watch() {
             <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-3xl">
               {video.description}
             </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-white/60">
+                {video.category || 'General'}
+              </span>
+              {video.subcategory && (
+                <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-white/60">
+                  {video.subcategory}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Personajes / Cast */}
