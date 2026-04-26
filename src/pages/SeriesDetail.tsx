@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Play, Plus, Check, Volume2, VolumeX } from 'lucide-react';
 import { VideoCard } from '../components/video/VideoCard';
 import { Button } from '../components/ui/Button';
 import { getSeriesById, getVideosBySeries } from '../data/seed';
 import { useWatchlist } from '../hooks/useWatchlist';
+import { VideoCarousel } from '../components/home/VideoCarousel';
 
 export function SeriesDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -12,7 +13,6 @@ export function SeriesDetail() {
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  const [isVideoReady, setIsVideoReady] = useState(false);
   const { toggleWatchlist, isInWatchlist } = useWatchlist();
 
   useEffect(() => {
@@ -30,12 +30,30 @@ export function SeriesDetail() {
         }
         
         // Sort by episodeNum if available
-        results = results.sort((a, b) => ((a as any).episodeNum || 0) - ((b as any).episodeNum || 0));
+        results = results.sort((a, b) => {
+           if (a.seasonNum !== b.seasonNum) {
+             return (a.seasonNum || 1) - (b.seasonNum || 1);
+           }
+           return (a.episodeNum || 0) - (b.episodeNum || 0);
+        });
         setVideos(results);
       }
     }
     setLoading(false);
   }, [slug]);
+
+  // Group videos by season
+  const videosBySeason = useMemo(() => {
+    const grouped = videos.reduce((acc, video) => {
+      const season = video.seasonNum || 1;
+      if (!acc[season]) {
+        acc[season] = [];
+      }
+      acc[season].push(video);
+      return acc;
+    }, {} as Record<number, any[]>);
+    return grouped;
+  }, [videos]);
 
   if (loading) {
     return <div className="flex h-[60vh] items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
@@ -62,7 +80,7 @@ export function SeriesDetail() {
           {trailerVideo ? (
              <div className="absolute inset-0 w-full h-full transform scale-[1.35] md:scale-[1.1] opacity-60">
                <iframe
-                 src={`https://www.youtube.com/embed/${trailerVideo.youtubeId}?autoplay=1&mute=${isMuted ? '1' : '0'}&controls=0&loop=1&playlist=${trailerVideo.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3`}
+                 src={`https://www.youtube.com/embed/${trailerVideo.youtubeId}?autoplay=1&mute=${isMuted ? '1' : '0'}&controls=0&loop=1&playlist=${trailerVideo.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3&playsinline=1`}
                  title="Background Video"
                  className="w-full h-full pointer-events-none"
                  allow="autoplay; encrypted-media"
@@ -142,12 +160,7 @@ export function SeriesDetail() {
       </div>
 
       {/* Episode List */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 w-full">
-        <div className="flex items-center justify-between mb-8">
-           <h2 className="text-2xl font-bold font-display text-text-main">Episodios</h2>
-           <span className="text-sm font-medium text-text-muted">{videos.length} videos</span>
-        </div>
-        
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 w-full space-y-12">
         {videos.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center px-4 bg-surface/30 rounded-2xl border border-white/5 mx-auto max-w-2xl">
              <div className="bg-surface p-4 rounded-full mb-4 inline-block shadow-xl">
@@ -159,25 +172,20 @@ export function SeriesDetail() {
              <p className="text-white/60 max-w-md">Estamos produciendo episodios increíbles para esta serie. Te invitamos a explorar más contenido mientras tanto.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-10">
-            {videos.map((video) => (
-              <div key={video.id} className="flex flex-col gap-2">
-                 <VideoCard
-                    id={video.id}
-                    title={video.title}
-                    thumbnail={video.thumbnail}
-                    duration={video.duration}
-                  />
-                  {(video.episodeNum !== undefined && video.episodeNum !== null) && (
-                      <span className="text-xs font-semibold text-text-muted uppercase tracking-wider px-1">
-                          T{video.seasonNum || 1} • E{video.episodeNum}
-                      </span>
-                  )}
+          Object.keys(videosBySeason).sort((a,b) => parseInt(a) - parseInt(b)).map(season => {
+            const seasonVideos = videosBySeason[Number(season)];
+            return (
+              <div key={season} className="-ml-4 sm:-ml-6 lg:-ml-8 -mr-4 sm:-mr-6 lg:-mr-8">
+                <VideoCarousel 
+                  title={`Temporada ${season}`} 
+                  videos={seasonVideos} 
+                />
               </div>
-            ))}
-          </div>
+            );
+          })
         )}
       </div>
     </div>
   );
 }
+

@@ -900,7 +900,7 @@ export const videos = [
   },
   {
     "id": "nvzRK0GQZgk",
-    "title": "¿Qué hacía un Rebe en un Casino de París?",
+    "title": "Un viaje a París",
     "youtubeId": "nvzRK0GQZgk",
     "duration": 500,
     "views": 587,
@@ -909,16 +909,16 @@ export const videos = [
     "seriesId": "cuentos-perasha",
     "isShort": false,
     "parashaNum": null,
-    "seasonNum": 1,
+    "seasonNum": 2,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Qué hacía un Rebe en un Casino de París?",
+    "description": "Un viaje a París - ¿Qué hacía un rebe en un casino de París? - Cuento de la parshá Shemot",
     "thumbnail": "https://img.youtube.com/vi/nvzRK0GQZgk/maxresdefault.jpg",
     "episodeNum": 1
   },
   {
     "id": "h10wQ1V3yt0",
-    "title": "Un cuento que enciende el corazón",
+    "title": "Pies congelados",
     "youtubeId": "h10wQ1V3yt0",
     "duration": 500,
     "views": 682,
@@ -927,16 +927,16 @@ export const videos = [
     "seriesId": "cuentos-perasha",
     "isShort": false,
     "parashaNum": null,
-    "seasonNum": 1,
+    "seasonNum": 3,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Un cuento que enciende el corazón",
+    "description": "Pies congelados - Un cuento que enciende el corazón - Cuento de la parasha Ajare(i) mot",
     "thumbnail": "https://img.youtube.com/vi/h10wQ1V3yt0/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 6
   },
   {
     "id": "NLB8leKLO4k",
-    "title": "¿Etrog o Caballo?",
+    "title": "La mitzvá del caballo",
     "youtubeId": "NLB8leKLO4k",
     "duration": 500,
     "views": 858,
@@ -948,13 +948,13 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Etrog o Caballo?",
+    "description": "La mitzvá del caballo - ¿Etrog o Caballo?",
     "thumbnail": "https://img.youtube.com/vi/NLB8leKLO4k/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 12
   },
   {
     "id": "MIhXjY5Fo7c",
-    "title": "¿Noaj fue egoísta?",
+    "title": "Calor para todos",
     "youtubeId": "MIhXjY5Fo7c",
     "duration": 500,
     "views": 166,
@@ -966,13 +966,13 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Noaj fue egoísta?",
+    "description": "Calor para todos - ¿Noaj fue egoísta? - Cuento de la parashat Noaj",
     "thumbnail": "https://img.youtube.com/vi/MIhXjY5Fo7c/maxresdefault.jpg",
-    "episodeNum": 4
+    "episodeNum": 2
   },
   {
     "id": "cqd6YZU86nM",
-    "title": "¿Por qué el Rabino NO quiso rezar?",
+    "title": "Estropear las cosas sagradas",
     "youtubeId": "cqd6YZU86nM",
     "duration": 500,
     "views": 708,
@@ -984,14 +984,14 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Por qué el Rabino NO quiso rezar?",
+    "description": "Estropear las cosas sagradas - ¿Por qué el Rabino NO quiso rezar? - Cuento de la perashá Bereshit",
     "thumbnail": "https://img.youtube.com/vi/cqd6YZU86nM/maxresdefault.jpg",
-    "episodeNum": 5
+    "episodeNum": 1
   },
   {
     "id": "Koao7Pp7CwI",
-    "title": "Un Experto",
-    "youtubeId": "Koao7Pp7CwI",
+    "title": "Un experto",
+    "youtubeId": "3lTeYVz-rvU",
     "duration": 500,
     "views": 670,
     "category": "CUENTOS",
@@ -999,12 +999,12 @@ export const videos = [
     "seriesId": "cuentos-perasha",
     "isShort": false,
     "parashaNum": null,
-    "seasonNum": 1,
+    "seasonNum": 3,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Un Experto",
-    "thumbnail": "https://img.youtube.com/vi/Koao7Pp7CwI/maxresdefault.jpg",
-    "episodeNum": 6
+    "description": "Un experto - Cuento de la perasha Kedoshim",
+    "thumbnail": "https://img.youtube.com/vi/3lTeYVz-rvU/maxresdefault.jpg",
+    "episodeNum": 7
   },
   {
     "id": "0Fx9rKWegsc",

@@ -21,11 +21,11 @@ export function HeroBanner({ video }: HeroBannerProps) {
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-background overflow-hidden">
           {/* YouTube Background Video */}
-          <div className="absolute inset-0 w-full h-full transform scale-[1.3] md:scale-[1.1] opacity-60">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] opacity-60">
             <iframe
               src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3&playsinline=1`}
               title="Background Video"
-              className="w-full h-full pointer-events-none border-0"
+              className="absolute inset-0 w-full h-full pointer-events-none border-0 scale-105"
               allow="autoplay; encrypted-media"
             />
           </div>

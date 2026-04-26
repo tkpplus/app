@@ -56,7 +56,9 @@ export function SeriesCard({
       // Pick a random cover
       return matched[Math.floor(Math.random() * matched.length)];
     }
-    return thumbnail;
+    
+    // Fallback logic
+    return '/basic.png';
   }, [id, thumbnail]);
 
   return (
@@ -70,8 +72,14 @@ export function SeriesCard({
             className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-60"
             loading="lazy"
             onError={(e) => {
-               // Fallback image in case user hasn't uploaded local cover yet
-              (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
+               const target = e.target as HTMLImageElement;
+               if (target.src.includes('basic.png')) {
+                 target.src = '/basic.jpg';
+               } else if (target.src.includes('basic.jpg')) {
+                 target.src = thumbnail;
+               } else {
+                 target.src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
+               }
             }}
           />
           
