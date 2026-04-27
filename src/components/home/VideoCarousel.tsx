@@ -8,9 +8,10 @@ interface VideoCarouselProps {
   title: string;
   videos: any[];
   viewMoreLink?: string;
+  activeVideoId?: string;
 }
 
-export function VideoCarousel({ title, videos, viewMoreLink }: VideoCarouselProps) {
+export function VideoCarousel({ title, videos, viewMoreLink, activeVideoId }: VideoCarouselProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -38,7 +39,7 @@ export function VideoCarousel({ title, videos, viewMoreLink }: VideoCarouselProp
         <div className="flex items-center gap-2">
           <h2 className="text-xl md:text-2xl font-bold font-display text-white tracking-tight">{title}</h2>
           {viewMoreLink && (
-            <Link to={viewMoreLink} className="text-sm font-semibold text-accent-orange hover:text-white flex items-center transition-colors">
+            <Link to={viewMoreLink} className="text-sm font-semibold text-primary hover:text-white flex items-center transition-colors">
               Explorar <ChevronRightIcon className="h-4 w-4" />
             </Link>
           )}
@@ -76,6 +77,7 @@ export function VideoCarousel({ title, videos, viewMoreLink }: VideoCarouselProp
                 isCompleted={video.isCompleted}
                 seasonNum={video.seasonNum}
                 episodeNum={video.episodeNum}
+                isActive={activeVideoId === video.id}
               />
             </div>
           ))}

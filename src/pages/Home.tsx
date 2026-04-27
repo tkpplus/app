@@ -82,41 +82,50 @@ return (
         </>
       ) : (
         <>
-          {!progressLoading && continueWatchingVideos.length > 0 && (
-            <VideoCarousel title="Continuar viendo" videos={continueWatchingVideos} />
-          )}
-          
-          {!recLoading && recommendations.length > 0 && (
-            <VideoCarousel 
-              title="✨ Para hoy" 
-              videos={recommendations.filter((v: any) => !v.isShort).slice(0, 8)} 
-            />
-          )}
+          {/* TOP SECTION: Continue Watching or For Today */}
+          <div className="animate-in slide-in-from-bottom-4 duration-700 fill-mode-both">
+            {!progressLoading && continueWatchingVideos.length > 0 ? (
+              <VideoCarousel title="Continuar viendo" videos={continueWatchingVideos} />
+            ) : (
+              !recLoading && recommendations.length > 0 && (
+                <VideoCarousel 
+                  title="✨ Para empezar hoy" 
+                  videos={recommendations.filter((v: any) => !v.isShort).slice(0, 8)} 
+                />
+              )
+            )}
+          </div>
 
-          {recomendadosEstaSemana.length > 0 && (
-            <VideoCarousel 
-              title="🎬 Recomendado esta semana" 
-              videos={recomendadosEstaSemana} 
-            />
-          )}
+          <div className="animate-in slide-in-from-bottom-8 duration-700 delay-150 fill-mode-both">
+            {recomendadosEstaSemana.length > 0 && (
+              <VideoCarousel 
+                title="🎬 Recomendado esta semana" 
+                videos={recomendadosEstaSemana} 
+              />
+            )}
+          </div>
 
-          {paraShabat.length > 0 && (
-            <VideoCarousel 
-              title="🕯️ Para Shabat" 
-              videos={paraShabat} 
-            />
-          )}
-          
-          {paraLaMesa.length > 0 && (
-            <VideoCarousel 
-              title="🍷 Para la mesa" 
-              videos={paraLaMesa} 
-            />
-          )}
+          <div className="animate-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both">
+            {paraShabat.length > 0 && (
+              <VideoCarousel 
+                title="🕯️ Para Shabat" 
+                videos={paraShabat} 
+              />
+            )}
+            
+            {paraLaMesa.length > 0 && (
+              <VideoCarousel 
+                title="🍷 Para la mesa" 
+                videos={paraLaMesa} 
+              />
+            )}
+          </div>
 
-          {parashotSeries.length > 0 && <SeriesCarousel title="Original Series" series={parashotSeries} viewMoreLink={parashotSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/parashot" : undefined} />}
-          {cuentosSeries.length > 0 && <SeriesCarousel title="Timeless Stories" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
-          {festividadesSeries.length > 0 && <SeriesCarousel title="Holiday Collection" series={festividadesSeries} viewMoreLink={festividadesSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/festividades" : undefined} />}
+          <div className="animate-in slide-in-from-bottom-8 duration-1000 delay-500 fill-mode-both space-y-8 md:space-y-12">
+            {parashotSeries.length > 0 && <SeriesCarousel title="Original Series" series={parashotSeries} viewMoreLink={parashotSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/parashot" : undefined} />}
+            {cuentosSeries.length > 0 && <SeriesCarousel title="Timeless Stories" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
+            {festividadesSeries.length > 0 && <SeriesCarousel title="Holiday Collection" series={festividadesSeries} viewMoreLink={festividadesSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/festividades" : undefined} />}
+          </div>
         </>
       )}
     </div>

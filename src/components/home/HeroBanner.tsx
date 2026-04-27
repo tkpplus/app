@@ -4,6 +4,7 @@ import { Play, Plus, Check, Info } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { FeaturedInfoModal } from './FeaturedInfoModal';
 import { useWatchlist } from '../../hooks/useWatchlist';
+import { is4KVideo } from '../../utils/videoHelpers';
 
 interface HeroBannerProps {
   video: any;
@@ -109,7 +110,9 @@ export function HeroBanner({ video }: HeroBannerProps) {
               )}
               <span>2024</span>
               <span>•</span>
-              <span className="rounded border border-white/30 px-1.5 py-0.5 opacity-80">ATB</span>
+              <span className="rounded border border-white/30 px-1.5 py-0.5 opacity-80">
+                {is4KVideo(video) ? '4K' : 'HD'}
+              </span>
             </div>
           </div>
         </div>

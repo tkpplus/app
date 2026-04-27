@@ -9,6 +9,9 @@ import { VideoPlayer } from '../components/video/VideoPlayer';
 import { VideoCarousel } from '../components/home/VideoCarousel'; // Importamos el carousel para la banda de episodios
 
 import { characters } from '../data/seed';
+import { is4KVideo } from '../utils/videoHelpers';
+import { PuppetLoader } from '../components/ui/PuppetLoader';
+import { useToast } from '../components/ui/Toast';
 
 // Inside Watch component, we'll assign random characters to mock for now
 export function Watch() {
@@ -40,6 +43,11 @@ export function Watch() {
   const nextEpisode = currentIndex >= 0 && currentIndex < seriesEpisodes.length - 1 
     ? seriesEpisodes[currentIndex + 1] 
     : undefined;
+  const prevEpisode = currentIndex > 0 
+    ? seriesEpisodes[currentIndex - 1] 
+    : undefined;
+
+  const { addToast } = useToast();
 
   const handleShare = () => {
     if (navigator.share) {
@@ -50,152 +58,151 @@ export function Watch() {
       }).catch(console.error);
     } else {
       navigator.clipboard.writeText(`Encontré este episodio de TKP+ y pensé en ustedes: "${video.title}" - ${window.location.href}`);
-      alert("Enlace copiado al portapapeles");
+      addToast("¡Enlace copiado al portapapeles!", "success");
     }
   };
 
   return (
-    <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 py-0 sm:py-8 overflow-hidden">
+    <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 py-0 sm:py-8 overflow-hidden animate-in fade-in duration-700">
       
       {/* Ambient Lighting Background */}
-      <div className="absolute top-0 left-0 right-0 h-[80vh] sm:h-[100vh] z-0 pointer-events-none opacity-30 select-none">
-         <img src={video.thumbnail} className="w-full h-full object-cover blur-[120px] scale-150 saturate-[2]" alt="" />
-         <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/60 to-background"></div>
+      <div className="absolute top-0 left-0 right-0 h-[80vh] sm:h-[100vh] z-0 pointer-events-none opacity-20 select-none transition-opacity duration-1000">
+         <img src={video.thumbnail} className="w-full h-full object-cover blur-[140px] scale-150 saturate-[1.5]" alt="" />
+         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background"></div>
       </div>
 
       {/* Container max-width en desktop, full width en mobile para el player */}
-      <div className="relative z-10 flex flex-col gap-6 w-full max-w-[1200px] mx-auto">
+      <div className="relative z-10 flex flex-col gap-8 w-full max-w-[1200px] mx-auto">
         
         {/* Back Link - Oculto en mobile porque el player ocupa todo */}
-        <Link to="/" className="hidden sm:inline-flex flex-row items-center gap-2 text-sm font-medium text-white/60 hover:text-white transition-colors mb-2">
-          <ArrowLeft className="h-4 w-4" />
+        <Link to="/" className="hidden sm:inline-flex flex-row items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-colors mb-2 group">
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Volver
         </Link>
 
-        {/* PRO Video Player Component */}
-        <div className="relative w-full sm:rounded-2xl overflow-hidden shadow-2xl shadow-black/80 bg-black aspect-video">
-          {progressLoading ? (
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            </div>
-          ) : (
-            <VideoPlayer 
-              key={video.id}
-              video={video} 
-              nextEpisode={nextEpisode}
-              initialProgress={initialProgress}
-              onProgressSave={saveProgress}
-              isCompleted={isCompleted}
-            />
-          )}
-        </div>
+        {/* CONTENIDO PRINCIPAL LAYOUT */}
+        <div className="flex flex-col gap-8">
+          {/* PRO Video Player Component */}
+          <div className="relative w-full sm:rounded-2xl overflow-hidden shadow-2xl shadow-black/80 bg-black aspect-video ring-1 ring-white/5">
+            {progressLoading ? (
+              <div className="w-full h-full flex items-center justify-center">
+                <PuppetLoader />
+              </div>
+            ) : (
+              <VideoPlayer 
+                key={video.id}
+                video={video} 
+                nextEpisode={nextEpisode}
+                initialProgress={initialProgress}
+                onProgressSave={saveProgress}
+                isCompleted={isCompleted}
+              />
+            )}
+          </div>
 
-        {/* Video Metadata */}
-        <div className="px-4 sm:px-0 flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-            <div>
-              {video.category && (
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs uppercase tracking-wider font-bold text-primary shadow-sm">{video.category}</span>
-                  <span className="text-border/50">•</span>
-                  <span className="text-xs text-white/60 uppercase tracking-wider font-semibold">{video.subcategory || 'General'}</span>
+          {/* ESTÁS VIENDO SECTION */}
+          <div className="px-4 sm:px-0 flex flex-col gap-6 animate-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+              
+              {/* Info del Episodio */}
+              <div className="flex flex-col gap-1 w-full max-w-2xl">
+                {/* Serie y Temporada */}
+                <div className="flex items-center gap-2 text-sm font-semibold text-white/50 uppercase tracking-widest">
+                  <span>{video.seriesId ? video.seriesId.replace('-', ' ') : 'Episodio Individual'}</span>
+                  {(video as any).seasonNum && (
+                    <>
+                      <span className="text-white/20">•</span>
+                      <span>Temporada {(video as any).seasonNum}</span>
+                    </>
+                  )}
                 </div>
-              )}
-              <h1 className="text-2xl md:text-3xl font-bold font-display text-white mb-2">
-                {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
-              </h1>
-              <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-white/60">
-                <span>{new Date(video.publishedAt).getFullYear()}</span>
-                {video.episodeNum && (
-                  <>
-                    <span>•</span>
-                    <span className="text-white">T{video.seasonNum || 1} • E{video.episodeNum}</span>
-                  </>
-                )}
-                <span>•</span>
-                <span>{Math.floor(video.duration / 60)} min {video.duration % 60} s</span>
-                <span>•</span>
-                <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/90 text-xs">
-                  {video.youtubeId ? 'HD' : '4K'}
-                </span>
+
+                {/* Título Principal */}
+                <h1 className="text-3xl md:text-5xl font-bold font-display text-white mt-2 leading-tight">
+                  {video.title.replace('Torah Kids Puppets | ', '').replace(/Parash[aá] /, '').replace(/Parashat /, '').replace(/#\S+/g, '').replace(/ - Parash[aá] en un minuto/i, '').replace(/ פרשת.*/, '').trim()}
+                </h1>
+
+                {/* Metadatos (Episodio, Duración) */}
+                <div className="flex items-center gap-3 mt-3 text-sm font-medium text-white/50">
+                  {video.episodeNum && (
+                    <>
+                      <span>Episodio {video.episodeNum}</span>
+                      <span className="text-white/20">•</span>
+                    </>
+                  )}
+                  <span>{Math.floor(video.duration / 60)} min {video.duration % 60} s</span>
+                  <span className="text-white/20">•</span>
+                  <span className="border border-white/10 px-1.5 py-0.5 rounded text-[10px] uppercase font-bold text-white/70">
+                    {is4KVideo(video) ? '4K' : 'HD'}
+                  </span>
+                </div>
+
+                {/* Botones de acción (Mi lista, Compartir) */}
+                <div className="flex items-center gap-3 mt-6">
+                  <Button 
+                    onClick={() => toggleWatchlist(video.id)}
+                    variant={isInWatchlist(video.id) ? "default" : "outline"} 
+                    className={`gap-2 font-semibold transition-all duration-300 ${
+                      isInWatchlist(video.id) 
+                      ? 'bg-primary/90 border-primary text-black hover:bg-primary shadow-[0_0_20px_rgba(245,196,99,0.2)] hover:scale-105' 
+                      : 'bg-white/5 border-white/10 text-white hover:bg-white/10 hover:scale-105'
+                    }`}
+                  >
+                    {isInWatchlist(video.id) ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                    {isInWatchlist(video.id) ? 'En mi lista' : 'Mi lista'}
+                  </Button>
+                  <Button 
+                    onClick={handleShare}
+                    variant="outline" 
+                    className="gap-2 bg-white/5 border-white/10 text-white hover:bg-white/10 hover:scale-105 transition-all duration-300"
+                  >
+                    <Share2 className="h-4 w-4 text-white/70" />
+                    <span className="hidden sm:inline">Compartir</span>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Botones Anterior / Siguiente Episodio (Netflix-style next actions) */}
+              <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 pt-4 md:pt-0 shrink-0">
+                 {prevEpisode && (
+                   <Link to={`/watch/${prevEpisode.id}`} className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all duration-300 text-white/70 hover:text-white">
+                     <span className="text-xl leading-none transition-transform duration-300 group-hover:-translate-x-2 text-white/40 group-hover:text-white">←</span>
+                     <span className="text-sm font-semibold tracking-wide">Anterior</span>
+                   </Link>
+                 )}
+                 {nextEpisode && (
+                   <Link to={`/watch/${nextEpisode.id}`} className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 hover:border-white/30 transition-all duration-300 text-white">
+                     <span className="text-sm font-semibold tracking-wide">Siguiente</span>
+                     <span className="text-xl leading-none transition-transform duration-300 group-hover:translate-x-2 text-primary">→</span>
+                   </Link>
+                 )}
               </div>
             </div>
-
-            <div className="flex items-center gap-3">
-              <Button 
-                onClick={() => toggleWatchlist(video.id)}
-                variant={isInWatchlist(video.id) ? "default" : "outline"} 
-                className={`gap-2 font-semibold transition-colors ${
-                  isInWatchlist(video.id) 
-                  ? 'bg-primary border-primary text-white hover:bg-primary/90' 
-                  : 'bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                {isInWatchlist(video.id) ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-                {isInWatchlist(video.id) ? 'En mi lista' : 'Mi lista'}
-              </Button>
-              <Button 
-                onClick={handleShare}
-                variant="outline" 
-                size="icon" 
-                className="rounded-full bg-surface/50 border-white/10 text-white hover:bg-white/10 hover:text-white"
-              >
-                <Share2 className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-
-          <div className="mt-2 border-border/20 pt-4">
-            <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-3xl">
-              {video.description}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-white/60">
-                {video.category || 'General'}
-              </span>
-              {video.subcategory && (
-                <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-white/60">
-                  {video.subcategory}
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Personajes / Cast */}
-          <div className="mt-6 pt-4 border-t border-border/20">
-            <h3 className="text-sm font-semibold text-white/50 mb-3 uppercase tracking-wider">Aparecen en este episodio</h3>
-            <div className="flex flex-wrap gap-4 items-center">
-              {[
-                characters[video.title.length % characters.length],
-                characters[(video.title.length + 2) % characters.length],
-                characters[(video.title.length + 4) % characters.length],
-              ].filter((c, index, self) => self.findIndex(t => t.id === c.id) === index) // unique
-              .map(personaje => (
-                <div key={personaje.id} className="flex items-center gap-2 bg-surface/30 px-3 py-1.5 rounded-full border border-white/5 hover:bg-surface/50 transition-colors">
-                  <img src={personaje.image} alt={personaje.name} className="w-8 h-8 rounded-full object-cover border border-white/10" />
-                  <span className="text-sm font-medium text-white/90">{personaje.name}</span>
-                </div>
-              ))}
+            
+            {/* Description and tags */}
+            <div className="mt-4 pt-6 border-t border-white/5">
+              <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-4xl font-light">
+                {video.description}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Banda de episodios de la misma serie (Netflix style) */}
         {seriesEpisodes.length > 0 && (
-          <div className="mt-8 mx-0 mb-20">
-             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-2 gap-4 border-b border-white/10 pb-4 px-4 sm:px-0">
-                 <div>
-                    <h3 className="text-2xl font-display font-bold text-white flex items-center gap-2">
-                        Más episodios de <span className="text-accent-orange">{video.seriesId ? video.seriesId.replace('-', ' ') : 'esta serie'}</span>
-                    </h3>
-                 </div>
+          <div className="mt-12 mb-24 w-full overflow-hidden animate-in slide-in-from-bottom-8 duration-1000 delay-300 fill-mode-both">
+             <div className="flex items-end mb-6 px-4 sm:px-0 opacity-80">
+                <h3 className="text-lg font-medium text-white/50 tracking-wide uppercase">
+                    Más episodios de <span className="text-white font-bold">{video.seriesId ? video.seriesId.replace('-', ' ') : 'esta serie'}</span>
+                </h3>
              </div>
              
              {/* Using the standard VideoCarousel for uniformity but styled inside the layout */}
-             <div className="-mt-4">
+             <div className="-mt-2 w-full">
                 <VideoCarousel 
                    title="" 
                    videos={seriesEpisodes} 
+                   activeVideoId={video.id}
                 />
              </div>
           </div>

@@ -7,6 +7,7 @@ import { getSeriesById, getVideosBySeries } from '../data/seed';
 import { useWatchlist } from '../hooks/useWatchlist';
 import { VideoCarousel } from '../components/home/VideoCarousel';
 import { getSeriesCover } from '../utils/covers';
+import { PuppetLoader } from '../components/ui/PuppetLoader';
 
 export function SeriesDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -57,7 +58,7 @@ export function SeriesDetail() {
   }, [videos]);
 
   if (loading) {
-    return <div className="flex h-[60vh] items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
+    return <div className="flex h-[60vh] items-center justify-center"><PuppetLoader /></div>;
   }
 
   if (!seriesInfo) {
@@ -74,16 +75,16 @@ export function SeriesDetail() {
   return (
     <div className="flex flex-col min-h-screen pb-16">
       {/* Series Hero */}
-      <div className="relative w-full h-[50vh] md:h-[65vh] bg-black overflow-hidden border-b border-border">
+      <div className="relative w-full min-h-[50vh] md:min-h-[65vh] bg-black overflow-hidden border-b border-border">
         
         {/* Background Visuals */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-background overflow-hidden">
           {trailerVideo ? (
-             <div className="absolute inset-0 w-full h-full transform scale-[1.35] md:scale-[1.1] opacity-60">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] opacity-60">
                <iframe
                  src={`https://www.youtube.com/embed/${trailerVideo.youtubeId}?autoplay=1&mute=${isMuted ? '1' : '0'}&controls=0&loop=1&playlist=${trailerVideo.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3&playsinline=1`}
                  title="Background Video"
-                 className="w-full h-full pointer-events-none"
+                 className="absolute inset-0 w-full h-full pointer-events-none border-0 scale-105"
                  allow="autoplay; encrypted-media"
                />
              </div>

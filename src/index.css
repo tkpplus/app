@@ -18,6 +18,17 @@
   --font-logo: "Fredoka", ui-sans-serif, system-ui, sans-serif;
 }
 
+@keyframes toast-slide {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-text-main);

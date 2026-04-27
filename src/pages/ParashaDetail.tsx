@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { db } from '../lib/db';
 import { getParashaByNumber } from '../data/parashot';
 import { VideoCard } from '../components/video/VideoCard';
+import { PuppetLoader } from '../components/ui/PuppetLoader';
 
 export function ParashaDetail() {
   const { number } = useParams<{ number: string }>();
@@ -63,7 +64,7 @@ export function ParashaDetail() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 w-full">
         {loading ? (
           <div className="flex items-center justify-center p-12">
-             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+             <PuppetLoader />
           </div>
         ) : videos.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { X, Play, Plus, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useWatchlist } from '../../hooks/useWatchlist';
+import { is4KVideo } from '../../utils/videoHelpers';
 
 interface FeaturedInfoModalProps {
   isOpen: boolean;
@@ -99,7 +100,7 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
                 <span className="text-white px-2 py-0.5 rounded bg-white/10">T{video.seasonNum || 1} • E{video.episodeNum}</span>
               )}
               <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/60 text-[10px] sm:text-xs">
-                HD
+                {is4KVideo(video) ? '4K' : 'HD'}
               </span>
               <span className="text-white/60">{Math.floor(video.duration ? video.duration / 60 : 20)}:34 min</span>
             </div>

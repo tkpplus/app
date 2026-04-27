@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import { Home } from './pages/Home';
 import { Watch } from './pages/Watch';
@@ -21,6 +21,17 @@ import { MyList } from './pages/MyList';
 import { Catalog } from './pages/Catalog';
 import { IntroAnimation } from './components/ui/IntroAnimation';
 import { ShabbatModeProvider } from './context/ShabbatModeContext';
+import { ToastProvider } from './components/ui/Toast';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -30,31 +41,34 @@ export default function App() {
   };
 
   return (
-    <ShabbatModeProvider>
-      <BrowserRouter>
-        {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
-        <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/watch/:id" element={<Watch />} />
-          <Route path="/shorts" element={<Shorts />} />
-          <Route path="/category/parashot" element={<ParashotIndex />} />
-          <Route path="/parashot/:number" element={<ParashaDetail />} />
-          <Route path="/category/festividades" element={<FestividadesIndex />} />
-          <Route path="/category/cuentos" element={<CuentosIndex />} />
-          <Route path="/series/:slug" element={<SeriesDetail />} />
-          <Route path="/series" element={<FestividadesIndex />} /> {/* Placeholder to prevent 404 */}
-          <Route path="/mi-lista" element={<MyList />} />
-          {/* Default fallback route */}
-          <Route path="*" element={<Home />} />
-        </Route>
-      </Routes>
-      </BrowserRouter>
-    </ShabbatModeProvider>
+    <ToastProvider>
+      <ShabbatModeProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
+          <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/watch/:id" element={<Watch />} />
+            <Route path="/shorts" element={<Shorts />} />
+            <Route path="/category/parashot" element={<ParashotIndex />} />
+            <Route path="/parashot/:number" element={<ParashaDetail />} />
+            <Route path="/category/festividades" element={<FestividadesIndex />} />
+            <Route path="/category/cuentos" element={<CuentosIndex />} />
+            <Route path="/series/:slug" element={<SeriesDetail />} />
+            <Route path="/series" element={<FestividadesIndex />} /> {/* Placeholder to prevent 404 */}
+            <Route path="/mi-lista" element={<MyList />} />
+            {/* Default fallback route */}
+            <Route path="*" element={<Home />} />
+          </Route>
+        </Routes>
+        </BrowserRouter>
+      </ShabbatModeProvider>
+    </ToastProvider>
   );
 }
 

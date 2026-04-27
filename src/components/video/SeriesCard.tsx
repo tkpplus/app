@@ -1,8 +1,9 @@
-import { useState, MouseEvent, useEffect, useMemo } from 'react';
+import { useState, MouseEvent, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { Info, X, Play } from 'lucide-react';
 import { getSeriesCover } from '../../utils/covers';
+import { getVideosBySeries } from '../../data/seed';
 
 interface SeriesCardProps {
   id: string;
@@ -20,6 +21,8 @@ export function SeriesCard({
   description = 'Descubre más sobre esta increíble serie de Torah Kids Puppets llena de enseñanzas y aventuras divertidas.',
 }: SeriesCardProps) {
   const [showInfo, setShowInfo] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleInfoClick = (e: MouseEvent) => {
     e.preventDefault();
@@ -41,15 +44,52 @@ export function SeriesCard({
   // Find matching custom covers for this series
   const customCover = useMemo(() => getSeriesCover(id, thumbnail), [id, thumbnail]);
 
+  // Get the first video of the series to use as trailer
+  const firstVideo = useMemo(() => {
+    const videos = getVideosBySeries(id);
+    return videos.length > 0 ? videos[0] : null;
+  }, [id]);
+
+  const handleMouseEnter = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(true);
+    }, 600); // 600ms delay before autoplay starts
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setIsHovered(false);
+  };
+
   return (
     <>
-      <Link to={`/series/${id}`} className="group relative flex flex-col w-full h-full">
+      <Link 
+        to={`/series/${id}`} 
+        className="group relative flex flex-col w-full h-full"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {/* Thumbnail Container */}
-        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-md cursor-pointer transition-all duration-300 transform hover:scale-105 hover:z-50 hover:shadow-2xl bg-[#202020] border border-transparent hover:border-gray-500">
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl cursor-pointer transition-all duration-400 ease-out transform group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-surface border border-white/5 group-hover:border-white/20 group-hover:z-50">
+          
+          {/* Trailer Auto-Play Box */}
+          {isHovered && firstVideo ? (
+             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-black">
+               <iframe
+                 src={`https://www.youtube.com/embed/${firstVideo.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${firstVideo.youtubeId}&modestbranding=1&rel=0&showinfo=0&disablekb=1&iv_load_policy=3&playsinline=1`}
+                 title="Series Trailer"
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[150%] pointer-events-none"
+                 allow="autoplay; encrypted-media"
+               />
+             </div>
+          ) : null}
+
           <img
             src={customCover}
             alt={title}
-            className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-60"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${isHovered && firstVideo ? 'opacity-0' : 'group-hover:opacity-60'}`}
             loading="lazy"
             onError={(e) => {
                const target = e.target as HTMLImageElement;
@@ -62,18 +102,18 @@ export function SeriesCard({
           />
           
           {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
+          <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300 ${isHovered && firstVideo ? 'opacity-100 from-black via-black/40' : 'group-hover:from-black/90'}`} />
           
           <div className="absolute bottom-4 left-4 right-4 z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
             <h3 className="line-clamp-2 text-xl font-bold leading-tight text-white font-display text-shadow-sm">
               {title}
             </h3>
             {category && (
-              <p className="text-xs font-semibold text-accent-orange uppercase tracking-wider mt-1">{category}</p>
+              <p className="text-xs font-semibold text-primary uppercase tracking-wider mt-1">{category}</p>
             )}
             
             {/* View Series specific UI on hover */}
-            <div className="mt-3 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-300 delay-100 flex flex-wrap items-center gap-2">
+            <div className={`mt-3 overflow-hidden transition-all duration-300 flex flex-wrap items-center gap-2 ${isHovered ? 'opacity-100 h-auto' : 'opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto'}`}>
               <span className="flex items-center gap-1 text-xs font-bold text-black bg-primary px-2 py-1 rounded shadow-sm border border-primary-hover hover:bg-primary-hover transition-colors">
                 <Play className="w-3 h-3 fill-current" />
                 VER SERIE
@@ -128,7 +168,9 @@ export function SeriesCard({
                 <div className="flex items-center flex-wrap gap-4 mb-6 font-semibold tracking-wide">
                   <span className="text-[#46d369]">98% Coincidencia</span>
                   <span className="text-white/60">2024</span>
-                  <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/60 text-xs">HD</span>
+                  <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/60 text-xs">
+                    {['cuentos-jag', 'cuentos-perasha', 'sipurei-pesaj'].includes(id) ? '4K' : 'HD'}
+                  </span>
                 </div>
                 <p className="font-medium text-white/90 text-lg sm:text-xl leading-relaxed mb-6">
                   {description}

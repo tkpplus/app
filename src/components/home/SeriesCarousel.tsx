@@ -38,7 +38,7 @@ export function SeriesCarousel({ title, series, viewMoreLink }: SeriesCarouselPr
         <div className="flex items-center gap-2">
           <h2 className="text-xl md:text-2xl font-bold font-display text-white tracking-tight">{title}</h2>
           {viewMoreLink && (
-            <Link to={viewMoreLink} className="text-sm font-semibold text-accent-orange hover:text-white flex items-center transition-colors">
+            <Link to={viewMoreLink} className="text-sm font-semibold text-primary hover:text-white flex items-center transition-colors">
               Explorar <ChevronRightIcon className="h-4 w-4" />
             </Link>
           )}

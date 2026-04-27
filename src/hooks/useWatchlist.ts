@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useToast } from '../components/ui/Toast';
 
 export function useWatchlist() {
+  const { addToast } = useToast();
   const [watchlist, setWatchlist] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('tkp_watchlist');
@@ -14,15 +16,19 @@ export function useWatchlist() {
     localStorage.setItem('tkp_watchlist', JSON.stringify(watchlist));
   }, [watchlist]);
 
-  const toggleWatchlist = (videoId: string) => {
-    setWatchlist((prev) =>
-      prev.includes(videoId)
-        ? prev.filter((id) => id !== videoId)
-        : [...prev, videoId]
-    );
-  };
+  const toggleWatchlist = useCallback((videoId: string) => {
+    const isCurrentlyInWatchlist = watchlist.includes(videoId);
+    
+    if (isCurrentlyInWatchlist) {
+      addToast('Video eliminado de tu lista', 'info');
+      setWatchlist((prev) => prev.filter((id) => id !== videoId));
+    } else {
+      addToast('¡Video añadido a tu lista!', 'success');
+      setWatchlist((prev) => [...prev, videoId]);
+    }
+  }, [watchlist, addToast]);
 
-  const isInWatchlist = (videoId: string) => watchlist.includes(videoId);
+  const isInWatchlist = useCallback((videoId: string) => watchlist.includes(videoId), [watchlist]);
 
   return {
     watchlist,
