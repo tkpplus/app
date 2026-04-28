@@ -20,9 +20,10 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-text-main mb-4 font-display tracking-wide uppercase text-sm">Explorar</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-text-muted hover:text-primary transition-colors">Parashot</a></li>
-              <li><a href="#" className="text-sm text-text-muted hover:text-primary transition-colors">Festividades</a></li>
-              <li><a href="#" className="text-sm text-text-muted hover:text-primary transition-colors">Cuentos</a></li>
+              <li><Link to="/explore" className="text-sm text-text-muted hover:text-primary transition-colors">Todos los videos</Link></li>
+              <li><Link to="/category/parashot" className="text-sm text-text-muted hover:text-primary transition-colors">Parashot</Link></li>
+              <li><Link to="/category/festividades" className="text-sm text-text-muted hover:text-primary transition-colors">Festividades</Link></li>
+              <li><Link to="/category/cuentos" className="text-sm text-text-muted hover:text-primary transition-colors">Cuentos</Link></li>
             </ul>
           </div>
           <div>

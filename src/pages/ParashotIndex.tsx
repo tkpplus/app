@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
-import { getSeriesByCategory } from '../data/seed';
+import { getSeriesByCategory, getVideosByCategory } from '../data/seed';
 import { getSeriesCover } from '../utils/covers';
 
 export function ParashotIndex() {
   const parashotSeries = getSeriesByCategory('PARASHOT');
+  const parashotVideos = getVideosByCategory('PARASHOT');
 
   return (
     <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-12">

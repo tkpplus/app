@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
-import { getSeriesByCategory } from '../data/seed';
+import { getSeriesByCategory, getVideosByCategory } from '../data/seed';
 import { getSeriesCover } from '../utils/covers';
 
 export function FestividadesIndex() {
   const festividadesSeries = getSeriesByCategory('FESTIVIDADES');
+  const festividadesVideos = getVideosByCategory('FESTIVIDADES');
 
   return (
     <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-12 min-h-[60vh]">
@@ -48,7 +49,7 @@ export function FestividadesIndex() {
         })}
       </div>
       
-      {festividadesSeries.length === 0 && (
+      {festividadesSeries.length === 0 && festividadesVideos.length === 0 && (
          <div className="mt-8">
            <p className="text-text-muted">No hay videos de festividades disponibles.</p>
          </div>

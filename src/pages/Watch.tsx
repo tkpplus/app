@@ -66,13 +66,13 @@ export function Watch() {
     <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 pb-0 sm:pb-8 overflow-hidden animate-in fade-in duration-700">
       
       {/* Ambient Lighting Background */}
-      <div className="absolute -top-16 left-0 right-0 h-[80vh] sm:h-[100vh] z-0 pointer-events-none opacity-20 select-none transition-opacity duration-1000">
+      <div className="absolute top-0 left-0 right-0 h-[80vh] sm:h-[100vh] z-0 pointer-events-none opacity-20 select-none transition-opacity duration-1000">
          <img src={video.thumbnail} className="w-full h-full object-cover blur-[140px] scale-150 saturate-[1.5]" alt="" />
          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background"></div>
       </div>
 
       {/* Container max-width en desktop, full width en mobile para el player */}
-      <div className="relative z-10 flex flex-col gap-8 w-full max-w-[1200px] mx-auto -mt-16 pt-16 sm:pt-24">
+      <div className="relative z-10 flex flex-col gap-8 w-full max-w-[1200px] mx-auto pt-8 sm:pt-12">
         
         {/* Back Link - Oculto en mobile porque el player ocupa todo */}
         <Link to="/" className="hidden sm:inline-flex flex-row items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-colors mb-2 group">

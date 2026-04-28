@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import { Home } from './pages/Home';
 import { Watch } from './pages/Watch';
+import { Explore } from './pages/Explore';
 import { ParashotIndex } from './pages/ParashotIndex';
 import { ParashaDetail } from './pages/ParashaDetail';
 import { FestividadesIndex } from './pages/FestividadesIndex';
@@ -49,6 +50,7 @@ export default function App() {
           <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="/about" element={<About />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/privacy" element={<Privacy />} />

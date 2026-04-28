@@ -3,6 +3,7 @@ import { PlayCircle } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 import { getVideoById } from '../../data/seed';
 import { is4KVideo } from '../../utils/videoHelpers';
+import { useState, useRef, useEffect } from 'react';
 
 interface VideoCardProps {
   id: string;
@@ -34,6 +35,32 @@ export function VideoCard({
   isActive
 }: VideoCardProps) {
   const videoData = getVideoById(id);
+  const youtubeId = videoData?.youtubeId || id;
+  
+  const [isHoverPlaying, setIsHoverPlaying] = useState(false);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (isActive) return;
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHoverPlaying(true);
+    }, 600); // 600ms delay before preview starts
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setIsHoverPlaying(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
   
   // Format duration from seconds to M:SS or H:MM:SS
   const formatDuration = (totalSeconds: number) => {
@@ -53,16 +80,28 @@ export function VideoCard({
       onClick={(e) => {
         if (isActive) e.preventDefault();
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className={`group relative flex flex-col w-full h-full ${isActive ? 'cursor-default pointer-events-none' : ''}`}
     >
       {/* Thumbnail Container */}
       <div className={`relative aspect-video w-full overflow-hidden rounded-xl cursor-pointer transition-all duration-400 ease-out transform ${isActive ? 'ring-2 ring-primary scale-[1.02] shadow-[0_0_20px_rgba(245,196,99,0.3)]' : 'bg-surface border border-white/5 group-hover:scale-105 group-hover:-translate-y-1 group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.5)] group-hover:border-white/20 group-hover:z-50'}`}>
-        <img
-          src={thumbnail}
-          alt={title}
-          className={`h-full w-full object-cover transition-opacity duration-300 ${isActive ? 'opacity-40' : 'group-hover:opacity-40'}`}
-          loading="lazy"
-        />
+        
+        {isHoverPlaying ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&modestbranding=1&loop=1&playlist=${youtubeId}&iv_load_policy=3&disablekb=1&fs=0&playsinline=1`}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none scale-150 transform transition-opacity duration-500 z-0"
+            allow="autoplay; encrypted-media"
+            frameBorder="0"
+          />
+        ) : (
+          <img
+            src={thumbnail}
+            alt={title}
+            className={`h-full w-full object-cover transition-opacity duration-300 ${isActive ? 'opacity-40' : 'group-hover:opacity-40'}`}
+            loading="lazy"
+          />
+        )}
         
         {/* Badges on Top */}
         <div className={`absolute top-2 left-2 flex gap-2 z-10 transition-opacity ${isActive ? 'opacity-100' : 'opacity-100 group-hover:opacity-0'}`}>

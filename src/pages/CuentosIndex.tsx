@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
-import { getSeriesByCategory } from '../data/seed';
+import { getSeriesByCategory, getVideosByCategory } from '../data/seed';
 import { getSeriesCover } from '../utils/covers';
 
 export function CuentosIndex() {
   const cuentosSeries = getSeriesByCategory('CUENTOS');
+  const cuentosVideos = getVideosByCategory('CUENTOS');
 
   return (
     <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-12 min-h-[60vh]">
@@ -48,7 +49,7 @@ export function CuentosIndex() {
         })}
       </div>
       
-      {cuentosSeries.length === 0 && (
+      {cuentosSeries.length === 0 && cuentosVideos.length === 0 && (
          <div className="mt-8">
            <p className="text-text-muted">No hay series de cuentos disponibles.</p>
          </div>

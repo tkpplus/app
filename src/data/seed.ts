@@ -1,36 +1,197 @@
 // @ts-nocheck
 export const characters = [
-  { id: '1', name: 'Yosef', image: '/characters/yosef.png' },
-  { id: '2', name: 'Benny', image: '/characters/benny.png' },
-  { id: '3', name: 'Aharon', image: '/characters/aharon.png' },
-  { id: '4', name: 'Ezra', image: '/characters/ezra.png' },
-  { id: '5', name: 'Arush', image: '/characters/arush.png' },
-  { id: '6', name: 'Keter', image: '/characters/keter.png' },
-  { id: '7', name: 'Avraham', image: '/characters/avraham.png' }
+  {
+    "id": "1",
+    "name": "Yosef",
+    "image": "/characters/yosef.png"
+  },
+  {
+    "id": "2",
+    "name": "Benny",
+    "image": "/characters/benny.png"
+  },
+  {
+    "id": "3",
+    "name": "Aharon",
+    "image": "/characters/aharon.png"
+  },
+  {
+    "id": "4",
+    "name": "Ezra",
+    "image": "/characters/ezra.png"
+  },
+  {
+    "id": "5",
+    "name": "Arush",
+    "image": "/characters/arush.png"
+  },
+  {
+    "id": "6",
+    "name": "Keter",
+    "image": "/characters/keter.png"
+  },
+  {
+    "id": "7",
+    "name": "Avraham",
+    "image": "/characters/avraham.png"
+  }
 ];
 
 export const seriesData = [
-  { "id": "bereshit", "title": "Bereshit", "description": "Génesis - Historias del origen y los patriarcas.", "categoryId": "PARASHOT", "thumbnail": "/series/bereshit.jpg" },
-  { "id": "shemot", "title": "Shemot", "description": "Éxodo - Desde la esclavitud en Egipto hasta la entrega de la Torah.", "categoryId": "PARASHOT", "thumbnail": "/series/shemot.jpg" },
-  { "id": "vaikra", "title": "Vaikra", "description": "Levítico - Leyes, santidad y servicio en el Mishkán.", "categoryId": "PARASHOT", "thumbnail": "/series/vaikra.jpg" },
-  { "id": "bamidbar", "title": "Bamidbar", "description": "Números - El pueblo en el desierto.", "categoryId": "PARASHOT", "thumbnail": "/series/bamidbar.jpg" },
-  { "id": "devarim", "title": "Devarim", "description": "Deuteronomio - Los discursos finales de Moshé.", "categoryId": "PARASHOT", "thumbnail": "/series/devarim.jpg" },
-  { "id": "especiales", "title": "Especiales", "description": "Parashot especiales y Shabatot.", "categoryId": "PARASHOT", "thumbnail": "/series/especiales.jpg" },
-  { "id": "rosh-hashana", "title": "Rosh Hashaná", "description": "El año nuevo judío.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/rosh-hashana.jpg" },
-  { "id": "yom-kipur", "title": "Yom Kipur", "description": "El día del perdón.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/yom-kipur.jpg" },
-  { "id": "sucot", "title": "Sucot", "description": "La fiesta de las cabañas.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/sucot.jpg" },
-  { "id": "januca", "title": "Janucá", "description": "La fiesta de las luminarias.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/januca.jpg" },
-  { "id": "tu-bishvat", "title": "Tu Bishvat", "description": "El año nuevo de los árboles.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/tu-bishvat.jpg" },
-  { "id": "purim", "title": "Purim", "description": "La salvación en Persia.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/purim.jpg" },
-  { "id": "pesaj", "title": "Pesaj", "description": "La salida de Egipto y la libertad.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/pesaj.jpg" },
-  { "id": "lag-baomer", "title": "Lag Baomer", "description": "La alegría de la Torá oral.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/lag-baomer.jpg" },
-  { "id": "shabuot", "title": "Shabuot", "description": "La entrega de la Torá.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/shabuot.jpg" },
-  { "id": "tisha-beav", "title": "Tisha Beav", "description": "Día de duelo y esperanza.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/tisha-beav.jpg" },
-  { "id": "shabat", "title": "Shabat", "description": "El día más especial de la semana.", "categoryId": "FESTIVIDADES", "thumbnail": "/series/shabat.jpg" },
-  { "id": "cuentos-tradicion", "title": "Cuentos de la Tradición", "description": "David el pastor, tesoros de pureza, todo es para bien.", "categoryId": "CUENTOS", "thumbnail": "/series/cuentos-tradicion.jpg" },
-  { "id": "cuentos-perasha", "title": "Cuentos de la Parashá", "description": "Relatos sobre la porción semanal.", "categoryId": "CUENTOS", "thumbnail": "/series/cuentos-perasha.jpg" },
-  { "id": "cuentos-jag", "title": "Cuentos del Jag", "description": "Relatos para vivir las fiestas.", "categoryId": "CUENTOS", "thumbnail": "/series/cuentos-jag.jpg" },
-  { "id": "sipurei-pesaj", "title": "Sipurei Pesaj", "description": "Relatos milagrosos de la liberación de Egipto.", "categoryId": "CUENTOS", "thumbnail": "/series/sipurei-pesaj.jpg" }
+  {
+    "id": "bereshit",
+    "title": "Bereshit",
+    "description": "Génesis - Historias del origen y los patriarcas.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/bereshit.jpg"
+  },
+  {
+    "id": "shemot",
+    "title": "Shemot",
+    "description": "Éxodo - Desde la esclavitud en Egipto hasta la entrega de la Torah.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/shemot.jpg"
+  },
+  {
+    "id": "vaikra",
+    "title": "Vaikra",
+    "description": "Levítico - Leyes, santidad y servicio en el Mishkán.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/vaikra.jpg"
+  },
+  {
+    "id": "bamidbar",
+    "title": "Bamidbar",
+    "description": "Números - El pueblo en el desierto.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/bamidbar.jpg"
+  },
+  {
+    "id": "devarim",
+    "title": "Devarim",
+    "description": "Deuteronomio - Los discursos finales de Moshé.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/devarim.jpg"
+  },
+  {
+    "id": "especiales",
+    "title": "Especiales",
+    "description": "Parashot especiales y Shabatot.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/especiales.jpg"
+  },
+  {
+    "id": "rosh-hashana",
+    "title": "Rosh Hashaná",
+    "description": "El año nuevo judío.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/rosh-hashana.jpg"
+  },
+  {
+    "id": "yom-kipur",
+    "title": "Yom Kipur",
+    "description": "El día del perdón.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/yom-kipur.jpg"
+  },
+  {
+    "id": "sucot",
+    "title": "Sucot",
+    "description": "La fiesta de las cabañas.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/sucot.jpg"
+  },
+  {
+    "id": "januca",
+    "title": "Janucá",
+    "description": "La fiesta de las luminarias.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/januca.jpg"
+  },
+  {
+    "id": "tu-bishvat",
+    "title": "Tu Bishvat",
+    "description": "El año nuevo de los árboles.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/tu-bishvat.jpg"
+  },
+  {
+    "id": "purim",
+    "title": "Purim",
+    "description": "La salvación en Persia.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/purim.jpg"
+  },
+  {
+    "id": "pesaj",
+    "title": "Pesaj",
+    "description": "La salida de Egipto y la libertad.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/pesaj.jpg"
+  },
+  {
+    "id": "lag-baomer",
+    "title": "Lag Baomer",
+    "description": "La alegría de la Torá oral.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/lag-baomer.jpg"
+  },
+  {
+    "id": "shabuot",
+    "title": "Shabuot",
+    "description": "La entrega de la Torá.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/shabuot.jpg"
+  },
+  {
+    "id": "tisha-beav",
+    "title": "Tisha Beav",
+    "description": "Día de duelo y esperanza.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/tisha-beav.jpg"
+  },
+  {
+    "id": "shabat",
+    "title": "Shabat",
+    "description": "El día más especial de la semana.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/shabat.jpg"
+  },
+  {
+    "id": "cuentos-tradicion",
+    "title": "Cuentos de la Tradición",
+    "description": "David el pastor, tesoros de pureza, todo es para bien.",
+    "categoryId": "CUENTOS",
+    "thumbnail": "/series/cuentos-tradicion.jpg"
+  },
+  {
+    "id": "cuentos-perasha",
+    "title": "Cuentos de la Parashá",
+    "description": "Relatos sobre la porción semanal.",
+    "categoryId": "CUENTOS",
+    "thumbnail": "/series/cuentos-perasha.jpg"
+  },
+  {
+    "id": "cuentos-jag",
+    "title": "Cuentos del Jag",
+    "description": "Relatos para vivir las fiestas.",
+    "categoryId": "CUENTOS",
+    "thumbnail": "/series/cuentos-jag.jpg"
+  },
+  {
+    "id": "sipurei-pesaj",
+    "title": "Sipurei Pesaj",
+    "description": "Relatos milagrosos de la liberación de Egipto.",
+    "categoryId": "CUENTOS",
+    "thumbnail": "/series/sipurei-pesaj.jpg"
+  },
+  {
+    "id": "parasha-en-un-minuto",
+    "title": "Parashá en un minuto",
+    "description": "Resumen rápido de la Parashá semanal en solo un minuto.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/especiales.jpg"
+  }
 ];
 
 export const videos = [
@@ -594,7 +755,7 @@ export const videos = [
   },
   {
     "id": "IhFRnooopPo",
-    "title": "Parsha HaJodesh",
+    "title": "HaJodesh Estudio",
     "youtubeId": "IhFRnooopPo",
     "duration": 500,
     "views": 439,
@@ -1102,9 +1263,9 @@ export const videos = [
     "youtubeId": "XCP6sLsrT6Q",
     "duration": 500,
     "views": 517,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1120,9 +1281,9 @@ export const videos = [
     "youtubeId": "oLAULPrPEj8",
     "duration": 500,
     "views": 499,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1138,9 +1299,9 @@ export const videos = [
     "youtubeId": "hh4ppg7E5yI",
     "duration": 500,
     "views": 383,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1156,9 +1317,9 @@ export const videos = [
     "youtubeId": "oGBrpfV6Wug",
     "duration": 500,
     "views": 267,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1174,9 +1335,9 @@ export const videos = [
     "youtubeId": "msarrAETqGI",
     "duration": 500,
     "views": 913,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1192,9 +1353,9 @@ export const videos = [
     "youtubeId": "-wxWR4UiXXI",
     "duration": 500,
     "views": 236,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1210,9 +1371,9 @@ export const videos = [
     "youtubeId": "Olinh9ZgvYk",
     "duration": 500,
     "views": 335,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1228,9 +1389,9 @@ export const videos = [
     "youtubeId": "pow5BUl1A5M",
     "duration": 500,
     "views": 863,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1246,9 +1407,9 @@ export const videos = [
     "youtubeId": "mNPB8ICD0i8",
     "duration": 500,
     "views": 58,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1264,9 +1425,9 @@ export const videos = [
     "youtubeId": "upcJnnNbcO8",
     "duration": 500,
     "views": 62,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1282,9 +1443,9 @@ export const videos = [
     "youtubeId": "w4GK3pplW_Y",
     "duration": 500,
     "views": 86,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1300,9 +1461,9 @@ export const videos = [
     "youtubeId": "p4gsg2bZ3jo",
     "duration": 500,
     "views": 473,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1318,9 +1479,9 @@ export const videos = [
     "youtubeId": "0ZJUre6RjiY",
     "duration": 500,
     "views": 487,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1336,9 +1497,9 @@ export const videos = [
     "youtubeId": "SDqAXlAfFj4",
     "duration": 500,
     "views": 370,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1354,9 +1515,9 @@ export const videos = [
     "youtubeId": "IFzPSegUYO4",
     "duration": 500,
     "views": 246,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1372,9 +1533,9 @@ export const videos = [
     "youtubeId": "tWHKCkFBjvE",
     "duration": 500,
     "views": 635,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1390,9 +1551,9 @@ export const videos = [
     "youtubeId": "1ieTbEKPlRs",
     "duration": 500,
     "views": 248,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1408,9 +1569,9 @@ export const videos = [
     "youtubeId": "SOdBWtfb2hE",
     "duration": 500,
     "views": 847,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1426,9 +1587,9 @@ export const videos = [
     "youtubeId": "3qsxRzFfggg",
     "duration": 500,
     "views": 320,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1444,9 +1605,9 @@ export const videos = [
     "youtubeId": "X6Y4-b4CG4M",
     "duration": 500,
     "views": 980,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1462,9 +1623,9 @@ export const videos = [
     "youtubeId": "pNfv65TyKDY",
     "duration": 500,
     "views": 147,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1480,9 +1641,9 @@ export const videos = [
     "youtubeId": "hyr1-ef09HM",
     "duration": 500,
     "views": 247,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1498,9 +1659,9 @@ export const videos = [
     "youtubeId": "rqyeTYOTRFM",
     "duration": 500,
     "views": 947,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1516,9 +1677,9 @@ export const videos = [
     "youtubeId": "EC-Nnceu_ms",
     "duration": 500,
     "views": 21,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1534,9 +1695,9 @@ export const videos = [
     "youtubeId": "uhGShtqf3l0",
     "duration": 500,
     "views": 347,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1552,9 +1713,9 @@ export const videos = [
     "youtubeId": "M4RI6h5RxyY",
     "duration": 500,
     "views": 270,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1570,9 +1731,9 @@ export const videos = [
     "youtubeId": "MwNi34vieEQ",
     "duration": 500,
     "views": 397,
-    "category": "SHORTS",
+    "category": "PARASHOT",
     "subcategory": null,
-    "seriesId": null,
+    "seriesId": "parasha-en-un-minuto",
     "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
@@ -1764,21 +1925,25 @@ export const videos = [
   }
 ];
 
-export function getSeriesByCategory(categoryId) {
+export const getSeriesByCategory = (categoryId: string) => {
   return seriesData.filter(s => s.categoryId === categoryId);
-}
+};
 
-export function getSeriesById(seriesId) {
+export const getSeriesById = (seriesId: string) => {
   return seriesData.find(s => s.id === seriesId);
-}
+};
 
-export const getVideosBySeries = (seriesId) => {
+export const getVideosBySeries = (seriesId: string) => {
   return videos.filter(v => v.seriesId === seriesId);
 };
 
-export const getVideoById = (id) => {
+export const getVideosByCategory = (categoryId: string) => {
+  return videos.filter(v => v.category === categoryId);
+};
+
+export const getVideoById = (id: string | null) => {
   if (!id) return null;
-  return videos.find(v => v.id === id) || videos.find(v => v.youtubeId === id);
+  return videos.find(v => v.id === id) || videos.find(v => v.youtubeId === id) || null;
 };
 
 export const getShortVideos = () => {
