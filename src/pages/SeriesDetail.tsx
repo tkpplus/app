@@ -75,7 +75,7 @@ export function SeriesDetail() {
   return (
     <div className="flex flex-col min-h-screen pb-16">
       {/* Series Hero */}
-      <div className="relative w-full min-h-[50vh] md:min-h-[65vh] bg-black overflow-hidden border-b border-border">
+      <div className="relative w-full min-h-[50vh] md:min-h-[65vh] bg-black overflow-hidden border-b border-border -mt-16 pt-16">
         
         {/* Background Visuals */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-background overflow-hidden">

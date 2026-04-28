@@ -1,12 +1,12 @@
 // @ts-nocheck
 export const characters = [
-  { id: 'police', name: 'Oficial', image: '/_e21dd97e-128a-40a2-ad3b-1b15115c5453.jpeg' },
-  { id: 'chef', name: 'Chef', image: '/_4e53b47c-74a9-4591-8ad2-03c6265def14.png' },
-  { id: 'kippah', name: 'Niño', image: '/_ad408d6c-671e-450f-9f79-45f8f53335e9.jpeg' },
-  { id: 'tie', name: 'Papá', image: '/_8edabdb4-16a7-4b77-aa9d-caaa8d3d987e.jpeg' },
-  { id: 'firefighter', name: 'Bombero', image: '/_f1fd0248-cb0a-41df-9ed1-aae1fca8ee56.jpeg' },
-  { id: 'princess', name: 'Niña', image: '/_37c15ee8-fa32-4416-b811-9a7da67af4ea.jpeg' },
-  { id: 'bearded', name: 'Rabino', image: '/_368bc061-e0e6-42d4-a15d-85aa99017ae7.jpeg' }
+  { id: '1', name: 'Yosef', image: '/characters/yosef.png' },
+  { id: '2', name: 'Benny', image: '/characters/benny.png' },
+  { id: '3', name: 'Aharon', image: '/characters/aharon.png' },
+  { id: '4', name: 'Ezra', image: '/characters/ezra.png' },
+  { id: '5', name: 'Arush', image: '/characters/arush.png' },
+  { id: '6', name: 'Keter', image: '/characters/keter.png' },
+  { id: '7', name: 'Avraham', image: '/characters/avraham.png' }
 ];
 
 export const seriesData = [
@@ -637,7 +637,7 @@ export const videos = [
     "category": "PARASHOT",
     "subcategory": null,
     "seriesId": "especiales",
-    "isShort": false,
+    "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
@@ -655,7 +655,7 @@ export const videos = [
     "category": "PARASHOT",
     "subcategory": null,
     "seriesId": "especiales",
-    "isShort": false,
+    "isShort": true,
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",

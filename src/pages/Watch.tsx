@@ -63,16 +63,16 @@ export function Watch() {
   };
 
   return (
-    <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 py-0 sm:py-8 overflow-hidden animate-in fade-in duration-700">
+    <div className="relative mx-auto w-full min-h-screen bg-background px-0 sm:px-6 lg:px-8 pb-0 sm:pb-8 overflow-hidden animate-in fade-in duration-700">
       
       {/* Ambient Lighting Background */}
-      <div className="absolute top-0 left-0 right-0 h-[80vh] sm:h-[100vh] z-0 pointer-events-none opacity-20 select-none transition-opacity duration-1000">
+      <div className="absolute -top-16 left-0 right-0 h-[80vh] sm:h-[100vh] z-0 pointer-events-none opacity-20 select-none transition-opacity duration-1000">
          <img src={video.thumbnail} className="w-full h-full object-cover blur-[140px] scale-150 saturate-[1.5]" alt="" />
          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background"></div>
       </div>
 
       {/* Container max-width en desktop, full width en mobile para el player */}
-      <div className="relative z-10 flex flex-col gap-8 w-full max-w-[1200px] mx-auto">
+      <div className="relative z-10 flex flex-col gap-8 w-full max-w-[1200px] mx-auto -mt-16 pt-16 sm:pt-24">
         
         {/* Back Link - Oculto en mobile porque el player ocupa todo */}
         <Link to="/" className="hidden sm:inline-flex flex-row items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-colors mb-2 group">
@@ -181,9 +181,37 @@ export function Watch() {
             
             {/* Description and tags */}
             <div className="mt-4 pt-6 border-t border-white/5">
-              <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-4xl font-light">
+              <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-4xl font-light mb-8">
                 {video.description}
               </p>
+              
+              {/* Personajes */}
+              <div className="border-t border-white/5 pt-6 mt-4">
+                <h3 className="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4">Aparecen en este episodio</h3>
+                <div className="flex flex-wrap gap-4">
+                  {[...characters]
+                    .sort(() => {
+                      const seed = video.id.charCodeAt(0) + video.id.charCodeAt(video.id.length - 1);
+                      return 0.5 - (seed % 100) / 100;
+                    })
+                    .slice(0, 4)
+                    .map((char) => (
+                      <div key={char.id} className="flex flex-col items-center gap-2 group">
+                        <div className="w-16 h-16 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors bg-surface shadow-lg shadow-black/20">
+                          <img 
+                            src={char.image} 
+                            alt={char.name} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                            onError={(e) => {
+                                (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${char.name}&background=1a1a2e&color=F5C463&size=150`;
+                            }}
+                          />
+                        </div>
+                        <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">{char.name}</span>
+                      </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

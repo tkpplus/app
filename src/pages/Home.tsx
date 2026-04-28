@@ -53,7 +53,7 @@ const paraLaMesa = [...videos]
 
 return (
   <div className="relative flex flex-col pb-16 bg-background min-h-screen">
-    <div className="absolute top-0 w-full h-[80vh] md:h-[100vh] z-[-1] overflow-hidden pointer-events-none">
+    <div className="absolute -top-16 left-0 right-0 w-full h-[80vh] md:h-[100vh] z-[-1] overflow-hidden pointer-events-none">
       <img 
         src="/_31caec9e-f0b9-408a-b9c2-55dbbdeea961.png" 
         alt="Banner" 
@@ -62,7 +62,9 @@ return (
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-background" />
     </div>
     
-    <HeroBanner video={featuredVideo} />
+    <div className="-mt-16">
+      <HeroBanner video={featuredVideo} />
+    </div>
     
     <div className="relative z-20 -mt-24 md:-mt-32 space-y-8 md:space-y-12 pb-12">
       {isShabbatMode ? (
