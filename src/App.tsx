@@ -23,7 +23,6 @@ import { Catalog } from './pages/Catalog';
 import { IntroAnimation } from './components/ui/IntroAnimation';
 import { ShabbatModeProvider } from './context/ShabbatModeContext';
 import { ToastProvider } from './components/ui/Toast';
-import { Analytics } from '@vercel/analytics/react';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,7 +47,6 @@ export default function App() {
         <BrowserRouter>
           <ScrollToTop />
           {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
-          <Analytics />
           <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<Home />} />
