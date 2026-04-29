@@ -10,29 +10,27 @@ export function useVideoProgress(episodeId: string | null) {
   const lastUpdateRef = useRef<number>(0);
 
   useEffect(() => {
-    if (!episodeId) return;
+    if (!episodeId) {
+      setLoading(false);
+      return;
+    }
     
-    // Slight timeout to simulate network and prevent flicker
-    const timer = setTimeout(() => {
-      try {
-        const stored = localStorage.getItem(`tkp_progress_${episodeId}`);
-        if (stored) {
-          const data = JSON.parse(stored);
-          if (data.completed) {
-            setInitialProgress(0);
-            setIsCompleted(true);
-          } else {
-            setInitialProgress(data.timestamp);
-          }
+    try {
+      const stored = localStorage.getItem(`tkp_progress_${episodeId}`);
+      if (stored) {
+        const data = JSON.parse(stored);
+        if (data.completed) {
+          setInitialProgress(0);
+          setIsCompleted(true);
+        } else {
+          setInitialProgress(data.timestamp);
         }
-      } catch (err) {
-        console.error("Could not load progress", err);
-      } finally {
-        setLoading(false);
       }
-    }, 300);
-    
-    return () => clearTimeout(timer);
+    } catch (err) {
+      console.error("Could not load progress", err);
+    } finally {
+      setLoading(false);
+    }
   }, [episodeId]);
 
   const saveProgress = useCallback(async (timestamp: number, duration: number) => {
@@ -83,26 +81,22 @@ export function useContinueWatching() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      try {
-        const allProgressStr = localStorage.getItem('tkp_all_progress');
-        if (allProgressStr) {
-          let items: any[] = JSON.parse(allProgressStr);
-          // Only return not completed
-          items = items.filter(i => !i.completed);
-          // Sort by last watched desc
-          items.sort((a, b) => new Date(b.lastWatched).getTime() - new Date(a.lastWatched).getTime());
-          
-          setProgressItems(items);
-        }
-      } catch (err) {
-        console.error("Could not load continue watching", err);
-      } finally {
-        setLoading(false);
+    try {
+      const allProgressStr = localStorage.getItem('tkp_all_progress');
+      if (allProgressStr) {
+        let items: any[] = JSON.parse(allProgressStr);
+        // Only return not completed
+        items = items.filter(i => !i.completed);
+        // Sort by last watched desc
+        items.sort((a, b) => new Date(b.lastWatched).getTime() - new Date(a.lastWatched).getTime());
+        
+        setProgressItems(items);
       }
-    }, 300);
-    
-    return () => clearTimeout(timer);
+    } catch (err) {
+      console.error("Could not load continue watching", err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return { progressItems, loading };

@@ -186,32 +186,31 @@ export function Watch() {
               </p>
               
               {/* Personajes */}
-              <div className="border-t border-white/5 pt-6 mt-4">
-                <h3 className="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4">Aparecen en este episodio</h3>
-                <div className="flex flex-wrap gap-4">
-                  {[...characters]
-                    .sort(() => {
-                      const seed = video.id.charCodeAt(0) + video.id.charCodeAt(video.id.length - 1);
-                      return 0.5 - (seed % 100) / 100;
-                    })
-                    .slice(0, 4)
-                    .map((char) => (
-                      <div key={char.id} className="flex flex-col items-center gap-2 group">
-                        <div className="w-16 h-16 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors bg-surface shadow-lg shadow-black/20">
-                          <img 
-                            src={char.image} 
-                            alt={char.name} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                            onError={(e) => {
-                                (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${char.name}&background=1a1a2e&color=F5C463&size=150`;
-                            }}
-                          />
+              {video.characters && video.characters.length > 0 && (
+                <div className="border-t border-white/5 pt-6 mt-4">
+                  <h3 className="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4">Aparecen en este episodio</h3>
+                  <div className="flex flex-wrap gap-4">
+                    {video.characters.map((charName) => {
+                      const char = characters.find(c => c.name.toLowerCase() === charName.toLowerCase()) || { id: charName, name: charName, image: `/characters/${charName.toLowerCase()}.png` };
+                      return (
+                        <div key={char.id} className="flex flex-col items-center gap-2 group">
+                          <div className="w-16 h-16 rounded-full overflow-hidden border border-white/10 group-hover:border-primary/50 transition-colors bg-surface shadow-lg shadow-black/20">
+                            <img 
+                              src={char.image} 
+                              alt={char.name} 
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                              onError={(e) => {
+                                  (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${char.name}&background=1a1a2e&color=F5C463&size=150`;
+                              }}
+                            />
+                          </div>
+                          <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">{char.name}</span>
                         </div>
-                        <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">{char.name}</span>
-                      </div>
-                  ))}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

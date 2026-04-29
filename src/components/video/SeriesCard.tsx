@@ -44,6 +44,16 @@ export function SeriesCard({
   // Find matching custom covers for this series
   const customCover = useMemo(() => getSeriesCover(id, thumbnail), [id, thumbnail]);
 
+  const seriesVideos = useMemo(() => getVideosBySeries(id), [id]);
+  
+  const uniqueCharacters = useMemo(() => {
+    const chars = new Set<string>();
+    seriesVideos.forEach(v => {
+      v.characters?.forEach(c => chars.add(c));
+    });
+    return Array.from(chars);
+  }, [seriesVideos]);
+
   // Get the first video of the series to use as trailer
   const firstVideo = useMemo(() => {
     const videos = getVideosBySeries(id);
@@ -180,7 +190,7 @@ export function SeriesCard({
               <div className="text-sm text-text-muted space-y-6">
                 <div className="space-y-1.5">
                   <span className="block text-xs uppercase tracking-[0.15em] opacity-60">Elenco:</span>
-                  <p className="text-white/90 font-medium">Yosef, Benny, Aharón, Keter, Dr. Avraham</p>
+                  <p className="text-white/90 font-medium">{uniqueCharacters.length > 0 ? uniqueCharacters.join(', ') : 'Elenco completo'}</p>
                 </div>
                 <div className="space-y-1.5">
                   <span className="block text-xs uppercase tracking-[0.15em] opacity-60">Géneros:</span>

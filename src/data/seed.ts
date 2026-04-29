@@ -199,7 +199,7 @@ export const videos = [
     "id": "8rAPAkIKRHE",
     "title": "Parashat Bereshit Estudiemos",
     "youtubeId": "8rAPAkIKRHE",
-    "duration": 500,
+    "duration": 371,
     "views": 670,
     "category": "PARASHOT",
     "subcategory": null,
@@ -209,15 +209,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Bereshit Estudiemos",
+    "description": "El inicio de todo. La creación del mundo y la enseñanza de que incluso en el comienzo, la misericordia ya estaba presente.",
     "thumbnail": "https://img.youtube.com/vi/8rAPAkIKRHE/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "bUu2W_fGqo8",
     "title": "Resumen Bereshit con el Doc",
     "youtubeId": "bUu2W_fGqo8",
-    "duration": 500,
+    "duration": 600,
     "views": 93,
     "category": "PARASHOT",
     "subcategory": null,
@@ -227,15 +230,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Resumen Bereshit con el Doc",
+    "description": "El inicio de todo. La creación del mundo y la enseñanza de que incluso en el comienzo, la misericordia ya estaba presente.",
     "thumbnail": "https://img.youtube.com/vi/bUu2W_fGqo8/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "sMd0opDs2Ss",
     "title": "Parashat Nóaj Estudiemos",
     "youtubeId": "sMd0opDs2Ss",
-    "duration": 500,
+    "duration": 405,
     "views": 717,
     "category": "PARASHOT",
     "subcategory": null,
@@ -245,15 +251,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Nóaj Estudiemos",
+    "description": "Un mundo en crisis y una oportunidad de reconstrucción. La historia del arca y la importancia de hacer lo correcto incluso cuando nadie más lo hace.",
     "thumbnail": "https://img.youtube.com/vi/sMd0opDs2Ss/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 3,
+    "characters": [
+      "Aharon"
+    ]
   },
   {
     "id": "6YoVDp5Jeqs",
     "title": "Resumen Nóaj con el Doc",
     "youtubeId": "6YoVDp5Jeqs",
-    "duration": 500,
+    "duration": 600,
     "views": 418,
     "category": "PARASHOT",
     "subcategory": null,
@@ -263,15 +272,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Resumen Nóaj con el Doc",
+    "description": "Un mundo en crisis y una oportunidad de reconstrucción. La historia del arca y la importancia de hacer lo correcto incluso cuando nadie más lo hace.",
     "thumbnail": "https://img.youtube.com/vi/6YoVDp5Jeqs/maxresdefault.jpg",
-    "episodeNum": 4
+    "episodeNum": 4,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "ve0VT8f00fY",
     "title": "Parashat Lej Lejá Estudiemos",
     "youtubeId": "ve0VT8f00fY",
-    "duration": 500,
+    "duration": 358,
     "views": 425,
     "category": "PARASHOT",
     "subcategory": null,
@@ -281,15 +293,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Lej Lejá Estudiemos",
+    "description": "El llamado a salir de lo conocido y confiar en un propósito mayor. Un viaje que transforma identidad y destino.",
     "thumbnail": "https://img.youtube.com/vi/ve0VT8f00fY/maxresdefault.jpg",
-    "episodeNum": 5
+    "episodeNum": 5,
+    "characters": [
+      "Ezra"
+    ]
   },
   {
     "id": "--Z6J-rIgrk",
     "title": "Parashat Vaierá Estudiemos",
     "youtubeId": "--Z6J-rIgrk",
-    "duration": 500,
+    "duration": 380,
     "views": 43,
     "category": "PARASHOT",
     "subcategory": null,
@@ -299,15 +314,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaierá Estudiemos",
+    "description": "Hospitalidad, bondad y momentos decisivos que revelan el verdadero carácter de una persona.",
     "thumbnail": "https://img.youtube.com/vi/--Z6J-rIgrk/maxresdefault.jpg",
-    "episodeNum": 6
+    "episodeNum": 6,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "zkBk1z0u5-Q",
     "title": "Parashat Jaié Saráh Estudiemos",
     "youtubeId": "zkBk1z0u5-Q",
-    "duration": 500,
+    "duration": 365,
     "views": 380,
     "category": "PARASHOT",
     "subcategory": null,
@@ -317,15 +335,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Jaié Saráh Estudiemos",
+    "description": "Historias de continuidad, legado y decisiones que construyen el futuro.",
     "thumbnail": "https://img.youtube.com/vi/zkBk1z0u5-Q/maxresdefault.jpg",
-    "episodeNum": 7
+    "episodeNum": 7,
+    "characters": [
+      "Avraham",
+      "Aharon"
+    ]
   },
   {
     "id": "5GJFMWdIGbo",
     "title": "Parashat Toldot",
     "youtubeId": "5GJFMWdIGbo",
-    "duration": 500,
+    "duration": 390,
     "views": 445,
     "category": "PARASHOT",
     "subcategory": null,
@@ -335,15 +357,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Toldot",
+    "description": "Dos caminos, dos formas de vivir. Una historia sobre identidad, decisiones y consecuencias.",
     "thumbnail": "https://img.youtube.com/vi/5GJFMWdIGbo/maxresdefault.jpg",
-    "episodeNum": 8
+    "episodeNum": 8,
+    "characters": [
+      "Yosef",
+      "Benny"
+    ]
   },
   {
     "id": "biWskHeVKpU",
     "title": "Parashat Vaietzé",
     "youtubeId": "biWskHeVKpU",
-    "duration": 500,
+    "duration": 375,
     "views": 942,
     "category": "PARASHOT",
     "subcategory": null,
@@ -353,15 +379,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaietzé",
+    "description": "Un viaje lleno de desafíos que enseña perseverancia, trabajo y crecimiento personal.",
     "thumbnail": "https://img.youtube.com/vi/biWskHeVKpU/maxresdefault.jpg",
-    "episodeNum": 9
+    "episodeNum": 9,
+    "characters": [
+      "Ezra"
+    ]
   },
   {
     "id": "GOfB9q9vb_8",
     "title": "Parashat Vaishlaj",
     "youtubeId": "GOfB9q9vb_8",
-    "duration": 500,
+    "duration": 400,
     "views": 793,
     "category": "PARASHOT",
     "subcategory": null,
@@ -371,15 +400,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaishlaj",
+    "description": "Enfrentar el pasado, reconciliarse y avanzar con una nueva visión.",
     "thumbnail": "https://img.youtube.com/vi/GOfB9q9vb_8/maxresdefault.jpg",
-    "episodeNum": 10
+    "episodeNum": 10,
+    "characters": [
+      "Aharon"
+    ]
   },
   {
     "id": "LeF_n_OXbNo",
     "title": "Parashat Vaieshev",
     "youtubeId": "LeF_n_OXbNo",
-    "duration": 500,
+    "duration": 370,
     "views": 384,
     "category": "PARASHOT",
     "subcategory": null,
@@ -389,15 +421,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaieshev",
+    "description": "Sueños, dificultades y el inicio de una historia que transformará todo.",
     "thumbnail": "https://img.youtube.com/vi/LeF_n_OXbNo/maxresdefault.jpg",
-    "episodeNum": 11
+    "episodeNum": 11,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "C3NQV3plamY",
     "title": "Parashat Miketz",
     "youtubeId": "C3NQV3plamY",
-    "duration": 500,
+    "duration": 385,
     "views": 376,
     "category": "PARASHOT",
     "subcategory": null,
@@ -407,15 +442,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Miketz",
+    "description": "De la oscuridad a la oportunidad. Cuando todo cambia en el momento menos esperado.",
     "thumbnail": "https://img.youtube.com/vi/C3NQV3plamY/maxresdefault.jpg",
-    "episodeNum": 12
+    "episodeNum": 12,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "VfLg8ivtdFU",
     "title": "Parashat Vaigash",
     "youtubeId": "VfLg8ivtdFU",
-    "duration": 500,
+    "duration": 395,
     "views": 688,
     "category": "PARASHOT",
     "subcategory": null,
@@ -425,15 +463,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaigash",
+    "description": "El poder del encuentro, la empatía y la reconciliación familiar.",
     "thumbnail": "https://img.youtube.com/vi/VfLg8ivtdFU/maxresdefault.jpg",
-    "episodeNum": 13
+    "episodeNum": 13,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "WsR2TAyVZoY",
     "title": "Parashat Vaiejí",
     "youtubeId": "WsR2TAyVZoY",
-    "duration": 500,
+    "duration": 360,
     "views": 370,
     "category": "PARASHOT",
     "subcategory": null,
@@ -443,15 +484,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaiejí",
+    "description": "Cierre de una historia llena de aprendizajes, legado y continuidad.",
     "thumbnail": "https://img.youtube.com/vi/WsR2TAyVZoY/maxresdefault.jpg",
-    "episodeNum": 14
+    "episodeNum": 14,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "wWVrrqyVRls",
     "title": "Parashat Shemot",
     "youtubeId": "wWVrrqyVRls",
-    "duration": 500,
+    "duration": 365,
     "views": 684,
     "category": "PARASHOT",
     "subcategory": null,
@@ -461,15 +505,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Shemot",
+    "description": "Un nuevo comienzo en Egipto. El crecimiento del pueblo y el inicio de un periodo que cambiaría su historia.",
     "thumbnail": "https://img.youtube.com/vi/wWVrrqyVRls/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Yosef",
+      "Benny"
+    ]
   },
   {
     "id": "r7fX55dNlqc",
     "title": "Parashat Vaerá",
     "youtubeId": "r7fX55dNlqc",
-    "duration": 500,
+    "duration": 380,
     "views": 4,
     "category": "PARASHOT",
     "subcategory": null,
@@ -479,15 +527,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaerá",
+    "description": "Las primeras señales de cambio aparecen. Una confrontación que empieza a revelar que la realidad puede transformarse.",
     "thumbnail": "https://img.youtube.com/vi/r7fX55dNlqc/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Avraham",
+      "Ezra"
+    ]
   },
   {
     "id": "FAgIYC7KhpU",
     "title": "Parashat Bo",
     "youtubeId": "FAgIYC7KhpU",
-    "duration": 500,
+    "duration": 370,
     "views": 783,
     "category": "PARASHOT",
     "subcategory": null,
@@ -497,15 +549,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Bo",
+    "description": "Momentos decisivos que marcan el camino hacia la libertad. Prepararse para lo que está por venir.",
     "thumbnail": "https://img.youtube.com/vi/FAgIYC7KhpU/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 3,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "AwKQLzKyW5s",
     "title": "Parashat Beshalaj",
     "youtubeId": "AwKQLzKyW5s",
-    "duration": 500,
+    "duration": 390,
     "views": 763,
     "category": "PARASHOT",
     "subcategory": null,
@@ -515,15 +570,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Beshalaj",
+    "description": "Salir no es el final, es el inicio. Un desafío frente al mar que requiere confianza absoluta.",
     "thumbnail": "https://img.youtube.com/vi/AwKQLzKyW5s/maxresdefault.jpg",
-    "episodeNum": 4
+    "episodeNum": 4,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "sHnaggaoroY",
     "title": "Parashat Itró",
     "youtubeId": "sHnaggaoroY",
-    "duration": 500,
+    "duration": 360,
     "views": 956,
     "category": "PARASHOT",
     "subcategory": null,
@@ -533,15 +591,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Itró",
+    "description": "Escuchar, aprender y estructurar. La importancia de recibir guía en el momento correcto.",
     "thumbnail": "https://img.youtube.com/vi/sHnaggaoroY/maxresdefault.jpg",
-    "episodeNum": 5
+    "episodeNum": 5,
+    "characters": [
+      "Ezra"
+    ]
   },
   {
     "id": "8UBu-rCS5sA",
     "title": "Parashat Mishpatim",
     "youtubeId": "8UBu-rCS5sA",
-    "duration": 500,
+    "duration": 385,
     "views": 390,
     "category": "PARASHOT",
     "subcategory": null,
@@ -551,15 +612,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Mishpatim",
+    "description": "Las reglas que construyen una sociedad. Cómo los detalles definen la convivencia.",
     "thumbnail": "https://img.youtube.com/vi/8UBu-rCS5sA/maxresdefault.jpg",
-    "episodeNum": 6
+    "episodeNum": 6,
+    "characters": [
+      "Aharon"
+    ]
   },
   {
     "id": "VdY9Giv2laY",
     "title": "Parashat Terumáh",
     "youtubeId": "VdY9Giv2laY",
-    "duration": 500,
+    "duration": 370,
     "views": 592,
     "category": "PARASHOT",
     "subcategory": null,
@@ -569,15 +633,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Terumáh",
+    "description": "Dar con intención. La construcción de algo más grande comienza con pequeñas aportaciones.",
     "thumbnail": "https://img.youtube.com/vi/VdY9Giv2laY/maxresdefault.jpg",
-    "episodeNum": 7
+    "episodeNum": 7,
+    "characters": [
+      "Benny"
+    ]
   },
   {
     "id": "g2akTy5BB0Q",
     "title": "Parashat Tetzavé",
     "youtubeId": "g2akTy5BB0Q",
-    "duration": 500,
+    "duration": 375,
     "views": 771,
     "category": "PARASHOT",
     "subcategory": null,
@@ -587,15 +654,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Tetzavé",
+    "description": "El detalle, el orden y la constancia en lo que se construye día a día.",
     "thumbnail": "https://img.youtube.com/vi/g2akTy5BB0Q/maxresdefault.jpg",
-    "episodeNum": 8
+    "episodeNum": 8,
+    "characters": [
+      "Aharon"
+    ]
   },
   {
     "id": "Bd4lU_MYILU",
     "title": "Parashat Ki Tisá",
     "youtubeId": "Bd4lU_MYILU",
-    "duration": 500,
+    "duration": 395,
     "views": 801,
     "category": "PARASHOT",
     "subcategory": null,
@@ -605,15 +675,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Ki Tisá",
+    "description": "Un momento de crisis y la importancia de saber reconstruir después de caer.",
     "thumbnail": "https://img.youtube.com/vi/Bd4lU_MYILU/maxresdefault.jpg",
-    "episodeNum": 9
+    "episodeNum": 9,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "DfeuzcRBfto",
     "title": "Parashat Vayakel",
     "youtubeId": "DfeuzcRBfto",
-    "duration": 500,
+    "duration": 365,
     "views": 528,
     "category": "PARASHOT",
     "subcategory": null,
@@ -623,15 +696,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vayakel",
+    "description": "Cuando todos participan, algo extraordinario sucede. La fuerza de la comunidad.",
     "thumbnail": "https://img.youtube.com/vi/DfeuzcRBfto/maxresdefault.jpg",
-    "episodeNum": 10
+    "episodeNum": 10,
+    "characters": [
+      "Benny",
+      "Ezra"
+    ]
   },
   {
     "id": "yk8hXQzolOM",
     "title": "Parashat Pekudéi",
     "youtubeId": "yk8hXQzolOM",
-    "duration": 500,
+    "duration": 360,
     "views": 965,
     "category": "PARASHOT",
     "subcategory": null,
@@ -641,15 +718,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Pekudéi",
+    "description": "El cierre de un proceso. Orden, balance y la satisfacción de ver algo terminado.",
     "thumbnail": "https://img.youtube.com/vi/yk8hXQzolOM/maxresdefault.jpg",
-    "episodeNum": 11
+    "episodeNum": 11,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "NwwUrSSDRvQ",
     "title": "Parashat Vaikrá",
     "youtubeId": "NwwUrSSDRvQ",
-    "duration": 500,
+    "duration": 360,
     "views": 294,
     "category": "PARASHOT",
     "subcategory": null,
@@ -659,15 +739,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Vaikrá",
+    "description": "Un llamado que invita a acercarse. Entender que la conexión comienza con la intención.",
     "thumbnail": "https://img.youtube.com/vi/NwwUrSSDRvQ/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Avraham",
+      "Ezra"
+    ]
   },
   {
     "id": "1mDsNbou-Eg",
     "title": "Parashat Tzav",
     "youtubeId": "1mDsNbou-Eg",
-    "duration": 500,
+    "duration": 370,
     "views": 646,
     "category": "PARASHOT",
     "subcategory": null,
@@ -677,15 +761,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Tzav",
+    "description": "La constancia en las acciones transforma lo cotidiano en algo significativo.",
     "thumbnail": "https://img.youtube.com/vi/1mDsNbou-Eg/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Aharon"
+    ]
   },
   {
     "id": "9Nhcw27C7fU",
     "title": "Parashat Sheminí",
     "youtubeId": "9Nhcw27C7fU",
-    "duration": 500,
+    "duration": 380,
     "views": 7,
     "category": "PARASHOT",
     "subcategory": null,
@@ -695,15 +782,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Sheminí",
+    "description": "Momentos de intensidad que enseñan la importancia del equilibrio y la responsabilidad.",
     "thumbnail": "https://img.youtube.com/vi/9Nhcw27C7fU/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 3,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "cUGfwEKJB_w",
     "title": "Parashat Tazría-Metzorá",
     "youtubeId": "cUGfwEKJB_w",
-    "duration": 500,
+    "duration": 365,
     "views": 273,
     "category": "PARASHOT",
     "subcategory": null,
@@ -713,15 +803,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Tazría-Metzorá",
+    "description": "El inicio de nuevos procesos y la importancia de lo que ocurre desde el principio.",
     "thumbnail": "https://img.youtube.com/vi/cUGfwEKJB_w/maxresdefault.jpg",
-    "episodeNum": 4
+    "episodeNum": 4,
+    "characters": [
+      "Benny"
+    ]
   },
   {
     "id": "-ORflM1R4H4",
     "title": "Parashat Tazria",
     "youtubeId": "-ORflM1R4H4",
-    "duration": 500,
+    "duration": 365,
     "views": 320,
     "category": "PARASHOT",
     "subcategory": null,
@@ -731,15 +824,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Tazria",
+    "description": "El inicio de nuevos procesos y la importancia de lo que ocurre desde el principio.",
     "thumbnail": "https://img.youtube.com/vi/-ORflM1R4H4/maxresdefault.jpg",
-    "episodeNum": 5
+    "episodeNum": 5,
+    "characters": [
+      "Benny"
+    ]
   },
   {
     "id": "7LN0uQYABmU",
     "title": "Parashat Metzora",
     "youtubeId": "7LN0uQYABmU",
-    "duration": 500,
+    "duration": 375,
     "views": 825,
     "category": "PARASHOT",
     "subcategory": null,
@@ -749,9 +845,12 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat Metzora",
+    "description": "Las palabras tienen impacto. Aprender a cuidar lo que decimos y cómo lo decimos.",
     "thumbnail": "https://img.youtube.com/vi/7LN0uQYABmU/maxresdefault.jpg",
-    "episodeNum": 6
+    "episodeNum": 6,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "IhFRnooopPo",
@@ -769,7 +868,10 @@ export const videos = [
     "featured": false,
     "description": "Parsha HaJodesh",
     "thumbnail": "https://img.youtube.com/vi/IhFRnooopPo/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "1XCQgq6Eouo",
@@ -787,7 +889,10 @@ export const videos = [
     "featured": false,
     "description": "Perashá especial Parshá HaJodesh",
     "thumbnail": "https://img.youtube.com/vi/1XCQgq6Eouo/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "ZwxOaHvYZ1Y",
@@ -805,7 +910,10 @@ export const videos = [
     "featured": false,
     "description": "Parsha Pará",
     "thumbnail": "https://img.youtube.com/vi/ZwxOaHvYZ1Y/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 3,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "J_h86yuU4Vo",
@@ -823,7 +931,10 @@ export const videos = [
     "featured": false,
     "description": "Parsha Pará 2",
     "thumbnail": "https://img.youtube.com/vi/J_h86yuU4Vo/maxresdefault.jpg",
-    "episodeNum": 4
+    "episodeNum": 4,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "hccDm7RF-Ls",
@@ -841,7 +952,10 @@ export const videos = [
     "featured": false,
     "description": "Shabat Shekalim",
     "thumbnail": "https://img.youtube.com/vi/hccDm7RF-Ls/maxresdefault.jpg",
-    "episodeNum": 5
+    "episodeNum": 5,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "SlWuko2q-Y0",
@@ -859,7 +973,10 @@ export const videos = [
     "featured": false,
     "description": "Shabat Shekalim 2",
     "thumbnail": "https://img.youtube.com/vi/SlWuko2q-Y0/maxresdefault.jpg",
-    "episodeNum": 6
+    "episodeNum": 6,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "Yja7jteJ3d4",
@@ -877,7 +994,10 @@ export const videos = [
     "featured": false,
     "description": "Shabat Zajor",
     "thumbnail": "https://img.youtube.com/vi/Yja7jteJ3d4/maxresdefault.jpg",
-    "episodeNum": 7
+    "episodeNum": 7,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "LWITMNQEWTo",
@@ -895,13 +1015,16 @@ export const videos = [
     "featured": false,
     "description": "Shabat Zajor 2",
     "thumbnail": "https://img.youtube.com/vi/LWITMNQEWTo/maxresdefault.jpg",
-    "episodeNum": 8
+    "episodeNum": 8,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "5wE1ZTeTOIU",
     "title": "¡La Chispa de Janucá!",
     "youtubeId": "5wE1ZTeTOIU",
-    "duration": 500,
+    "duration": 670,
     "views": 629,
     "category": "FESTIVIDADES",
     "subcategory": null,
@@ -911,7 +1034,7 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¡La Chispa de Janucá!",
+    "description": "Una historia sobre luz, resistencia y esperanza.",
     "thumbnail": "https://img.youtube.com/vi/5wE1ZTeTOIU/maxresdefault.jpg",
     "episodeNum": 1
   },
@@ -919,7 +1042,7 @@ export const videos = [
     "id": "vS3C7F1Okm4",
     "title": "Benny Has a Little Dreidel",
     "youtubeId": "vS3C7F1Okm4",
-    "duration": 500,
+    "duration": 125,
     "views": 846,
     "category": "FESTIVIDADES",
     "subcategory": null,
@@ -929,15 +1052,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Benny Has a Little Dreidel",
+    "description": "Un momento divertido que captura el espíritu de Janucá.",
     "thumbnail": "https://img.youtube.com/vi/vS3C7F1Okm4/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Benny"
+    ]
   },
   {
     "id": "rP9CG-5NV1o",
     "title": "El Milagroso Aceite de Janucá",
     "youtubeId": "rP9CG-5NV1o",
-    "duration": 500,
+    "duration": 300,
     "views": 709,
     "category": "FESTIVIDADES",
     "subcategory": null,
@@ -955,7 +1081,7 @@ export const videos = [
     "id": "Defyt5gOBQo",
     "title": "Hagadá, Puppets y Matzá",
     "youtubeId": "Defyt5gOBQo",
-    "duration": 500,
+    "duration": 1234,
     "views": 434,
     "category": "FESTIVIDADES",
     "subcategory": null,
@@ -965,7 +1091,7 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Hagadá, Puppets y Matzá",
+    "description": "La historia de Pesaj como nunca la has vivido: libertad, identidad y tradición en una experiencia completa.",
     "thumbnail": "https://img.youtube.com/vi/Defyt5gOBQo/maxresdefault.jpg",
     "episodeNum": 1
   },
@@ -1009,7 +1135,7 @@ export const videos = [
     "id": "uQdfLlJ98IQ",
     "title": "Tesoros de Pureza",
     "youtubeId": "uQdfLlJ98IQ",
-    "duration": 500,
+    "duration": 315,
     "views": 747,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1019,15 +1145,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Tesoros de Pureza",
+    "description": "Una aventura inesperada... A veces lo que parece casual… no lo es.",
     "thumbnail": "https://img.youtube.com/vi/uQdfLlJ98IQ/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "pIgwPuIPzPQ",
     "title": "David, el Buen Pastor",
     "youtubeId": "pIgwPuIPzPQ",
-    "duration": 500,
+    "duration": 300,
     "views": 590,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1037,15 +1166,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "David, el Buen Pastor",
+    "description": "Una lección para siempre... Una historia simple con un mensaje que permanece.",
     "thumbnail": "https://img.youtube.com/vi/pIgwPuIPzPQ/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Aharon"
+    ]
   },
   {
     "id": "ntU9gSXIU9w",
     "title": "Todo es para bien",
     "youtubeId": "ntU9gSXIU9w",
-    "duration": 500,
+    "duration": 280,
     "views": 100,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1055,15 +1187,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Todo es para bien",
+    "description": "Una historia que revela cómo incluso lo inesperado tiene un propósito.",
     "thumbnail": "https://img.youtube.com/vi/ntU9gSXIU9w/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 3,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "nvzRK0GQZgk",
     "title": "Un viaje a París",
     "youtubeId": "nvzRK0GQZgk",
-    "duration": 500,
+    "duration": 307,
     "views": 587,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1073,15 +1208,18 @@ export const videos = [
     "seasonNum": 2,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Un viaje a París - ¿Qué hacía un rebe en un casino de París? - Cuento de la parshá Shemot",
+    "description": "A veces, una sola acción puede cambiarlo todo.",
     "thumbnail": "https://img.youtube.com/vi/nvzRK0GQZgk/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "h10wQ1V3yt0",
     "title": "Pies congelados",
     "youtubeId": "h10wQ1V3yt0",
-    "duration": 500,
+    "duration": 346,
     "views": 682,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1091,15 +1229,18 @@ export const videos = [
     "seasonNum": 3,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Pies congelados - Un cuento que enciende el corazón - Cuento de la parasha Ajare(i) mot",
+    "description": "Cada persona tiene una luz… solo necesita descubrirla.",
     "thumbnail": "https://img.youtube.com/vi/h10wQ1V3yt0/maxresdefault.jpg",
-    "episodeNum": 6
+    "episodeNum": 6,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "NLB8leKLO4k",
     "title": "La mitzvá del caballo",
     "youtubeId": "NLB8leKLO4k",
-    "duration": 500,
+    "duration": 346,
     "views": 858,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1109,15 +1250,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "La mitzvá del caballo - ¿Etrog o Caballo?",
+    "description": "Elegir entre lo correcto y lo fácil nunca es sencillo.",
     "thumbnail": "https://img.youtube.com/vi/NLB8leKLO4k/maxresdefault.jpg",
-    "episodeNum": 12
+    "episodeNum": 12,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "MIhXjY5Fo7c",
     "title": "Calor para todos",
     "youtubeId": "MIhXjY5Fo7c",
-    "duration": 500,
+    "duration": 261,
     "views": 166,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1127,15 +1271,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Calor para todos - ¿Noaj fue egoísta? - Cuento de la parashat Noaj",
+    "description": "¿Es suficiente salvarse uno mismo… o hay algo más?",
     "thumbnail": "https://img.youtube.com/vi/MIhXjY5Fo7c/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "cqd6YZU86nM",
     "title": "Estropear las cosas sagradas",
     "youtubeId": "cqd6YZU86nM",
-    "duration": 500,
+    "duration": 367,
     "views": 708,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1145,15 +1292,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Estropear las cosas sagradas - ¿Por qué el Rabino NO quiso rezar? - Cuento de la perashá Bereshit",
+    "description": "No siempre actuar es la respuesta… a veces entender lo es.",
     "thumbnail": "https://img.youtube.com/vi/cqd6YZU86nM/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "Koao7Pp7CwI",
     "title": "Un experto",
     "youtubeId": "3lTeYVz-rvU",
-    "duration": 500,
+    "duration": 315,
     "views": 670,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1163,15 +1313,18 @@ export const videos = [
     "seasonNum": 3,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Un experto - Cuento de la perasha Kedoshim",
+    "description": "El conocimiento no siempre es lo que parece.",
     "thumbnail": "https://img.youtube.com/vi/3lTeYVz-rvU/maxresdefault.jpg",
-    "episodeNum": 7
+    "episodeNum": 7,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "0Fx9rKWegsc",
     "title": "La batalla más difícil",
     "youtubeId": "0Fx9rKWegsc",
-    "duration": 500,
+    "duration": 315,
     "views": 900,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1181,15 +1334,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "La batalla más difícil",
+    "description": "La historia de un diamante verdadero... Un objeto valioso.",
     "thumbnail": "https://img.youtube.com/vi/0Fx9rKWegsc/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Keter"
+    ]
   },
   {
     "id": "aTa3lcWLwQ0",
     "title": "Paréj o Pe-Raj",
     "youtubeId": "aTa3lcWLwQ0",
-    "duration": 500,
+    "duration": 330,
     "views": 765,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1199,15 +1355,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Cómo empezó la esclavitud?",
+    "description": "El inicio del sufrimiento en Egipto y cómo comenzó la esclavitud del pueblo.",
     "thumbnail": "https://img.youtube.com/vi/aTa3lcWLwQ0/maxresdefault.jpg",
-    "episodeNum": 1
+    "episodeNum": 1,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "EuWL4xrCQy0",
     "title": "Coincidencia o Hashgajá",
     "youtubeId": "EuWL4xrCQy0",
-    "duration": 500,
+    "duration": 350,
     "views": 159,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1217,15 +1376,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Cómo una niña de 3 años salvó al pueblo judío?",
+    "description": "Las plagas comienzan a cambiar la historia y mostrar que nada es casualidad. (¿Cómo una niña de 3 años salvó al pueblo judío?)",
     "thumbnail": "https://img.youtube.com/vi/EuWL4xrCQy0/maxresdefault.jpg",
-    "episodeNum": 2
+    "episodeNum": 2,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "FnzQmTU-2jU",
     "title": "¿Juego o Augurio?",
     "youtubeId": "FnzQmTU-2jU",
-    "duration": 500,
+    "duration": 370,
     "views": 58,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1235,15 +1397,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¿Por qué Moshé no podía hablar bien?",
+    "description": "Una noche distinta a todas, llena de significado y preparación para la libertad. (¿Por qué Moshé no podía hablar bien?)",
     "thumbnail": "https://img.youtube.com/vi/FnzQmTU-2jU/maxresdefault.jpg",
-    "episodeNum": 3
+    "episodeNum": 3,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "RzqvBDyrt2g",
     "title": "¿Gezerá o Nes?",
     "youtubeId": "RzqvBDyrt2g",
-    "duration": 500,
+    "duration": 380,
     "views": 272,
     "category": "CUENTOS",
     "subcategory": null,
@@ -1253,15 +1418,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "¡La espada de Faraón se ROMPIÓ!",
+    "description": "El momento decisivo: cruzar hacia lo desconocido y confiar completamente. (¡La espada de Faraón se ROMPIÓ!)",
     "thumbnail": "https://img.youtube.com/vi/RzqvBDyrt2g/maxresdefault.jpg",
-    "episodeNum": 4
+    "episodeNum": 4,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "XCP6sLsrT6Q",
     "title": "Parashá 1 Bereshit - un minuto",
     "youtubeId": "XCP6sLsrT6Q",
-    "duration": 500,
+    "duration": 371,
     "views": 517,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1271,9 +1439,12 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 1 Bereshit - un minuto",
+    "description": "El inicio de todo. La creación del mundo y la enseñanza de que incluso en el comienzo, la misericordia ya estaba presente.",
     "thumbnail": "https://img.youtube.com/vi/XCP6sLsrT6Q/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "oLAULPrPEj8",
@@ -1297,7 +1468,7 @@ export const videos = [
     "id": "hh4ppg7E5yI",
     "title": "Parashat 3 Lej Lejá - un minuto",
     "youtubeId": "hh4ppg7E5yI",
-    "duration": 500,
+    "duration": 358,
     "views": 383,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1307,15 +1478,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat 3 Lej Lejá - un minuto",
+    "description": "El llamado a salir de lo conocido y confiar en un propósito mayor. Un viaje que transforma identidad y destino.",
     "thumbnail": "https://img.youtube.com/vi/hh4ppg7E5yI/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Ezra"
+    ]
   },
   {
     "id": "oGBrpfV6Wug",
     "title": "Parashá 4 Vaierá - un minuto",
     "youtubeId": "oGBrpfV6Wug",
-    "duration": 500,
+    "duration": 380,
     "views": 267,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1325,15 +1499,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 4 Vaierá - un minuto",
+    "description": "Hospitalidad, bondad y momentos decisivos que revelan el verdadero carácter de una persona.",
     "thumbnail": "https://img.youtube.com/vi/oGBrpfV6Wug/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "msarrAETqGI",
     "title": "Parashá 5 Jaié Sará",
     "youtubeId": "msarrAETqGI",
-    "duration": 500,
+    "duration": 365,
     "views": 913,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1343,15 +1520,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 5 Jaié Sará",
+    "description": "Historias de continuidad, legado y decisiones que construyen el futuro.",
     "thumbnail": "https://img.youtube.com/vi/msarrAETqGI/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Avraham",
+      "Aharón"
+    ]
   },
   {
     "id": "-wxWR4UiXXI",
     "title": "Parashá 6 Toldot",
     "youtubeId": "-wxWR4UiXXI",
-    "duration": 500,
+    "duration": 390,
     "views": 236,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1361,15 +1542,19 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 6 Toldot",
+    "description": "Dos caminos, dos formas de vivir. Una historia sobre identidad, decisiones y consecuencias.",
     "thumbnail": "https://img.youtube.com/vi/-wxWR4UiXXI/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef",
+      "Benny"
+    ]
   },
   {
     "id": "Olinh9ZgvYk",
     "title": "Parashá 7 Vaietzé",
     "youtubeId": "Olinh9ZgvYk",
-    "duration": 500,
+    "duration": 375,
     "views": 335,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1379,15 +1564,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 7 Vaietzé",
+    "description": "Un viaje lleno de desafíos que enseña perseverancia, trabajo y crecimiento personal.",
     "thumbnail": "https://img.youtube.com/vi/Olinh9ZgvYk/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Ezra"
+    ]
   },
   {
     "id": "pow5BUl1A5M",
     "title": "Parashá 8 Vaishlaj",
     "youtubeId": "pow5BUl1A5M",
-    "duration": 500,
+    "duration": 400,
     "views": 863,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1397,15 +1585,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 8 Vaishlaj",
+    "description": "Enfrentar el pasado, reconciliarse y avanzar con una nueva visión.",
     "thumbnail": "https://img.youtube.com/vi/pow5BUl1A5M/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Aharón"
+    ]
   },
   {
     "id": "mNPB8ICD0i8",
     "title": "Parashá 9 Vaieshev",
     "youtubeId": "mNPB8ICD0i8",
-    "duration": 500,
+    "duration": 370,
     "views": 58,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1415,15 +1606,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 9 Vaieshev",
+    "description": "Sueños, dificultades y el inicio de una historia que transformará todo.",
     "thumbnail": "https://img.youtube.com/vi/mNPB8ICD0i8/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "upcJnnNbcO8",
     "title": "Parashá 10 Miketz",
     "youtubeId": "upcJnnNbcO8",
-    "duration": 500,
+    "duration": 385,
     "views": 62,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1433,15 +1627,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 10 Miketz",
+    "description": "De la oscuridad a la oportunidad. Cuando todo cambia en el momento menos esperado.",
     "thumbnail": "https://img.youtube.com/vi/upcJnnNbcO8/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "w4GK3pplW_Y",
     "title": "Parashá 11 Vaigash",
     "youtubeId": "w4GK3pplW_Y",
-    "duration": 500,
+    "duration": 395,
     "views": 86,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1451,15 +1648,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 11 Vaigash",
+    "description": "El poder del encuentro, la empatía y la reconciliación familiar.",
     "thumbnail": "https://img.youtube.com/vi/w4GK3pplW_Y/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "p4gsg2bZ3jo",
     "title": "Parashá 12 Vaiejí",
     "youtubeId": "p4gsg2bZ3jo",
-    "duration": 500,
+    "duration": 360,
     "views": 473,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1469,15 +1669,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashá 12 Vaiejí",
+    "description": "Cierre de una historia llena de aprendizajes, legado y continuidad.",
     "thumbnail": "https://img.youtube.com/vi/p4gsg2bZ3jo/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "0ZJUre6RjiY",
     "title": "Parashat 13 Shemot",
     "youtubeId": "0ZJUre6RjiY",
-    "duration": 500,
+    "duration": 365,
     "views": 487,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1487,9 +1690,13 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parashat 13 Shemot",
+    "description": "Un nuevo comienzo en Egipto. El crecimiento del pueblo y el inicio de un periodo que cambiaría su historia.",
     "thumbnail": "https://img.youtube.com/vi/0ZJUre6RjiY/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef",
+      "Benny"
+    ]
   },
   {
     "id": "SDqAXlAfFj4",
@@ -1513,7 +1720,7 @@ export const videos = [
     "id": "IFzPSegUYO4",
     "title": "Parsha en un minuto 15 Bo",
     "youtubeId": "IFzPSegUYO4",
-    "duration": 500,
+    "duration": 370,
     "views": 246,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1523,15 +1730,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 15 Bo",
+    "description": "Momentos decisivos que marcan el camino hacia la libertad. Prepararse para lo que está por venir.",
     "thumbnail": "https://img.youtube.com/vi/IFzPSegUYO4/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Avraham"
+    ]
   },
   {
     "id": "tWHKCkFBjvE",
     "title": "Parsha en un minuto 16 Beshalaj",
     "youtubeId": "tWHKCkFBjvE",
-    "duration": 500,
+    "duration": 390,
     "views": 635,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1541,15 +1751,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 16 Beshalaj",
+    "description": "Salir no es el final, es el inicio. Un desafío frente al mar que requiere confianza absoluta.",
     "thumbnail": "https://img.youtube.com/vi/tWHKCkFBjvE/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "1ieTbEKPlRs",
     "title": "Parsha en un minuto 17 Itró",
     "youtubeId": "1ieTbEKPlRs",
-    "duration": 500,
+    "duration": 360,
     "views": 248,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1559,9 +1772,12 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 17 Itró",
+    "description": "Escuchar, aprender y estructurar. La importancia de recibir guía en el momento correcto.",
     "thumbnail": "https://img.youtube.com/vi/1ieTbEKPlRs/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Ezra"
+    ]
   },
   {
     "id": "SOdBWtfb2hE",
@@ -1639,7 +1855,7 @@ export const videos = [
     "id": "hyr1-ef09HM",
     "title": "Parsha en un minuto 22 Vayakel",
     "youtubeId": "hyr1-ef09HM",
-    "duration": 500,
+    "duration": 365,
     "views": 247,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1649,9 +1865,13 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 22 Vayakel",
+    "description": "Cuando todos participan, algo extraordinario sucede. La fuerza de la comunidad.",
     "thumbnail": "https://img.youtube.com/vi/hyr1-ef09HM/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Benny",
+      "Ezra"
+    ]
   },
   {
     "id": "rqyeTYOTRFM",
@@ -1693,7 +1913,7 @@ export const videos = [
     "id": "uhGShtqf3l0",
     "title": "Parsha en un minuto 25 Tzav",
     "youtubeId": "uhGShtqf3l0",
-    "duration": 500,
+    "duration": 370,
     "views": 347,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1703,15 +1923,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 25 Tzav",
+    "description": "La constancia en las acciones transforma lo cotidiano en algo significativo.",
     "thumbnail": "https://img.youtube.com/vi/uhGShtqf3l0/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Aharón"
+    ]
   },
   {
     "id": "M4RI6h5RxyY",
     "title": "Parsha en un minuto 26 Sheminí",
     "youtubeId": "M4RI6h5RxyY",
-    "duration": 500,
+    "duration": 380,
     "views": 270,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1721,15 +1944,18 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 26 Sheminí",
+    "description": "Momentos de intensidad que enseñan la importancia del equilibrio y la responsabilidad.",
     "thumbnail": "https://img.youtube.com/vi/M4RI6h5RxyY/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "MwNi34vieEQ",
     "title": "Parsha en un minuto 26 Sheminí resubido",
     "youtubeId": "MwNi34vieEQ",
-    "duration": 500,
+    "duration": 380,
     "views": 397,
     "category": "PARASHOT",
     "subcategory": null,
@@ -1739,9 +1965,12 @@ export const videos = [
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
     "featured": false,
-    "description": "Parsha en un minuto 26 Sheminí resubido",
+    "description": "Momentos de intensidad que enseñan la importancia del equilibrio y la responsabilidad.",
     "thumbnail": "https://img.youtube.com/vi/MwNi34vieEQ/maxresdefault.jpg",
-    "episodeNum": null
+    "episodeNum": null,
+    "characters": [
+      "Yosef"
+    ]
   },
   {
     "id": "u5Xln4-oUMw",
@@ -1925,32 +2154,32 @@ export const videos = [
   }
 ];
 
-export const getSeriesByCategory = (categoryId: string) => {
-  return seriesData.filter(s => s.categoryId === categoryId);
+export const getVideoById = (id: string | null) => {
+  if (!id) return undefined;
+  return videos.find(v => v.id === id);
 };
 
-export const getSeriesById = (seriesId: string) => {
-  return seriesData.find(s => s.id === seriesId);
-};
-
-export const getVideosBySeries = (seriesId: string) => {
-  return videos.filter(v => v.seriesId === seriesId);
+export const getSeriesById = (id: string | null) => {
+  if (!id) return undefined;
+  return seriesData.find(s => s.id === id);
 };
 
 export const getVideosByCategory = (categoryId: string) => {
   return videos.filter(v => v.category === categoryId);
 };
 
-export const getVideoById = (id: string | null) => {
-  if (!id) return null;
-  return videos.find(v => v.id === id) || videos.find(v => v.youtubeId === id) || null;
-};
-
-export const getShortVideos = () => {
-  const shorts = videos.filter(v => v.isShort);
-  return shorts.sort(() => Math.random() - 0.5);
+export const getVideosBySeries = (seriesId: string) => {
+  return videos.filter(v => v.seriesId === seriesId);
 };
 
 export const getFeaturedVideos = () => {
-  return videos.filter(v => v.featured).slice(0, 5);
+  return videos.filter(v => v.featured);
+};
+
+export const getShortVideos = () => {
+  return videos.filter(v => v.isShort);
+};
+
+export const getSeriesByCategory = (categoryId: string) => {
+  return seriesData.filter(s => s.categoryId === categoryId);
 };

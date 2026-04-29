@@ -124,7 +124,7 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
                   <span className="block text-[10px] sm:text-xs uppercase tracking-[0.15em] opacity-60">
                     Elenco:
                   </span>
-                  <p className="text-white/90 font-medium text-sm">Yosef, Benny, Aharón, Keter, Dr. Avraham</p>
+                  <p className="text-white/90 font-medium text-sm">{video.characters?.join(', ') || 'Elenco completo'}</p>
                 </div>
                 <div className="space-y-1.5">
                   <span className="block text-[10px] sm:text-xs uppercase tracking-[0.15em] opacity-60">
