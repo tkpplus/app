@@ -17,6 +17,29 @@ export function Navbar() {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // Global keyboard shortcut: Ctrl+K / Cmd+K or "/" to trigger search anywhere
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <>
       <nav className="sticky top-0 z-50 w-full border-b border-border bg-surface/80 backdrop-blur-md">
@@ -55,7 +78,7 @@ export function Navbar() {
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <button 
                 onClick={toggleShabbatMode}
                 className={`text-text-muted transition-colors p-2 hover:scale-110 transform flex items-center gap-2 ${isShabbatMode ? 'text-primary' : 'hover:text-primary'}`}
@@ -66,9 +89,13 @@ export function Navbar() {
               
               <button 
                 onClick={() => setIsSearchOpen(true)}
-                className="text-text-muted hover:text-primary transition-colors p-2 hover:scale-110 transform"
+                className="flex items-center gap-2 text-text-muted hover:text-primary transition-all p-2 rounded-lg hover:bg-white/5"
+                title="Buscar contenido (Ctrl+K o /)"
               >
                 <Search className="h-5 w-5" />
+                <span className="hidden sm:inline-flex items-center gap-1 text-[11px] bg-white/10 text-white/60 px-1.5 py-0.5 rounded font-mono border border-white/10">
+                  ⌘K
+                </span>
               </button>
               
               <button 
@@ -85,6 +112,17 @@ export function Navbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-surface/95 border-b border-border animate-fade-in pb-4 px-4 pt-2 shadow-2xl backdrop-blur-xl">
             <div className="flex flex-col space-y-2">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsSearchOpen(true);
+                }}
+                className="flex items-center gap-3 px-3 py-3 rounded-lg text-base font-semibold text-primary bg-primary/10 border border-primary/20 transition-colors text-left mb-1"
+              >
+                <Search className="h-5 w-5" />
+                <span>Buscar series, parashot...</span>
+              </button>
+
               <Link onClick={() => setIsMobileMenuOpen(false)} to="/" className="px-3 py-3 rounded-md text-base font-medium text-text-main hover:bg-white/10 transition-colors">
                 Inicio
               </Link>

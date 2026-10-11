@@ -1,16 +1,20 @@
-# 🦁 Torah Kids Puppets +
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-¡Bienvenidos al Streaming oficial de **Torah Kids Puppets**!
+# Run and deploy your AI Studio app
 
-Este es un sitio web educativo diseñado para poder disfrutar del streaming que hemos preparado especialmente para los niños, donde pueden aprender sobre la Torá, las fiestas judías y valores importantes a través de videos y personajes divertidos como Yosef y Benny.
+This contains everything you need to run your app locally.
 
-## 🚀 Tecnologías
+View your app in AI Studio: https://ai.studio/apps/dfc5eac5-eb0a-4dd1-a703-9fba5f1b27fe
 
-Este proyecto está construido con tecnología moderna y rápida:
-- **React**: Para la interfaz interactiva.
-- **TypeScript**: Para un código seguro y robusto.
-- **Tailwind CSS**: Para un diseño hermoso y responsivo.
-- **Vite**: Para un desarrollo y construcción ultrarrápidos.
+## Run Locally
 
----
-Hecho con ❤️ para la educación judía.
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import { PlayCircle } from 'lucide-react';
+import { PlayCircle, Lock } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 import { getVideoById } from '../../data/seed';
 import { is4KVideo } from '../../utils/videoHelpers';
+import { getVideoProgress, PROGRESS_EVENT } from '../../hooks/useVideoProgress';
 import { useState, useRef, useEffect } from 'react';
+import { useToast } from '../ui/Toast';
 
 interface VideoCardProps {
   id: string;
@@ -36,12 +38,48 @@ export function VideoCard({
 }: VideoCardProps) {
   const videoData = getVideoById(id);
   const youtubeId = videoData?.youtubeId || id;
+  const isLocked = Boolean(videoData?.isLocked);
+  const { addToast } = useToast();
   
   const [isHoverPlaying, setIsHoverPlaying] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const [effectiveProgress, setEffectiveProgress] = useState<number | undefined>(progressPercentage);
+  const [effectiveCompleted, setEffectiveCompleted] = useState<boolean | undefined>(isCompleted);
+
+  useEffect(() => {
+    if (progressPercentage !== undefined) {
+      setEffectiveProgress(progressPercentage);
+      setEffectiveCompleted(isCompleted);
+      return;
+    }
+
+    const checkProgress = () => {
+      const record = getVideoProgress(id);
+      if (record) {
+        setEffectiveProgress(record.percentage);
+        setEffectiveCompleted(record.completed);
+      } else {
+        setEffectiveProgress(undefined);
+        setEffectiveCompleted(undefined);
+      }
+    };
+
+    checkProgress();
+
+    const handleUpdate = (e: Event) => {
+      const custom = e as CustomEvent;
+      if (!custom.detail?.episodeId || custom.detail?.episodeId === id || custom.detail?.cleared) {
+        checkProgress();
+      }
+    };
+
+    window.addEventListener(PROGRESS_EVENT, handleUpdate);
+    return () => window.removeEventListener(PROGRESS_EVENT, handleUpdate);
+  }, [id, progressPercentage, isCompleted]);
+
   const handleMouseEnter = () => {
-    if (isActive) return;
+    if (isActive || isLocked || !videoData?.youtubeId) return;
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHoverPlaying(true);
     }, 600); // 600ms delay before preview starts
@@ -76,9 +114,13 @@ export function VideoCard({
 
   return (
     <Link 
-      to={`/watch/${id}`} 
+      to={isLocked ? '#' : `/watch/${id}`} 
       onClick={(e) => {
         if (isActive) e.preventDefault();
+        if (isLocked) {
+          e.preventDefault();
+          addToast(`"${title}" se encuentra en fase de producción. ¡Muy pronto disponible!`, 'info');
+        }
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -87,7 +129,7 @@ export function VideoCard({
       {/* Thumbnail Container */}
       <div className={`relative aspect-video w-full overflow-hidden rounded-xl cursor-pointer transition-all duration-400 ease-out transform ${isActive ? 'ring-2 ring-primary scale-[1.02] shadow-[0_0_20px_rgba(245,196,99,0.3)]' : 'bg-surface border border-white/5 group-hover:scale-105 group-hover:-translate-y-1 group-hover:shadow-[0_15px_40px_rgba(0,0,0,0.5)] group-hover:border-white/20 group-hover:z-50'}`}>
         
-        {isHoverPlaying ? (
+        {isHoverPlaying && !isLocked ? (
           <iframe
             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&modestbranding=1&loop=1&playlist=${youtubeId}&iv_load_policy=3&disablekb=1&fs=0&playsinline=1`}
             className="absolute inset-0 w-full h-full object-cover pointer-events-none scale-150 transform transition-opacity duration-500 z-0"
@@ -98,20 +140,37 @@ export function VideoCard({
           <img
             src={thumbnail}
             alt={title}
-            className={`h-full w-full object-cover transition-opacity duration-300 ${isActive ? 'opacity-40' : 'group-hover:opacity-40'}`}
+            className={`h-full w-full object-cover transition-opacity duration-300 ${isLocked ? 'opacity-50 grayscale-[30%]' : (isActive ? 'opacity-40' : 'group-hover:opacity-40')}`}
             loading="lazy"
           />
+        )}
+
+        {isLocked && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/55 backdrop-blur-[1px] z-10 pointer-events-none">
+            <div className="w-9 h-9 rounded-full border border-amber-400/50 flex items-center justify-center bg-black/70 text-amber-400 shadow-lg mb-1">
+              <Lock className="h-4.5 w-4.5" />
+            </div>
+            <span className="text-[9px] font-bold text-white/90 uppercase tracking-wider px-2 py-0.5 rounded bg-black/70 border border-white/10">
+              En producción
+            </span>
+          </div>
         )}
         
         {/* Badges on Top */}
         <div className={`absolute top-2 left-2 flex gap-2 z-10 transition-opacity ${isActive ? 'opacity-100' : 'opacity-100 group-hover:opacity-0'}`}>
           {isActive && <Badge variant="default" className="shadow-md bg-primary text-black font-bold">Estás viendo</Badge>}
-          {isNew && !isCompleted && !isActive && <Badge variant="new" className="shadow-md">Nuevo</Badge>}
-          {isCompleted && !isActive && <Badge variant="default" className="shadow-md bg-green-500 hover:bg-green-600">Visto</Badge>}
+          {isLocked && (
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30 backdrop-blur-sm">
+              <Lock className="w-2.5 h-2.5" />
+              En producción
+            </span>
+          )}
+          {!isLocked && isNew && !effectiveCompleted && !isActive && <Badge variant="new" className="shadow-md">Nuevo</Badge>}
+          {!isLocked && effectiveCompleted && !isActive && <Badge variant="default" className="shadow-md bg-green-500 hover:bg-green-600">Visto</Badge>}
         </div>
 
         {/* Regular Duration Badge (Hidden on Hover or Active) */}
-        {!isActive && (
+        {!isActive && !isLocked && (
           <div className="absolute top-2 right-2 opacity-80 group-hover:opacity-0 transition-opacity z-10">
             <div className="bg-black/80 rounded px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm">
               {formatDuration(duration)}
@@ -146,11 +205,11 @@ export function VideoCard({
         </div>
         
         {/* Progress bar */}
-        {progressPercentage !== undefined && progressPercentage > 0 && !isCompleted && !isActive && (
+        {effectiveProgress !== undefined && effectiveProgress > 0 && !effectiveCompleted && !isActive && (
           <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800 z-10 group-hover:hidden">
              <div 
                className="h-full bg-red-600" 
-               style={{ width: `${Math.min(Math.max(progressPercentage * 100, 0), 100)}%` }} 
+               style={{ width: `${Math.min(Math.max(effectiveProgress * 100, 0), 100)}%` }} 
              />
           </div>
         )}

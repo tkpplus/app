@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Fredoka:wght@600;700&display=swap');
 @import "tailwindcss";
+@import "plyr/dist/plyr.css";
 
 @theme {
   --color-primary: #F5C463;
@@ -67,3 +68,136 @@ h1, h2, h3, .font-display {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* =========================================================================
+   Plyr.io Custom Theme: Clean YouTube Player & Kontrols
+   ========================================================================= */
+:root {
+  --plyr-color-main: #F5C463;
+  --plyr-video-control-color: #FFFFFF;
+  --plyr-video-control-color-hover: #F5C463;
+  --plyr-video-control-background-hover: rgba(245, 196, 99, 0.25);
+  --plyr-video-controls-background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(10, 10, 10, 0.8) 50%, rgba(10, 10, 10, 0.98) 100%);
+  --plyr-range-thumb-background: #F5C463;
+  --plyr-range-thumb-active-shadow-color: rgba(245, 196, 99, 0.5);
+  --plyr-range-track-height: 5px;
+  --plyr-range-thumb-height: 14px;
+  --plyr-control-radius: 8px;
+  --plyr-control-spacing: 12px;
+  --plyr-tooltip-background: rgba(18, 18, 18, 0.95);
+  --plyr-tooltip-color: #FFFFFF;
+  --plyr-tooltip-radius: 6px;
+  --plyr-video-progress-buffered-background: rgba(255, 255, 255, 0.25);
+  --plyr-font-family: var(--font-sans);
+}
+
+.plyr--video {
+  border-radius: 1rem;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+}
+
+.plyr__controls {
+  padding: 16px 20px !important;
+  gap: 8px;
+  /* Removed harsh backdrop-filter to prevent horizontal blur lines cutting across the video */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.plyr__control--overlaid {
+  background: rgba(245, 196, 99, 0.95) !important;
+  color: #0A0A0A !important;
+  border-radius: 9999px !important;
+  padding: 22px !important;
+  box-shadow: 0 10px 30px -5px rgba(245, 196, 99, 0.45) !important;
+  /* Maintain translate(-50%, -50%) so the circle stays dead center and never runs away on hover */
+  transform: translate(-50%, -50%) scale(1) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.plyr__control--overlaid:hover {
+  background: #F5C463 !important;
+  transform: translate(-50%, -50%) scale(1.08) !important;
+  box-shadow: 0 12px 35px -3px rgba(245, 196, 99, 0.65) !important;
+}
+
+.plyr__control--overlaid svg {
+  fill: #0A0A0A !important;
+  stroke: #0A0A0A !important;
+}
+
+/* Force disable automatic captions display */
+.plyr__captions,
+.ytp-caption-window-bottom,
+.caption-window {
+  display: none !important;
+}
+
+.plyr__menu__container {
+  background: rgba(18, 18, 18, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(16px) !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.8) !important;
+}
+
+.plyr__menu__container [role='menuitemradio'][aria-checked='true']::before {
+  background: #F5C463 !important;
+}
+
+/* Reproductor Vertical (Parashot Especiales Shorts 9:16) */
+.vertical-player-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background-color: #000 !important;
+}
+
+.vertical-player-wrapper .plyr,
+.vertical-player-wrapper .plyr--video,
+.vertical-player-wrapper .plyr__video-wrapper {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #000 !important;
+  overflow: hidden !important;
+}
+
+.vertical-player-wrapper .plyr__video-embed {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding-bottom: 0 !important;
+  aspect-ratio: auto !important;
+  overflow: hidden !important;
+}
+
+.vertical-player-wrapper .plyr__video-embed > .plyr__video-embed__container {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding-bottom: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+
+.vertical-player-wrapper .plyr__video-embed iframe {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  border: 0 !important;
+}
+

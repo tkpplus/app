@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
+const PlayerComponent = ReactPlayer as any;
 import { getShortVideos } from '../data/seed';
 import { Heart, Share2, MessageCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
@@ -75,7 +76,7 @@ export function Shorts() {
 
             <div className="relative z-10 w-full h-full flex items-center justify-center cursor-pointer" onClick={togglePlayPause}>
               {Math.abs(activeIndex - index) <= 1 ? ( // Only render current, prev, next
-                <ReactPlayer
+                <PlayerComponent
                   url={`https://www.youtube.com/watch?v=${video.youtubeId || video.id}`}
                   width="100%"
                   height="100%"
@@ -94,7 +95,7 @@ export function Shorts() {
                         playsinline: 1,
                         mute: isMuted ? 1 : 0
                       }
-                    }
+                    } as any
                   }}
                   style={{
                     position: 'absolute',

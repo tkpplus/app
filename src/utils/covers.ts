@@ -1,4 +1,4 @@
-export const coverModules = import.meta.glob('/src/assets/series-covers/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
+export const coverModules = ((import.meta as any).glob?.('/src/assets/series-covers/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' })) || {};
 
 export function getSeriesCover(id: string, defaultThumbnail: string): string {
   const matched = Object.entries(coverModules)

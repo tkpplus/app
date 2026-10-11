@@ -113,7 +113,11 @@ export function FeaturedInfoModal({ isOpen, onClose, video }: FeaturedInfoModalP
                   <span className="border border-white/20 px-1.5 py-0.5 rounded text-white/60 text-[10px] sm:text-xs">
                     {is4KVideo(video) ? '4K' : 'HD'}
                   </span>
-                  <span className="text-white/60">{Math.floor(video.duration ? video.duration / 60 : 20)}:34 min</span>
+                  <span className="text-white/60">
+                    {video.duration 
+                      ? `${Math.floor(video.duration / 60)}:${(video.duration % 60).toString().padStart(2, '0')} min` 
+                      : '20 min'}
+                  </span>
                 </div>
                 <p className="font-medium text-white/90 text-base sm:text-lg md:text-xl leading-relaxed">
                   {video.description || 'Sin descripción disponible.'}

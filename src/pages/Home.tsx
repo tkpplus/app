@@ -51,6 +51,9 @@ const paraLaMesa = [...videos]
   .filter(v => v.category === 'CUENTOS')
   .slice(0, 6);
 
+const relatosAvraham = [...videos]
+  .filter(v => v.seriesId === 'relatos-avraham');
+
 return (
   <div className="relative flex flex-col pb-16 bg-background min-h-screen">
     <div className="absolute top-0 left-0 right-0 w-full h-[80vh] md:h-[100vh] z-[-1] overflow-hidden pointer-events-none">
@@ -97,6 +100,12 @@ return (
           </div>
 
           <div className="animate-in slide-in-from-bottom-8 duration-700 delay-150 fill-mode-both">
+            {relatosAvraham.length > 0 && (
+              <VideoCarousel 
+                title="📖 Relatos de Avraham (Parashá semanal)" 
+                videos={relatosAvraham} 
+              />
+            )}
             {recomendadosEstaSemana.length > 0 && (
               <VideoCarousel 
                 title="🎬 Recomendado esta semana" 

@@ -9,7 +9,16 @@ export const db = {
       if (options?.where) {
         Object.entries(options.where).forEach(([key, value]) => {
           if (value !== undefined) {
-             result = result.filter(v => (v as any)[key] === value);
+             result = result.filter(v => {
+               if ((v as any)[key] === value) return true;
+               if (key === 'seriesId' && value === 'pesaj') {
+                 return v.seriesId === 'sipurei-pesaj' || (v as any).relatedFestivity === 'pesaj' || (v as any).secondarySeriesIds?.includes('pesaj');
+               }
+               if (key === 'seriesId' && (v as any).secondarySeriesIds?.includes(value)) {
+                 return true;
+               }
+               return false;
+             });
           }
         });
       }
