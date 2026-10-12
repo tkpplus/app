@@ -1,127 +1,123 @@
-import { getVideosBySeries } from '../data/seed';
-
-// Helper to safely extract URL string from Vite module import or string
-function resolveModuleUrl(mod: any): string {
+function resolveModuleUrl(mod: unknown): string {
   if (!mod) return '';
   if (typeof mod === 'string') return mod;
-  if (typeof mod === 'object' && typeof mod.default === 'string') return mod.default;
-  return String(mod || '');
+  if (typeof mod === 'object' && mod !== null && 'default' in mod && typeof (mod as { default?: string }).default === 'string') {
+    return (mod as { default: string }).default;
+  }
+  return String(mod ?? '');
 }
 
-// Import all files from src/assets/series-covers - RUTA CORREGIDA
-export const coverModules: Record<string, any> = 
-  (import.meta as any).glob?.('../assets/series-covers/*.{jpg,jpeg,png}', { eager: true }) || {};
+// Vite asset import map for src/assets/series-covers.
+// We intentionally import every file under the folder and normalize names later,
+// because the filenames are mixed-case and include underscores/number suffixes.
+export const coverModules: Record<string, string> = Object.fromEntries(
+  Object.entries(import.meta.glob('../assets/series-covers/*', { eager: true, import: 'default' })).map(([key, value]) => [key, resolveModuleUrl(value)])
+) as Record<string, string>;
 
-// Find basic.jpg URL bundled asset
-export const BASIC_COVER: string = (() => {
-  const basicEntry = Object.entries(coverModules).find(([path]) => path.toLowerCase().includes('basic.jpg'));
-  if (basicEntry) {
-    const url = resolveModuleUrl(basicEntry[1]);
-    if (url) return url;
-  }
-  return '/assets/series-covers/basic.jpg';
-})();
+function normalizeCoverName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\.[^.]+$/, '')
+    .replace(/[_-]+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
+export const BASIC_COVER: string =
+  Object.entries(coverModules).find(([filePath]) => /basic\.(jpg|jpeg|png)$/i.test(filePath))?.[1] ??
+  '/assets/series-covers/basic.jpg';
 
 const ID_ALIASES: Record<string, string[]> = {
-  // Parashot
   bereshit: ['bereshit'],
   shemot: ['shemot'],
   vaikra: ['vaikra'],
   bamidbar: ['bamidbar'],
   devarim: ['devarim'],
-  especiales: ['parashot-especiales', 'especiales', 'perashot-especiales'],
-  'parashot-especiales': ['parashot-especiales', 'especiales', 'perashot-especiales'],
-  'parasha-en-un-minuto': ['parashot-especiales', 'especiales', 'perashot-especiales'],
+  especiales: ['parashot-especiales', 'especiales'],
+  'parashot-especiales': ['parashot-especiales', 'especiales'],
+  'parasha-en-un-minuto': ['parashot-especiales', 'especiales'],
 
-  // Festividades
-  'rosh-hashana': ['rosh-hashana', 'rosh_hashana'],
-  'yom-kipur': ['yom-kipur', 'yom_kipur'],
+  'rosh-hashana': ['rosh-hashana'],
+  'yom-kipur': ['yom-kipur'],
   sucot: ['sucot'],
   januca: ['januca'],
-  'tu-bishvat': ['tu-bishvat', 'tu_bishvat'],
+  'tu-bishvat': ['tu-bishvat'],
   purim: ['purim'],
   pesaj: ['pesaj'],
-  'lag-baomer': ['lag-baomer', 'lag_baomer'],
+  'lag-baomer': ['lag-baomer'],
   shabuot: ['shavuot', 'shabuot'],
   shavuot: ['shavuot', 'shabuot'],
-  'tisha-beav': ['tisha-beav', 'tisha_beav'],
+  'tisha-beav': ['tisha-beav'],
   shabat: ['shabat'],
 
-  // Cuentos
-  'cuentos-tradicion': ['cuentos-tradicion', 'cuentos_tradicion'],
-  'cuentos-perasha': ['cuentos-perasha', 'cuentos-parasha', 'cuentos_perasha', 'cuentos_parasha'],
-  'cuentos-jag': ['cuentos-jag', 'cuentos_jag'],
-  'sipurei-pesaj': ['sipurei-pesaj', 'sipurei_pesaj'],
+  'cuentos-tradicion': ['cuentos-tradicion'],
+  'cuentos-perasha': ['cuentos-perasha', 'cuentos-parasha'],
+  'cuentos-jag': ['cuentos-jag'],
+  'sipurei-pesaj': ['sipurei-pesaj'],
 
-  // Relatos
-  'relatos-avraham': ['relatos-avraham', 'relatos_avraham', 'avraham'],
+  'relatos-avraham': ['relatos-avraham'],
 };
 
 export function getSeriesCover(id: string, defaultThumbnail?: string): string {
   if (!id) return BASIC_COVER;
+
   const cleanId = id.toLowerCase().trim();
   const validPrefixes = ID_ALIASES[cleanId] || [cleanId];
+  const normalizedPrefixes = validPrefixes.map(normalizeCoverName);
 
-  const rawMatched = Object.entries(coverModules)
-    .filter(([filePath]) => {
-      const filename = filePath.split('/').pop()?.toLowerCase() || '';
-      if (filename === 'basic.jpg') return false;
-      
-      const baseName = filename.substring(0, filename.lastIndexOf('.')) || filename;
-      
-      return validPrefixes.some(prefix => 
-        baseName === prefix || 
-        baseName.startsWith(prefix + '_') || 
-        baseName.startsWith(prefix + '-')
-      );
-    })
-    .map(([_, mod]) => resolveModuleUrl(mod))
-    .filter(url => Boolean(url) && url.length > 0 && !url.includes('[object Object]'));
+  const matched = Array.from(
+    new Set(
+      Object.entries(coverModules)
+        .filter(([filePath]) => {
+          const filename = filePath.split('/').pop() ?? '';
+          if (/basic\.(jpg|jpeg|png)$/i.test(filename)) return false;
 
-  const matched = Array.from(new Set(rawMatched));
+          const baseName = normalizeCoverName(filename);
+          return normalizedPrefixes.some(prefix =>
+            baseName === prefix ||
+            baseName.startsWith(`${prefix}-`) ||
+            baseName.startsWith(`${prefix}_`)
+          );
+        })
+        .map(([, mod]) => mod)
+        .filter(Boolean)
+    )
+  );
 
   if (matched.length > 0) {
     const storageKey = `series_cover_persisted_${cleanId}`;
-    
-    // Check if a selection is already saved in sessionStorage or localStorage
+
     if (typeof window !== 'undefined') {
       try {
         const savedSession = window.sessionStorage?.getItem(storageKey);
-        if (savedSession && matched.includes(savedSession)) {
-          return savedSession;
-        }
+        if (savedSession && matched.includes(savedSession)) return savedSession;
+
         const savedLocal = window.localStorage?.getItem(storageKey);
-        if (savedLocal && matched.includes(savedLocal)) {
-          return savedLocal;
-        }
-      } catch (e) {
-        // ignore storage errors
+        if (savedLocal && matched.includes(savedLocal)) return savedLocal;
+      } catch {
+        // ignore storage access issues
       }
     }
 
-    // Pick a random cover from matching series-covers
-    const randomIndex = Math.floor(Math.random() * matched.length);
-    const selectedCover = matched[randomIndex];
+    const selectedCover = matched[Math.floor(Math.random() * matched.length)];
 
-    // Store selection so it persists across page refreshes
     if (typeof window !== 'undefined') {
       try {
         window.sessionStorage?.setItem(storageKey, selectedCover);
         window.localStorage?.setItem(storageKey, selectedCover);
-      } catch (e) {
-        // ignore storage errors
+      } catch {
+        // ignore storage access issues
       }
     }
 
     return selectedCover;
   }
 
-  // If defaultThumbnail is provided and is a valid web URL or asset path (not a broken /series/ link)
   if (defaultThumbnail && typeof defaultThumbnail === 'string' && !defaultThumbnail.startsWith('/series/') && !defaultThumbnail.includes('undefined')) {
     return defaultThumbnail;
   }
 
-  // Fallback to basic.jpg
   return BASIC_COVER;
 }
 
@@ -129,9 +125,11 @@ export function getVideoThumbnail(video: any): string {
   if (video?.thumbnail && typeof video.thumbnail === 'string' && video.thumbnail.trim() !== '' && !video.thumbnail.startsWith('/series/') && !video.thumbnail.includes('undefined')) {
     return video.thumbnail;
   }
+
   if (video?.seriesId) {
     const cover = getSeriesCover(video.seriesId);
     if (cover) return cover;
   }
+
   return BASIC_COVER;
 }
