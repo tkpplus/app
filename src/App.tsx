@@ -23,6 +23,7 @@ import { Catalog } from './pages/Catalog';
 import { IntroAnimation } from './components/ui/IntroAnimation';
 import { ShabbatModeProvider } from './context/ShabbatModeContext';
 import { ToastProvider } from './components/ui/Toast';
+import { PlayerProvider } from './context/PlayerContext';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -45,32 +46,32 @@ export default function App() {
     <ToastProvider>
       <ShabbatModeProvider>
         <BrowserRouter>
-          <ScrollToTop />
-          {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
-          <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/watch/:id" element={<Watch />} />
-            <Route path="/shorts" element={<Shorts />} />
-            <Route path="/category/parashot" element={<ParashotIndex />} />
-            <Route path="/parashot/:number" element={<ParashaDetail />} />
-            <Route path="/category/festividades" element={<FestividadesIndex />} />
-            <Route path="/category/cuentos" element={<CuentosIndex />} />
-            <Route path="/series/:slug" element={<SeriesDetail />} />
-            <Route path="/series" element={<FestividadesIndex />} /> {/* Placeholder to prevent 404 */}
-            <Route path="/mi-lista" element={<MyList />} />
-            {/* Default fallback route */}
-            <Route path="*" element={<Home />} />
-          </Route>
-        </Routes>
+          <PlayerProvider>
+            <ScrollToTop />
+            {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
+            <Routes>
+              <Route element={<AppLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/catalog" element={<Catalog />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/watch/:id" element={<Watch />} />
+                <Route path="/shorts" element={<Shorts />} />
+                <Route path="/category/parashot" element={<ParashotIndex />} />
+                <Route path="/parashot/:number" element={<ParashaDetail />} />
+                <Route path="/category/festividades" element={<FestividadesIndex />} />
+                <Route path="/category/cuentos" element={<CuentosIndex />} />
+                <Route path="/series/:slug" element={<SeriesDetail />} />
+                <Route path="/series" element={<FestividadesIndex />} />
+                <Route path="/mi-lista" element={<MyList />} />
+                <Route path="*" element={<Home />} />
+              </Route>
+            </Routes>
+          </PlayerProvider>
         </BrowserRouter>
       </ShabbatModeProvider>
     </ToastProvider>
   );
 }
-

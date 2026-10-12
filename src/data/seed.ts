@@ -67,11 +67,46 @@ export const seriesData = [
     "thumbnail": "/series/vaikra.jpg"
   },
   {
+    "id": "bamidbar",
+    "title": "Bamidbar",
+    "description": "Números - El pueblo en el desierto.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/bamidbar.jpg"
+  },
+  {
+    "id": "devarim",
+    "title": "Devarim",
+    "description": "Deuteronomio - Los discursos finales de Moshé.",
+    "categoryId": "PARASHOT",
+    "thumbnail": "/series/devarim.jpg"
+  },
+  {
     "id": "especiales",
     "title": "Parashot Especiales",
     "description": "Parashot especiales y Shabatot.",
     "categoryId": "PARASHOT",
     "thumbnail": "/series/especiales.jpg"
+  },
+  {
+    "id": "rosh-hashana",
+    "title": "Rosh Hashaná",
+    "description": "El año nuevo judío.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/rosh-hashana.jpg"
+  },
+  {
+    "id": "yom-kipur",
+    "title": "Yom Kipur",
+    "description": "El día del perdón.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/yom-kipur.jpg"
+  },
+  {
+    "id": "sucot",
+    "title": "Sucot",
+    "description": "La fiesta de las cabañas.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/sucot.jpg"
   },
   {
     "id": "januca",
@@ -81,11 +116,46 @@ export const seriesData = [
     "thumbnail": "/series/januca.jpg"
   },
   {
+    "id": "tu-bishvat",
+    "title": "Tu Bishvat",
+    "description": "El año nuevo de los árboles.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/tu-bishvat.jpg"
+  },
+  {
+    "id": "purim",
+    "title": "Purim",
+    "description": "La salvación en Persia.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/purim.jpg"
+  },
+  {
     "id": "pesaj",
     "title": "Pesaj",
     "description": "La salida de Egipto y la libertad.",
     "categoryId": "FESTIVIDADES",
     "thumbnail": "/series/pesaj.jpg"
+  },
+  {
+    "id": "lag-baomer",
+    "title": "Lag Baomer",
+    "description": "La alegría de la Torá oral.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/lag-baomer.jpg"
+  },
+  {
+    "id": "shabuot",
+    "title": "Shabuot",
+    "description": "La entrega de la Torá.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/shabuot.jpg"
+  },
+  {
+    "id": "tisha-beav",
+    "title": "Tisha Beav",
+    "description": "Día de duelo y esperanza.",
+    "categoryId": "FESTIVIDADES",
+    "thumbnail": "/series/tisha-beav.jpg"
   },
   {
     "id": "shabat",
@@ -174,7 +244,7 @@ export const videos = [
     "episodeType": "festividad",
     "seasonNum": 6,
     "publishedAt": "2024-09-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Relatos de Avraham (Especial de Festividades): El Cumpleaños del Mundo. Episodio completo especial de Rosh Hashaná.",
     "thumbnail": "https://img.youtube.com/vi/ya9k0qbBAGY/maxresdefault.jpg",
     "episodeNum": 1,
@@ -199,7 +269,7 @@ export const videos = [
     "episodeType": "corto",
     "seasonNum": 5,
     "publishedAt": "2024-09-20T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Relatos de Avraham (Parashá Vaiélej): El Llanto Compartido. Hashem sufre con nosotros en el exilio.",
     "thumbnail": "https://img.youtube.com/vi/7QysHcE-oXc/maxresdefault.jpg",
     "episodeNum": 4,
@@ -224,7 +294,7 @@ export const videos = [
     "episodeType": "corto",
     "seasonNum": 5,
     "publishedAt": "2024-04-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Relatos de Avraham (Parashá Vaiélej): La Espada del Rey. La parábola del anuncio de la muerte a Moshé.",
     "thumbnail": "https://img.youtube.com/vi/dm2MUfgzDqk/maxresdefault.jpg",
     "episodeNum": 1,
@@ -471,7 +541,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "El inicio de todo. La creación del mundo y la enseñanza de que incluso en el comienzo, la misericordia ya estaba presente.",
     "thumbnail": "https://img.youtube.com/vi/8rAPAkIKRHE/maxresdefault.jpg",
     "episodeNum": 1,
@@ -767,7 +837,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Un nuevo comienzo en Egipto. El crecimiento del pueblo y el inicio de un periodo que cambiaría su historia.",
     "thumbnail": "https://img.youtube.com/vi/wWVrrqyVRls/maxresdefault.jpg",
     "episodeNum": 1,
@@ -1001,7 +1071,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Un llamado que invita a acercarse. Entender que la conexión comienza con la intención.",
     "thumbnail": "https://img.youtube.com/vi/NwwUrSSDRvQ/maxresdefault.jpg",
     "episodeNum": 1,
@@ -1296,7 +1366,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Una historia sobre luz, resistencia y esperanza.",
     "thumbnail": "https://img.youtube.com/vi/5wE1ZTeTOIU/maxresdefault.jpg",
     "episodeNum": 1
@@ -1353,7 +1423,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "La historia de Pesaj como nunca la has vivido: libertad, identidad y tradición en una experiencia completa.",
     "thumbnail": "https://img.youtube.com/vi/Defyt5gOBQo/maxresdefault.jpg",
     "episodeNum": 1
@@ -1389,7 +1459,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Yosef y el Shabat",
     "thumbnail": "https://img.youtube.com/vi/ndf9CmDBHWY/maxresdefault.jpg",
     "episodeNum": 1
@@ -1407,7 +1477,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Una aventura inesperada... A veces lo que parece casual… no lo es.",
     "thumbnail": "https://img.youtube.com/vi/uQdfLlJ98IQ/maxresdefault.jpg",
     "episodeNum": 1,
@@ -1428,7 +1498,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 1,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "Una lección para siempre... Una historia simple con un mensaje que permanece.",
     "thumbnail": "https://img.youtube.com/vi/pIgwPuIPzPQ/maxresdefault.jpg",
     "episodeNum": 2,
@@ -1470,7 +1540,7 @@ export const videos = [
     "parashaNum": null,
     "seasonNum": 2,
     "publishedAt": "2023-01-01T00:00:00.000Z",
-    "featured": false,
+    "featured": true,
     "description": "A veces, una sola acción puede cambiarlo todo.",
     "thumbnail": "https://img.youtube.com/vi/nvzRK0GQZgk/maxresdefault.jpg",
     "episodeNum": 1,
@@ -2739,5 +2809,5 @@ export const getShortVideos = () => {
 };
 
 export const getSeriesByCategory = (categoryId: string) => {
-  return seriesData.filter(s => s.categoryId === categoryId && videos.some(v => v.seriesId === s.id));
+  return seriesData.filter(s => s.categoryId === categoryId);
 };

@@ -1,8 +1,9 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from 'react';
-import { RotateCcw, Play, CheckCircle2, ArrowRight, VolumeX, Clock } from 'lucide-react';
+import { RotateCcw, Play, CheckCircle2, ArrowRight, VolumeX, Clock, PictureInPicture } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Plyr from 'plyr';
 import { WatchNextOverlay } from './WatchNextOverlay';
+import { usePlayer } from '../../context/PlayerContext';
 
 interface VideoPlayerProps {
   video: any;
@@ -44,6 +45,8 @@ export const VideoPlayer = memo(function VideoPlayer({
   const lastSavedTimeRef = useRef<number>(initialProgress || 0);
   const navigate = useNavigate();
 
+  const { playVideo, setCurrentTime, setDuration, setIsPlaying, enablePip } = usePlayer();
+
   // Si el video ya tiene progreso previo (> 5s), NO se reproduce automáticamente
   // y se despliega el menú de opciones (Reanudar o Empezar de nuevo)
   const hasSavedProgress = (initialProgress || 0) > 5;
@@ -57,6 +60,13 @@ export const VideoPlayer = memo(function VideoPlayer({
   const [remainingSeconds, setRemainingSeconds] = useState<number>(10);
   const [dismissedWatchNext, setDismissedWatchNext] = useState<boolean>(false);
   const [autoNavigating, setAutoNavigating] = useState<boolean>(false);
+
+  // Sync with global player context
+  useEffect(() => {
+    if (video) {
+      playVideo(video, nextEpisode, initialProgress);
+    }
+  }, [video, nextEpisode, initialProgress, playVideo]);
 
   // Manejador para navegar al siguiente episodio automáticamente
   const navigateToNextEpisode = useCallback(() => {
@@ -160,8 +170,20 @@ export const VideoPlayer = memo(function VideoPlayer({
         }
       });
 
+      // Handle PiP mode change from Plyr
+      player.on('enterpip', () => {
+        enablePip();
+      });
+
+      player.on('pipchange', () => {
+        if ((player as any).pip) {
+          enablePip();
+        }
+      });
+
       // Si YouTube intenta arrancar solo pero la ventana de opciones de reanudar está abierta, pausar
       player.on('playing', () => {
+        setIsPlaying(true);
         if (showResumeChoice) {
           try {
             player.pause();
@@ -173,6 +195,10 @@ export const VideoPlayer = memo(function VideoPlayer({
         checkMutedState();
       });
 
+      player.on('pause', () => {
+        setIsPlaying(false);
+      });
+
       player.on('volumechange', () => {
         checkMutedState();
       });
@@ -181,11 +207,14 @@ export const VideoPlayer = memo(function VideoPlayer({
       player.on('timeupdate', () => {
         if (!isSubscribed || showResumeChoice) return;
         const current = player.currentTime || 0;
-        const duration = player.duration || video?.duration || 0;
+        const dur = player.duration || video?.duration || 0;
+
+        setCurrentTime(current);
+        if (dur > 0) setDuration(dur);
 
         // Notificación de siguiente episodio 10s antes del final (únicamente si hay siguiente episodio)
-        if (nextEpisode && duration > 15 && (duration - current) <= 10.5 && (duration - current) > 0.5) {
-          setRemainingSeconds(Math.max(1, Math.ceil(duration - current)));
+        if (nextEpisode && dur > 15 && (dur - current) <= 10.5 && (dur - current) > 0.5) {
+          setRemainingSeconds(Math.max(1, Math.ceil(dur - current)));
           setShowWatchNext(true);
         } else {
           setShowWatchNext(false);
@@ -193,7 +222,7 @@ export const VideoPlayer = memo(function VideoPlayer({
 
         if (onProgressSave && Math.abs(current - lastSavedTimeRef.current) >= 3) {
           lastSavedTimeRef.current = current;
-          onProgressSave(current, duration);
+          onProgressSave(current, dur);
         }
       });
 
@@ -201,10 +230,10 @@ export const VideoPlayer = memo(function VideoPlayer({
       player.on('pause', () => {
         if (!isSubscribed || !onProgressSave || showResumeChoice) return;
         const current = player.currentTime || 0;
-        const duration = player.duration || video?.duration || 0;
+        const dur = player.duration || video?.duration || 0;
         if (current > 0) {
           lastSavedTimeRef.current = current;
-          onProgressSave(current, duration);
+          onProgressSave(current, dur);
         }
       });
 
@@ -213,9 +242,10 @@ export const VideoPlayer = memo(function VideoPlayer({
         if (!isSubscribed) return;
         setShowWatchNext(false);
         setHasEnded(true);
-        const duration = player.duration || video?.duration || 100;
+        setIsPlaying(false);
+        const dur = player.duration || video?.duration || 100;
         if (onProgressSave) {
-          onProgressSave(duration, duration);
+          onProgressSave(dur, dur);
         }
 
         // Si existe un siguiente episodio, inicia cuenta regresiva y auto-reproducción
@@ -246,9 +276,9 @@ export const VideoPlayer = memo(function VideoPlayer({
         try {
           if (onProgressSave && playerRef.current.currentTime && !showResumeChoice) {
             const current = playerRef.current.currentTime;
-            const duration = playerRef.current.duration || video?.duration || 0;
+            const dur = playerRef.current.duration || video?.duration || 0;
             if (current > 0) {
-              onProgressSave(current, duration);
+              onProgressSave(current, dur);
             }
           }
           playerRef.current.destroy();
@@ -258,7 +288,7 @@ export const VideoPlayer = memo(function VideoPlayer({
         playerRef.current = null;
       }
     };
-  }, [video.youtubeId, hasSavedProgress, nextEpisode?.id, navigateToNextEpisode]);
+  }, [video.youtubeId, hasSavedProgress, nextEpisode?.id, navigateToNextEpisode, enablePip, setCurrentTime, setDuration, setIsPlaying]);
 
   // Manejador para reanudar desde el minuto guardado
   const handleResumePlayback = () => {
@@ -310,6 +340,21 @@ export const VideoPlayer = memo(function VideoPlayer({
     setIsMuted(false);
   };
 
+  // Trigger floating Picture-in-Picture mode
+  const handleTriggerPip = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (playerRef.current) {
+      try {
+        if (typeof (playerRef.current as any).pip === 'function') {
+          (playerRef.current as any).pip();
+        }
+      } catch (err) {
+        // ignore
+      }
+    }
+    enablePip();
+  };
+
   return (
     <div className={`relative w-full ${isVertical ? 'aspect-[9/16] h-full max-h-[82vh] vertical-player-wrapper' : 'aspect-video'} bg-black overflow-hidden rounded-2xl shadow-2xl border border-white/10 group`}>
       
@@ -322,6 +367,21 @@ export const VideoPlayer = memo(function VideoPlayer({
           className="w-full h-full"
         />
       </div>
+
+      {/* Botón flotante Picture-in-Picture en la esquina superior izquierda */}
+      {!hasEnded && !showResumeChoice && (
+        <button
+          type="button"
+          onClick={handleTriggerPip}
+          className="absolute top-4 left-4 z-30 group flex items-center gap-2 px-3 py-1.5 bg-black/70 hover:bg-black/90 text-white border border-white/20 hover:border-primary/70 rounded-full shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 opacity-0 group-hover:opacity-100 cursor-pointer select-none"
+          title="Ver en ventana flotante (Picture-in-Picture)"
+        >
+          <PictureInPicture className="w-3.5 h-3.5 text-primary" />
+          <span className="text-[11px] font-bold tracking-wide uppercase text-white group-hover:text-primary transition-colors">
+            Picture-in-Picture
+          </span>
+        </button>
+      )}
 
       {/* OVERLAY DE OPCIONES DE REPRODUCCIÓN (CUANDO HAY PROGRESO GUARDADO) */}
       {showResumeChoice && hasSavedProgress && !hasEnded && (

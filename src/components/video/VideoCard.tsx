@@ -38,7 +38,7 @@ export function VideoCard({
 }: VideoCardProps) {
   const videoData = getVideoById(id);
   const youtubeId = videoData?.youtubeId || id;
-  const isLocked = Boolean(videoData?.isLocked);
+  const isLocked = Boolean((videoData as any)?.isLocked);
   const { addToast } = useToast();
   
   const [isHoverPlaying, setIsHoverPlaying] = useState(false);

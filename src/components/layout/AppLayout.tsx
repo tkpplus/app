@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { FloatingMiniPlayer } from '../video/FloatingMiniPlayer';
 
 export function AppLayout() {
   return (
@@ -9,6 +10,7 @@ export function AppLayout() {
       <main className="flex-1 w-full mx-auto pb-12">
         <Outlet />
       </main>
+      <FloatingMiniPlayer />
       <Footer />
     </div>
   );

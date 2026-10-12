@@ -10,7 +10,7 @@ import { useShabbatMode } from '../context/ShabbatModeContext';
 export function Home() {
   const { isShabbatMode } = useShabbatMode();
   const featuredVideo = useMemo(() => {
-    const featuredVideos = getFeaturedVideos();
+    const featuredVideos = getFeaturedVideos().filter(v => !v.isShort);
     const sourceVideos = featuredVideos.length > 0 ? featuredVideos : videos.filter(v => !v.isShort);
     const randomIndex = Math.floor(Math.random() * sourceVideos.length);
     return sourceVideos[randomIndex];
@@ -131,9 +131,9 @@ return (
           </div>
 
           <div className="animate-in slide-in-from-bottom-8 duration-1000 delay-500 fill-mode-both space-y-8 md:space-y-12">
-            {parashotSeries.length > 0 && <SeriesCarousel title="Original Series" series={parashotSeries} viewMoreLink={parashotSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/parashot" : undefined} />}
-            {cuentosSeries.length > 0 && <SeriesCarousel title="Timeless Stories" series={cuentosSeries} viewMoreLink={cuentosSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/cuentos" : undefined} />}
-            {festividadesSeries.length > 0 && <SeriesCarousel title="Holiday Collection" series={festividadesSeries} viewMoreLink={festividadesSeries.length > SHOW_VIEW_MORE_THRESHOLD ? "/category/festividades" : undefined} />}
+            {parashotSeries.length > 0 && <SeriesCarousel title="Original Series" series={parashotSeries} viewMoreLink="/category/parashot" />}
+            {cuentosSeries.length > 0 && <SeriesCarousel title="Timeless Stories" series={cuentosSeries} viewMoreLink="/category/cuentos" />}
+            {festividadesSeries.length > 0 && <SeriesCarousel title="Holiday Collection" series={festividadesSeries} viewMoreLink="/category/festividades" />}
           </div>
         </>
       )}
