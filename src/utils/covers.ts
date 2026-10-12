@@ -8,11 +8,9 @@ function resolveModuleUrl(mod: any): string {
   return String(mod || '');
 }
 
-// Import all files from src/assets/series-covers
-export const coverModules: Record<string, any> = {
-  ...((import.meta as any).glob?.('../assets/series-covers/*', { eager: true }) || {}),
-  ...((import.meta as any).glob?.('/src/assets/series-covers/*', { eager: true }) || {})
-};
+// Import all files from src/assets/series-covers - RUTA CORREGIDA
+export const coverModules: Record<string, any> = 
+  (import.meta as any).glob?.('../assets/series-covers/*.{jpg,jpeg,png}', { eager: true }) || {};
 
 // Find basic.jpg URL bundled asset
 export const BASIC_COVER: string = (() => {
@@ -137,7 +135,3 @@ export function getVideoThumbnail(video: any): string {
   }
   return BASIC_COVER;
 }
-
-
-
-
