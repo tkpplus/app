@@ -67,6 +67,14 @@ export const VideoPlayer = memo(function VideoPlayer({
   // y se despliega el menú de opciones (Reanudar o Empezar de nuevo)
   const hasSavedProgress = (initialProgress || 0) > 5;
   const [showResumeChoice, setShowResumeChoice] = useState<boolean>(hasSavedProgress);
+  const showResumeChoiceRef = useRef<boolean>(hasSavedProgress);
+
+  const updateShowResumeChoice = (val: boolean) => {
+    showResumeChoiceRef.current = val;
+    setShowResumeChoice(val);
+  };
+
+  const lastContextTimeRef = useRef<number>(0);
 
   const [hasEnded, setHasEnded] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(5);
@@ -93,6 +101,8 @@ export const VideoPlayer = memo(function VideoPlayer({
   const cancelAutoPlay = useCallback(() => {
     setCountdown(0);
   }, []);
+
+  const pendingSeekRef = useRef<number | null>(null);
 
   // Initialize Plyr - ONLY re-run if video.youtubeId changes
   useEffect(() => {
@@ -170,12 +180,10 @@ export const VideoPlayer = memo(function VideoPlayer({
           // ignore
         }
 
-        // Si tiene progreso guardado, pausar y precargar posición
-        if (hasSavedProgress) {
+        // Si tiene progreso guardado y se muestra la elección, pausar para esperar al usuario
+        if (showResumeChoiceRef.current) {
           try {
             player.pause();
-            const resumeAt = Math.max(0, Math.floor(initialProgressRef.current || 0));
-            player.currentTime = resumeAt;
           } catch (e) {
             // ignore
           }
@@ -196,7 +204,8 @@ export const VideoPlayer = memo(function VideoPlayer({
       player.on('playing', () => {
         if (!isSubscribed) return;
         setIsPlaying(true);
-        if (showResumeChoice) {
+
+        if (showResumeChoiceRef.current) {
           try {
             player.pause();
           } catch (e) {
@@ -204,6 +213,20 @@ export const VideoPlayer = memo(function VideoPlayer({
           }
           return;
         }
+
+        // Si hay un seek pendiente desde "Reanudar", aplicarlo ahora que el video está en PLAYING
+        if (pendingSeekRef.current !== null) {
+          const seekTime = pendingSeekRef.current;
+          pendingSeekRef.current = null;
+          try {
+            if (seekTime > 0) {
+              player.currentTime = seekTime;
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+
         checkMutedState();
       });
 
@@ -218,12 +241,15 @@ export const VideoPlayer = memo(function VideoPlayer({
 
       // Actualizar progreso
       player.on('timeupdate', () => {
-        if (!isSubscribed || showResumeChoice) return;
+        if (!isSubscribed || showResumeChoiceRef.current) return;
         const current = player.currentTime || 0;
         const dur = player.duration || video?.duration || 0;
 
-        setCurrentTime(current);
-        if (dur > 0) setDuration(dur);
+        if (Math.abs(current - lastContextTimeRef.current) >= 1) {
+          lastContextTimeRef.current = current;
+          setCurrentTime(current);
+          if (dur > 0) setDuration(dur);
+        }
 
         const currentNextEp = nextEpisodeRef.current;
         // Notificación de siguiente episodio 10s antes del final
@@ -243,7 +269,7 @@ export const VideoPlayer = memo(function VideoPlayer({
 
       // Guardar inmediatamente en pausa
       player.on('pause', () => {
-        if (!isSubscribed || showResumeChoice) return;
+        if (!isSubscribed || showResumeChoiceRef.current) return;
         const current = player.currentTime || 0;
         const dur = player.duration || video?.duration || 0;
         const saveFn = onProgressSaveRef.current;
@@ -287,11 +313,12 @@ export const VideoPlayer = memo(function VideoPlayer({
 
     return () => {
       isSubscribed = false;
+      pendingSeekRef.current = null;
       if (countdownTimer) clearInterval(countdownTimer);
       if (playerRef.current) {
         try {
           const saveFn = onProgressSaveRef.current;
-          if (saveFn && playerRef.current.currentTime && !showResumeChoice) {
+          if (saveFn && playerRef.current.currentTime && !showResumeChoiceRef.current) {
             const current = playerRef.current.currentTime;
             const dur = playerRef.current.duration || video?.duration || 0;
             if (current > 0) {
@@ -309,12 +336,30 @@ export const VideoPlayer = memo(function VideoPlayer({
 
   // Manejador para reanudar desde el minuto guardado
   const handleResumePlayback = () => {
-    setShowResumeChoice(false);
+    updateShowResumeChoice(false);
     if (playerRef.current) {
       try {
         const resumeAt = Math.max(0, Math.floor(initialProgressRef.current || 0));
-        playerRef.current.currentTime = resumeAt;
-        playerRef.current.play().catch(() => {});
+        pendingSeekRef.current = resumeAt;
+
+        // Iniciar reproducción primero
+        const playResult = playerRef.current.play();
+        if (playResult && typeof (playResult as any).catch === 'function') {
+          (playResult as any).catch(() => {});
+        }
+
+        // Fallback si la reproducción ya estaba activa o no dispara 'playing'
+        setTimeout(() => {
+          if (pendingSeekRef.current !== null && playerRef.current) {
+            const seekTime = pendingSeekRef.current;
+            pendingSeekRef.current = null;
+            try {
+              playerRef.current.currentTime = seekTime;
+            } catch (e) {
+              // ignore
+            }
+          }
+        }, 300);
       } catch (e) {
         console.warn('Error al reanudar:', e);
       }
@@ -323,22 +368,31 @@ export const VideoPlayer = memo(function VideoPlayer({
 
   // Manejador para iniciar desde el principio (0:00)
   const handleRestartFromBeginning = () => {
-    setShowResumeChoice(false);
+    updateShowResumeChoice(false);
     setHasEnded(false);
     lastSavedTimeRef.current = 0;
+    pendingSeekRef.current = null;
+
     const saveFn = onProgressSaveRef.current;
     if (saveFn) {
       saveFn(0, video?.duration || 100);
     }
+
     if (playerRef.current) {
       try {
         playerRef.current.currentTime = 0;
-        playerRef.current.play().catch(() => {});
+        const playResult = playerRef.current.play();
+        if (playResult && typeof (playResult as any).catch === 'function') {
+          (playResult as any).catch(() => {});
+        }
       } catch (e) {
         console.warn('Error al reiniciar:', e);
       }
     }
   };
+
+
+
 
   // Manejador para activar sonido si el navegador silencia inicialmente
   const handleUnmute = () => {

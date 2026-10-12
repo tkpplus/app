@@ -30,6 +30,7 @@ interface PlayerContextType {
   enablePip: () => void;
   disablePip: () => void;
   closePlayer: () => void;
+  destroyCurrentPlayer: () => void;
   expandPlayer: () => void;
   setCurrentTime: (time: number) => void;
   setDuration: (dur: number) => void;
@@ -44,8 +45,15 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isPipMode, setIsPipMode] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [currentTime, setCurrentTimeState] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
+
+  const setCurrentTime = useCallback((time: number) => {
+    setCurrentTimeState(prev => {
+      if (Math.abs(prev - time) < 0.5) return prev;
+      return time;
+    });
+  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -105,6 +113,15 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setNextEpisode(null);
   }, []);
 
+  const destroyCurrentPlayer = useCallback(() => {
+    setIsPlaying(false);
+    setIsPipMode(false);
+    setCurrentTimeState(0);
+    setDuration(0);
+    setActiveVideo(null);
+    setNextEpisode(null);
+  }, []);
+
   const expandPlayer = useCallback(() => {
     if (activeVideo?.id) {
       setIsPipMode(false);
@@ -131,6 +148,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         enablePip,
         disablePip,
         closePlayer,
+        destroyCurrentPlayer,
         expandPlayer,
         setCurrentTime,
         setDuration,

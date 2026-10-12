@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Share2, Plus, Check, Server, Play, Clock } from 'lucide-react';
 import { getVideoById, videos, characters } from '../data/seed';
@@ -31,6 +31,15 @@ export function Watch() {
   const { recommendations, loading: recLoading } = useRecommendations({ episodeId: video?.id || undefined, userId: MOCK_USER_ID });
   const { toggleWatchlist, isInWatchlist } = useWatchlist();
   const { addToast } = useToast();
+
+  // Cleanup on page unmount or when navigating between video IDs
+  useEffect(() => {
+    return () => {
+      window.scrollTo(0, 0);
+    };
+  }, [id]);
+
+
 
   if (!video) {
     return (

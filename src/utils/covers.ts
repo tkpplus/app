@@ -1,66 +1,37 @@
-/// <reference types="vite/client" />
 import { getVideosBySeries } from '../data/seed';
 
-export const coverModules = import.meta.glob('/src/assets/series-covers/*.{png,jpg,jpeg,webp,svg}', { eager: true, import: 'default' }) as Record<string, string>;
+export const coverModules = ((import.meta as any).glob?.('/src/assets/series-covers/*.{png,jpg,jpeg,webp,svg}', { eager: true, import: 'default' })) || {};
 
-// Mapping of series IDs to possible cover filename prefixes or aliases
 const ID_ALIASES: Record<string, string[]> = {
-  'especiales': ['parashot-especiales', 'especiales', 'basic'],
-  'parashot-especiales': ['parashot-especiales', 'especiales'],
-  'parasha-en-un-minuto': ['parashot-especiales', 'especiales', 'basic'],
-  'shabuot': ['shavuot', 'shabuot'],
-  'shavuot': ['shavuot', 'shabuot'],
-  'shabat': ['shabat', 'basic'],
-  'vayikra': ['vaikra', 'vayikra'],
-  'vaikra': ['vaikra', 'vayikra'],
-  'sucot': ['sucot', 'sukot'],
-  'sukot': ['sucot', 'sukot'],
-  'tisha-beav': ['tisha-beav', 'tisha-b-av'],
-  'tisha-b-av': ['tisha-beav', 'tisha-b-av'],
-  'cuentos-parashot': ['cuentos-perasha', 'cuentos-perasha'],
-  'cuentos-perasha': ['cuentos-perasha'],
+  shabuot: ['shabuot', 'shavuot'],
+  shavuot: ['shavuot', 'shabuot'],
+  especiales: ['especiales', 'parashot-especiales', 'perashot-especiales'],
+  'parashot-especiales': ['parashot-especiales', 'especiales', 'perashot-especiales'],
+  'cuentos-perasha': ['cuentos-perasha', 'cuentos-parasha'],
 };
 
 export function getSeriesCover(id: string, defaultThumbnail: string): string {
   if (!id) return defaultThumbnail;
   const cleanId = id.toLowerCase().trim();
+  const validPrefixes = ID_ALIASES[cleanId] || [cleanId];
 
-  // Get aliases for this ID or use cleanId itself
-  const aliases = ID_ALIASES[cleanId] || [cleanId];
-
-  const matchedSet = new Set<string>();
-
-  Object.entries(coverModules).forEach(([path, url]) => {
-    const filename = path.split('/').pop()?.toLowerCase() || '';
-    const nameWithoutExt = filename.split('.')[0];
-
-    for (const alias of aliases) {
-      if (
-        filename.startsWith(alias + '_') ||
-        filename.startsWith(alias + '-') ||
-        nameWithoutExt === alias
-      ) {
-        matchedSet.add(url);
-        break;
-      }
-    }
-  });
-
-  const matched = Array.from(matchedSet);
-
+  const matched = Object.entries(coverModules)
+    .filter(([path]) => {
+      const filename = path.split('/').pop()?.toLowerCase() || '';
+      return validPrefixes.some(prefix => 
+        filename.startsWith(prefix + '_') || 
+        filename.startsWith(prefix + '-') ||
+        filename.split('.')[0] === prefix
+      );
+    })
+    .map(([_, url]) => url as string);
+    
   if (matched.length > 0) {
-    // Pick a random cover from matching series covers
+    // Pick a random cover from matching series-covers
     return matched[Math.floor(Math.random() * matched.length)];
   }
 
-  // Fallback: if basic cover exists, try it or a random video thumbnail
-  const basicCoverEntry = Object.entries(coverModules).find(([path]) =>
-    path.toLowerCase().includes('basic.')
-  );
-  if (basicCoverEntry) {
-    return basicCoverEntry[1];
-  }
-
+  // Fallback: pick a random video thumbnail from this series if available
   try {
     const seriesVideos = getVideosBySeries(id);
     if (seriesVideos && seriesVideos.length > 0) {
@@ -71,5 +42,13 @@ export function getSeriesCover(id: string, defaultThumbnail: string): string {
     // ignore
   }
 
+  // Check if basic.jpg is available in coverModules
+  const basicCover = Object.entries(coverModules).find(([path]) => path.endsWith('/basic.jpg'));
+  if (basicCover && basicCover[1]) {
+    return basicCover[1] as string;
+  }
+
   return defaultThumbnail;
 }
+
+
