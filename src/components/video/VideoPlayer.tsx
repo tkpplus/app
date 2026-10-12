@@ -47,6 +47,22 @@ export const VideoPlayer = memo(function VideoPlayer({
 
   const { playVideo, setCurrentTime, setDuration, setIsPlaying, enablePip } = usePlayer();
 
+  // Mutable refs to prevent Plyr effect re-runs when callbacks/props update
+  const nextEpisodeRef = useRef(nextEpisode);
+  useEffect(() => {
+    nextEpisodeRef.current = nextEpisode;
+  }, [nextEpisode]);
+
+  const onProgressSaveRef = useRef(onProgressSave);
+  useEffect(() => {
+    onProgressSaveRef.current = onProgressSave;
+  }, [onProgressSave]);
+
+  const initialProgressRef = useRef(initialProgress);
+  useEffect(() => {
+    initialProgressRef.current = initialProgress;
+  }, [initialProgress]);
+
   // Si el video ya tiene progreso previo (> 5s), NO se reproduce automáticamente
   // y se despliega el menú de opciones (Reanudar o Empezar de nuevo)
   const hasSavedProgress = (initialProgress || 0) > 5;
@@ -59,29 +75,26 @@ export const VideoPlayer = memo(function VideoPlayer({
   const [showWatchNext, setShowWatchNext] = useState<boolean>(false);
   const [remainingSeconds, setRemainingSeconds] = useState<number>(10);
   const [dismissedWatchNext, setDismissedWatchNext] = useState<boolean>(false);
-  const [autoNavigating, setAutoNavigating] = useState<boolean>(false);
 
-  // Sync with global player context
+  // Sync with global player context strictly on video ID change
   useEffect(() => {
-    if (video) {
+    if (video?.id) {
       playVideo(video, nextEpisode, initialProgress);
     }
-  }, [video, nextEpisode, initialProgress, playVideo]);
+  }, [video?.id]);
 
   // Manejador para navegar al siguiente episodio automáticamente
   const navigateToNextEpisode = useCallback(() => {
-    if (!nextEpisode?.id || autoNavigating) return;
-    setAutoNavigating(true);
-    navigate(`/watch/${nextEpisode.id}`);
-  }, [nextEpisode?.id, autoNavigating, navigate]);
+    if (!nextEpisodeRef.current?.id) return;
+    navigate(`/watch/${nextEpisodeRef.current.id}`);
+  }, [navigate]);
 
   // Manejador para cancelar la auto-reproducción si el usuario quiere quedarse
   const cancelAutoPlay = useCallback(() => {
-    setAutoNavigating(false);
     setCountdown(0);
   }, []);
 
-  // Initialize Plyr with Clean YouTube configuration
+  // Initialize Plyr - ONLY re-run if video.youtubeId changes
   useEffect(() => {
     if (!containerRef.current || !video?.youtubeId) return;
 
@@ -90,7 +103,6 @@ export const VideoPlayer = memo(function VideoPlayer({
 
     try {
       const player = new Plyr(containerRef.current, {
-        // Si no hay progreso previo, arranca automáticamente
         autoplay: !hasSavedProgress,
         muted: false,
         controls: [
@@ -158,11 +170,11 @@ export const VideoPlayer = memo(function VideoPlayer({
           // ignore
         }
 
-        // Si tiene progreso guardado, pausar y precargar posición para que no inicie solo
+        // Si tiene progreso guardado, pausar y precargar posición
         if (hasSavedProgress) {
           try {
             player.pause();
-            const resumeAt = Math.max(0, Math.floor(initialProgress || 0));
+            const resumeAt = Math.max(0, Math.floor(initialProgressRef.current || 0));
             player.currentTime = resumeAt;
           } catch (e) {
             // ignore
@@ -181,8 +193,8 @@ export const VideoPlayer = memo(function VideoPlayer({
         }
       });
 
-      // Si YouTube intenta arrancar solo pero la ventana de opciones de reanudar está abierta, pausar
       player.on('playing', () => {
+        if (!isSubscribed) return;
         setIsPlaying(true);
         if (showResumeChoice) {
           try {
@@ -196,6 +208,7 @@ export const VideoPlayer = memo(function VideoPlayer({
       });
 
       player.on('pause', () => {
+        if (!isSubscribed) return;
         setIsPlaying(false);
       });
 
@@ -212,28 +225,31 @@ export const VideoPlayer = memo(function VideoPlayer({
         setCurrentTime(current);
         if (dur > 0) setDuration(dur);
 
-        // Notificación de siguiente episodio 10s antes del final (únicamente si hay siguiente episodio)
-        if (nextEpisode && dur > 15 && (dur - current) <= 10.5 && (dur - current) > 0.5) {
+        const currentNextEp = nextEpisodeRef.current;
+        // Notificación de siguiente episodio 10s antes del final
+        if (currentNextEp && dur > 15 && (dur - current) <= 10.5 && (dur - current) > 0.5) {
           setRemainingSeconds(Math.max(1, Math.ceil(dur - current)));
           setShowWatchNext(true);
         } else {
           setShowWatchNext(false);
         }
 
-        if (onProgressSave && Math.abs(current - lastSavedTimeRef.current) >= 3) {
+        const saveFn = onProgressSaveRef.current;
+        if (saveFn && Math.abs(current - lastSavedTimeRef.current) >= 3) {
           lastSavedTimeRef.current = current;
-          onProgressSave(current, dur);
+          saveFn(current, dur);
         }
       });
 
       // Guardar inmediatamente en pausa
       player.on('pause', () => {
-        if (!isSubscribed || !onProgressSave || showResumeChoice) return;
+        if (!isSubscribed || showResumeChoice) return;
         const current = player.currentTime || 0;
         const dur = player.duration || video?.duration || 0;
-        if (current > 0) {
+        const saveFn = onProgressSaveRef.current;
+        if (saveFn && current > 0) {
           lastSavedTimeRef.current = current;
-          onProgressSave(current, dur);
+          saveFn(current, dur);
         }
       });
 
@@ -244,18 +260,18 @@ export const VideoPlayer = memo(function VideoPlayer({
         setHasEnded(true);
         setIsPlaying(false);
         const dur = player.duration || video?.duration || 100;
-        if (onProgressSave) {
-          onProgressSave(dur, dur);
+        const saveFn = onProgressSaveRef.current;
+        if (saveFn) {
+          saveFn(dur, dur);
         }
 
         // Si existe un siguiente episodio, inicia cuenta regresiva y auto-reproducción
-        if (nextEpisode?.id) {
+        if (nextEpisodeRef.current?.id) {
           setCountdown(5);
           countdownTimer = setInterval(() => {
             setCountdown(prev => {
               if (prev <= 1) {
                 if (countdownTimer) clearInterval(countdownTimer);
-                // Dispara automáticamente la reproducción del siguiente episodio
                 navigateToNextEpisode();
                 return 0;
               }
@@ -274,11 +290,12 @@ export const VideoPlayer = memo(function VideoPlayer({
       if (countdownTimer) clearInterval(countdownTimer);
       if (playerRef.current) {
         try {
-          if (onProgressSave && playerRef.current.currentTime && !showResumeChoice) {
+          const saveFn = onProgressSaveRef.current;
+          if (saveFn && playerRef.current.currentTime && !showResumeChoice) {
             const current = playerRef.current.currentTime;
             const dur = playerRef.current.duration || video?.duration || 0;
             if (current > 0) {
-              onProgressSave(current, dur);
+              saveFn(current, dur);
             }
           }
           playerRef.current.destroy();
@@ -288,14 +305,14 @@ export const VideoPlayer = memo(function VideoPlayer({
         playerRef.current = null;
       }
     };
-  }, [video.youtubeId, hasSavedProgress, nextEpisode?.id, navigateToNextEpisode, enablePip, setCurrentTime, setDuration, setIsPlaying]);
+  }, [video?.youtubeId]);
 
   // Manejador para reanudar desde el minuto guardado
   const handleResumePlayback = () => {
     setShowResumeChoice(false);
     if (playerRef.current) {
       try {
-        const resumeAt = Math.max(0, Math.floor(initialProgress || 0));
+        const resumeAt = Math.max(0, Math.floor(initialProgressRef.current || 0));
         playerRef.current.currentTime = resumeAt;
         playerRef.current.play().catch(() => {});
       } catch (e) {
@@ -309,8 +326,9 @@ export const VideoPlayer = memo(function VideoPlayer({
     setShowResumeChoice(false);
     setHasEnded(false);
     lastSavedTimeRef.current = 0;
-    if (onProgressSave) {
-      onProgressSave(0, video.duration || 100);
+    const saveFn = onProgressSaveRef.current;
+    if (saveFn) {
+      saveFn(0, video?.duration || 100);
     }
     if (playerRef.current) {
       try {

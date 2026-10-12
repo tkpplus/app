@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export interface ActiveVideo {
@@ -61,9 +61,11 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, [location.pathname, activeVideo, isPlaying, isPipMode]);
 
   const playVideo = useCallback((video: ActiveVideo, nextEp: ActiveVideo | null = null, startTime = 0) => {
-    setActiveVideo(video);
+    setActiveVideo(prev => {
+      if (prev?.id === video.id) return prev;
+      return video;
+    });
     if (nextEp !== undefined) setNextEpisode(nextEp);
-    setCurrentTime(startTime);
     setIsPlaying(true);
     setIsPipMode(false);
   }, []);
