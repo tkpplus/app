@@ -10,8 +10,9 @@ import { useShabbatMode } from '../context/ShabbatModeContext';
 export function Home() {
   const { isShabbatMode } = useShabbatMode();
   const featuredVideo = useMemo(() => {
-    const featuredVideos = getFeaturedVideos().filter(v => !v.isShort);
-    const sourceVideos = featuredVideos.length > 0 ? featuredVideos : videos.filter(v => !v.isShort);
+    // Select randomly from all catalog videos, excluding shorts, reels and locked/upcoming videos
+    const eligibleVideos = videos.filter(v => !v.isShort && !(v as any).isReel && v.youtubeId && !v.isUpcoming && !(v as any).isLocked);
+    const sourceVideos = eligibleVideos.length > 0 ? eligibleVideos : videos.filter(v => !v.isShort);
     const randomIndex = Math.floor(Math.random() * sourceVideos.length);
     return sourceVideos[randomIndex];
   }, []);

@@ -82,9 +82,39 @@ export function getSeriesCover(id: string, defaultThumbnail?: string): string {
     .filter(url => Boolean(url) && url.length > 0 && !url.includes('[object Object]'));
 
   if (matched.length > 0) {
+    const storageKey = `series_cover_persisted_${cleanId}`;
+    
+    // Check if a selection is already saved in sessionStorage or localStorage
+    if (typeof window !== 'undefined') {
+      try {
+        const savedSession = window.sessionStorage?.getItem(storageKey);
+        if (savedSession && matched.includes(savedSession)) {
+          return savedSession;
+        }
+        const savedLocal = window.localStorage?.getItem(storageKey);
+        if (savedLocal && matched.includes(savedLocal)) {
+          return savedLocal;
+        }
+      } catch (e) {
+        // ignore storage errors
+      }
+    }
+
     // Pick a random cover from matching series-covers
     const randomIndex = Math.floor(Math.random() * matched.length);
-    return matched[randomIndex];
+    const selectedCover = matched[randomIndex];
+
+    // Store selection so it persists across page refreshes
+    if (typeof window !== 'undefined') {
+      try {
+        window.sessionStorage?.setItem(storageKey, selectedCover);
+        window.localStorage?.setItem(storageKey, selectedCover);
+      } catch (e) {
+        // ignore storage errors
+      }
+    }
+
+    return selectedCover;
   }
 
   // If defaultThumbnail is provided and is a valid web URL or asset path (not a broken /series/ link)

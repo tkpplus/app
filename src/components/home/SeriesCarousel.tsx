@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, ChevronRight as ChevronRightIcon } from 'luc
 import { SeriesCard } from '../video/SeriesCard';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
+import { getSeriesCover } from '../../utils/covers';
 
 interface SeriesCarouselProps {
   title: string;
@@ -63,16 +64,19 @@ export function SeriesCarousel({ title, series, viewMoreLink }: SeriesCarouselPr
           className="flex gap-4 overflow-x-auto px-4 sm:px-6 lg:px-8 pb-8 pt-2 hide-scrollbar snap-x snap-mandatory"
           style={{ scrollPaddingLeft: '1rem', scrollPaddingRight: '1rem' }}
         >
-          {series.map((s) => (
-            <div key={s.id} className="w-[180px] sm:w-[220px] shrink-0 snap-start">
-              <SeriesCard
-                id={s.id}
-                title={s.title}
-                thumbnail={s.thumbnail}
-                description={s.description}
-              />
-            </div>
-          ))}
+          {series.map((s) => {
+            const coverUrl = getSeriesCover(s.id, s.thumbnail);
+            return (
+              <div key={s.id} className="w-[180px] sm:w-[220px] shrink-0 snap-start">
+                <SeriesCard
+                  id={s.id}
+                  title={s.title}
+                  thumbnail={coverUrl}
+                  description={s.description}
+                />
+              </div>
+            );
+          })}
         </div>
         
         {/* Right gradient fade */}
