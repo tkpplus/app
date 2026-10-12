@@ -1,15 +1,28 @@
 import { getVideosBySeries } from '../data/seed';
 
+// Helper to safely extract URL string from Vite module import or string
+function resolveModuleUrl(mod: any): string {
+  if (!mod) return '';
+  if (typeof mod === 'string') return mod;
+  if (typeof mod === 'object' && typeof mod.default === 'string') return mod.default;
+  return String(mod || '');
+}
+
 // Import all files from src/assets/series-covers
-export const coverModules: Record<string, string> = {
-  ...((import.meta as any).glob?.('../assets/series-covers/*', { eager: true, import: 'default' }) || {}),
-  ...((import.meta as any).glob?.('/src/assets/series-covers/*', { eager: true, import: 'default' }) || {})
+export const coverModules: Record<string, any> = {
+  ...((import.meta as any).glob?.('../assets/series-covers/*', { eager: true }) || {}),
+  ...((import.meta as any).glob?.('/src/assets/series-covers/*', { eager: true }) || {})
 };
 
 // Find basic.jpg URL bundled asset
-export const BASIC_COVER: string = (
-  Object.entries(coverModules).find(([path]) => path.toLowerCase().includes('basic.jpg'))?.[1] as string
-) || '/assets/series-covers/basic.jpg';
+export const BASIC_COVER: string = (() => {
+  const basicEntry = Object.entries(coverModules).find(([path]) => path.toLowerCase().includes('basic.jpg'));
+  if (basicEntry) {
+    const url = resolveModuleUrl(basicEntry[1]);
+    if (url) return url;
+  }
+  return '/assets/series-covers/basic.jpg';
+})();
 
 const ID_ALIASES: Record<string, string[]> = {
   // Parashot
@@ -65,7 +78,8 @@ export function getSeriesCover(id: string, defaultThumbnail?: string): string {
         baseName.startsWith(prefix + '-')
       );
     })
-    .map(([_, url]) => url as string);
+    .map(([_, mod]) => resolveModuleUrl(mod))
+    .filter(url => Boolean(url) && url.length > 0 && !url.includes('[object Object]'));
 
   if (matched.length > 0) {
     // Pick a random cover from matching series-covers
