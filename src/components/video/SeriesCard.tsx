@@ -103,9 +103,7 @@ export function SeriesCard({
             loading="lazy"
             onError={(e) => {
                const target = e.target as HTMLImageElement;
-               if (thumbnail && target.src !== thumbnail && !thumbnail.includes('undefined')) {
-                 target.src = thumbnail;
-               } else {
+               if (target.src !== BASIC_COVER) {
                  target.src = BASIC_COVER;
                }
             }}

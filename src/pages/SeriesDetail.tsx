@@ -37,6 +37,11 @@ export function SeriesDetail() {
         if (slug !== 'especiales') {
           results = results.filter((v: any) => !v.isShort);
         }
+
+        // Ocultar videos que aún no existen / no tienen contenido, SALVO en "relatos-avraham"
+        if (slug !== 'relatos-avraham') {
+          results = results.filter((v: any) => !v.isUpcoming && !v.isLocked);
+        }
         
         // Attach progress if available
         results = results.map(video => {

@@ -1,68 +1,98 @@
 import { getVideosBySeries } from '../data/seed';
 
-export const coverModules = ((import.meta as any).glob?.('/src/assets/series-covers/*.{png,jpg,jpeg,webp,svg}', { eager: true, import: 'default' })) || {};
-
-const ID_ALIASES: Record<string, string[]> = {
-  shabuot: ['shabuot', 'shavuot'],
-  shavuot: ['shavuot', 'shabuot'],
-  especiales: ['especiales', 'parashot-especiales', 'perashot-especiales'],
-  'parashot-especiales': ['parashot-especiales', 'especiales', 'perashot-especiales'],
-  'cuentos-perasha': ['cuentos-perasha', 'cuentos-parasha'],
+// Import all files from src/assets/series-covers
+export const coverModules: Record<string, string> = {
+  ...((import.meta as any).glob?.('../assets/series-covers/*', { eager: true, import: 'default' }) || {}),
+  ...((import.meta as any).glob?.('/src/assets/series-covers/*', { eager: true, import: 'default' }) || {})
 };
 
-export function getSeriesCover(id: string, defaultThumbnail: string): string {
-  if (!id) return defaultThumbnail;
+// Find basic.jpg URL bundled asset
+export const BASIC_COVER: string = (
+  Object.entries(coverModules).find(([path]) => path.toLowerCase().includes('basic.jpg'))?.[1] as string
+) || '/assets/series-covers/basic.jpg';
+
+const ID_ALIASES: Record<string, string[]> = {
+  // Parashot
+  bereshit: ['bereshit'],
+  shemot: ['shemot'],
+  vaikra: ['vaikra'],
+  bamidbar: ['bamidbar'],
+  devarim: ['devarim'],
+  especiales: ['parashot-especiales', 'especiales', 'perashot-especiales'],
+  'parashot-especiales': ['parashot-especiales', 'especiales', 'perashot-especiales'],
+  'parasha-en-un-minuto': ['parashot-especiales', 'especiales', 'perashot-especiales'],
+
+  // Festividades
+  'rosh-hashana': ['rosh-hashana', 'rosh_hashana'],
+  'yom-kipur': ['yom-kipur', 'yom_kipur'],
+  sucot: ['sucot'],
+  januca: ['januca'],
+  'tu-bishvat': ['tu-bishvat', 'tu_bishvat'],
+  purim: ['purim'],
+  pesaj: ['pesaj'],
+  'lag-baomer': ['lag-baomer', 'lag_baomer'],
+  shabuot: ['shavuot', 'shabuot'],
+  shavuot: ['shavuot', 'shabuot'],
+  'tisha-beav': ['tisha-beav', 'tisha_beav'],
+  shabat: ['shabat'],
+
+  // Cuentos
+  'cuentos-tradicion': ['cuentos-tradicion', 'cuentos_tradicion'],
+  'cuentos-perasha': ['cuentos-perasha', 'cuentos-parasha', 'cuentos_perasha', 'cuentos_parasha'],
+  'cuentos-jag': ['cuentos-jag', 'cuentos_jag'],
+  'sipurei-pesaj': ['sipurei-pesaj', 'sipurei_pesaj'],
+
+  // Relatos
+  'relatos-avraham': ['relatos-avraham', 'relatos_avraham', 'avraham'],
+};
+
+export function getSeriesCover(id: string, defaultThumbnail?: string): string {
+  if (!id) return BASIC_COVER;
   const cleanId = id.toLowerCase().trim();
   const validPrefixes = ID_ALIASES[cleanId] || [cleanId];
 
+  // Filter coverModules for files that match validPrefixes
   const matched = Object.entries(coverModules)
-    .filter(([path]) => {
-      const filename = path.split('/').pop()?.toLowerCase() || '';
+    .filter(([filePath]) => {
+      const filename = filePath.split('/').pop()?.toLowerCase() || '';
+      if (filename === 'basic.jpg') return false;
+      
+      const baseName = filename.substring(0, filename.lastIndexOf('.')) || filename;
+      
       return validPrefixes.some(prefix => 
-        filename.startsWith(prefix + '_') || 
-        filename.startsWith(prefix + '-') ||
-        filename.split('.')[0] === prefix
+        baseName === prefix || 
+        baseName.startsWith(prefix + '_') || 
+        baseName.startsWith(prefix + '-')
       );
     })
     .map(([_, url]) => url as string);
-    
+
   if (matched.length > 0) {
     // Pick a random cover from matching series-covers
-    return matched[Math.floor(Math.random() * matched.length)];
+    const randomIndex = Math.floor(Math.random() * matched.length);
+    return matched[randomIndex];
   }
 
-  // Fallback: pick a random video thumbnail from this series if available
-  try {
-    const seriesVideos = getVideosBySeries(id);
-    if (seriesVideos && seriesVideos.length > 0) {
-      const randomVid = seriesVideos[Math.floor(Math.random() * seriesVideos.length)];
-      if (randomVid && randomVid.thumbnail) return randomVid.thumbnail;
-    }
-  } catch (e) {
-    // ignore
+  // If defaultThumbnail is provided and is a valid web URL or asset path (not a broken /series/ link)
+  if (defaultThumbnail && typeof defaultThumbnail === 'string' && !defaultThumbnail.startsWith('/series/') && !defaultThumbnail.includes('undefined')) {
+    return defaultThumbnail;
   }
 
-  // Check if basic.jpg is available in coverModules
-  const basicCover = Object.entries(coverModules).find(([path]) => path.endsWith('/basic.jpg'));
-  if (basicCover && basicCover[1]) {
-    return basicCover[1] as string;
-  }
-
-  return defaultThumbnail;
+  // Fallback to basic.jpg
+  return BASIC_COVER;
 }
 
-export const BASIC_COVER = (Object.entries(coverModules).find(([path]) => path.endsWith('/basic.jpg'))?.[1] as string) || '/series/basic.jpg';
-
 export function getVideoThumbnail(video: any): string {
-  if (video?.thumbnail && typeof video.thumbnail === 'string' && video.thumbnail.trim() !== '' && !video.thumbnail.includes('undefined')) {
+  if (video?.thumbnail && typeof video.thumbnail === 'string' && video.thumbnail.trim() !== '' && !video.thumbnail.startsWith('/series/') && !video.thumbnail.includes('undefined')) {
     return video.thumbnail;
   }
   if (video?.seriesId) {
-    const cover = getSeriesCover(video.seriesId, BASIC_COVER);
+    const cover = getSeriesCover(video.seriesId);
     if (cover) return cover;
   }
   return BASIC_COVER;
 }
+
 
 
 
