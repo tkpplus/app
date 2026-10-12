@@ -2,7 +2,7 @@ import { useState, MouseEvent, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { Info, X, Play } from 'lucide-react';
-import { getSeriesCover } from '../../utils/covers';
+import { getSeriesCover, BASIC_COVER } from '../../utils/covers';
 import { getVideosBySeries } from '../../data/seed';
 
 interface SeriesCardProps {
@@ -103,10 +103,10 @@ export function SeriesCard({
             loading="lazy"
             onError={(e) => {
                const target = e.target as HTMLImageElement;
-               if (target.src !== thumbnail) {
+               if (thumbnail && target.src !== thumbnail && !thumbnail.includes('undefined')) {
                  target.src = thumbnail;
                } else {
-                 target.src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
+                 target.src = BASIC_COVER;
                }
             }}
           />

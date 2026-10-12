@@ -4,7 +4,7 @@ import { ArrowLeft, Play, Plus, Check, Volume2, VolumeX, Lock, Clock } from 'luc
 import { Button } from '../components/ui/Button';
 import { getSeriesById, getVideosBySeries } from '../data/seed';
 import { useWatchlist } from '../hooks/useWatchlist';
-import { getSeriesCover } from '../utils/covers';
+import { getSeriesCover, getVideoThumbnail, BASIC_COVER } from '../utils/covers';
 import { PuppetLoader } from '../components/ui/PuppetLoader';
 import { getVideoProgress } from '../hooks/useVideoProgress';
 
@@ -296,10 +296,11 @@ export function SeriesDetail() {
                                 >
                                   <div className="flex-shrink-0 w-full sm:w-56 aspect-video sm:h-32 bg-surface/40 rounded-lg overflow-hidden relative shadow-lg">
                                     <img 
-                                      src={video.thumbnail} 
+                                      src={getVideoThumbnail(video)} 
                                       alt={video.title} 
                                       className="w-full h-full object-cover grayscale brightness-50"
                                       loading="lazy"
+                                      onError={(e) => { e.currentTarget.src = BASIC_COVER; }}
                                     />
                                     {/* Overlay con candado y aviso de En Producción */}
                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-xs text-center p-2">
@@ -338,10 +339,11 @@ export function SeriesDetail() {
                               >
                                 <div className="flex-shrink-0 w-full sm:w-56 aspect-video sm:h-32 bg-surface rounded-lg overflow-hidden relative shadow-lg">
                                   <img 
-                                    src={video.thumbnail} 
+                                    src={getVideoThumbnail(video)} 
                                     alt={video.title} 
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     loading="lazy"
+                                    onError={(e) => { e.currentTarget.src = BASIC_COVER; }}
                                   />
                                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                                     <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center bg-black/40 text-white backdrop-blur-sm">
@@ -400,10 +402,11 @@ export function SeriesDetail() {
                           >
                             <div className="flex-shrink-0 w-full sm:w-56 aspect-video sm:h-32 bg-surface/40 rounded-lg overflow-hidden relative shadow-lg">
                               <img 
-                                src={video.thumbnail} 
+                                src={getVideoThumbnail(video)} 
                                 alt={video.title} 
                                 className="w-full h-full object-cover grayscale brightness-50"
                                 loading="lazy"
+                                onError={(e) => { e.currentTarget.src = BASIC_COVER; }}
                               />
                               <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-xs text-center p-2">
                                 <div className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white/80 mb-1.5 shadow-md">
@@ -441,10 +444,11 @@ export function SeriesDetail() {
                         >
                           <div className={`flex-shrink-0 ${slug === 'especiales' ? 'w-24 sm:w-28 aspect-[9/16]' : 'w-full sm:w-56 aspect-video sm:h-32'} bg-surface rounded-lg overflow-hidden relative shadow-lg`}>
                             <img 
-                              src={video.thumbnail} 
+                              src={getVideoThumbnail(video)} 
                               alt={video.title} 
                               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                               loading="lazy"
+                              onError={(e) => { e.currentTarget.src = BASIC_COVER; }}
                             />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                               <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center bg-black/40 text-white backdrop-blur-sm">

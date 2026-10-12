@@ -7,6 +7,8 @@ import { getVideoProgress, PROGRESS_EVENT } from '../../hooks/useVideoProgress';
 import { useState, useRef, useEffect } from 'react';
 import { useToast } from '../ui/Toast';
 
+import { getVideoThumbnail, BASIC_COVER } from '../../utils/covers';
+
 interface VideoCardProps {
   id: string;
   title: string;
@@ -41,8 +43,11 @@ export function VideoCard({
   const isLocked = Boolean((videoData as any)?.isLocked);
   const { addToast } = useToast();
   
+  const displayThumbnail = getVideoThumbnail(videoData) || (thumbnail && thumbnail.trim() !== '' ? thumbnail : BASIC_COVER);
+
   const [isHoverPlaying, setIsHoverPlaying] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
 
   const [effectiveProgress, setEffectiveProgress] = useState<number | undefined>(progressPercentage);
   const [effectiveCompleted, setEffectiveCompleted] = useState<boolean | undefined>(isCompleted);
@@ -138,10 +143,16 @@ export function VideoCard({
           />
         ) : (
           <img
-            src={thumbnail}
+            src={displayThumbnail}
             alt={title}
             className={`h-full w-full object-cover transition-opacity duration-300 ${isLocked ? 'opacity-50 grayscale-[30%]' : (isActive ? 'opacity-40' : 'group-hover:opacity-40')}`}
             loading="lazy"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (target.src !== BASIC_COVER) {
+                target.src = BASIC_COVER;
+              }
+            }}
           />
         )}
 

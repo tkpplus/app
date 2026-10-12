@@ -51,4 +51,18 @@ export function getSeriesCover(id: string, defaultThumbnail: string): string {
   return defaultThumbnail;
 }
 
+export const BASIC_COVER = (Object.entries(coverModules).find(([path]) => path.endsWith('/basic.jpg'))?.[1] as string) || '/series/basic.jpg';
+
+export function getVideoThumbnail(video: any): string {
+  if (video?.thumbnail && typeof video.thumbnail === 'string' && video.thumbnail.trim() !== '' && !video.thumbnail.includes('undefined')) {
+    return video.thumbnail;
+  }
+  if (video?.seriesId) {
+    const cover = getSeriesCover(video.seriesId, BASIC_COVER);
+    if (cover) return cover;
+  }
+  return BASIC_COVER;
+}
+
+
 
