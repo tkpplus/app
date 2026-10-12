@@ -214,19 +214,6 @@ export const VideoPlayer = memo(function VideoPlayer({
           return;
         }
 
-        // Si hay un seek pendiente desde "Reanudar", aplicarlo ahora que el video está en PLAYING
-        if (pendingSeekRef.current !== null) {
-          const seekTime = pendingSeekRef.current;
-          pendingSeekRef.current = null;
-          try {
-            if (seekTime > 0) {
-              player.currentTime = seekTime;
-            }
-          } catch (e) {
-            // ignore
-          }
-        }
-
         checkMutedState();
       });
 
@@ -340,26 +327,23 @@ export const VideoPlayer = memo(function VideoPlayer({
     if (playerRef.current) {
       try {
         const resumeAt = Math.max(0, Math.floor(initialProgressRef.current || 0));
-        pendingSeekRef.current = resumeAt;
-
-        // Iniciar reproducción primero
-        const playResult = playerRef.current.play();
-        if (playResult && typeof (playResult as any).catch === 'function') {
-          (playResult as any).catch(() => {});
+        
+        // Seek directly while paused
+        const ytEmbed = (playerRef.current as any).embed;
+        if (ytEmbed && typeof ytEmbed.seekTo === 'function') {
+          ytEmbed.seekTo(resumeAt, true);
+        } else {
+          playerRef.current.currentTime = resumeAt;
         }
 
-        // Fallback si la reproducción ya estaba activa o no dispara 'playing'
         setTimeout(() => {
-          if (pendingSeekRef.current !== null && playerRef.current) {
-            const seekTime = pendingSeekRef.current;
-            pendingSeekRef.current = null;
-            try {
-              playerRef.current.currentTime = seekTime;
-            } catch (e) {
-              // ignore
+          if (playerRef.current) {
+            const playResult = playerRef.current.play();
+            if (playResult && typeof (playResult as any).catch === 'function') {
+              (playResult as any).catch(() => {});
             }
           }
-        }, 300);
+        }, 120);
       } catch (e) {
         console.warn('Error al reanudar:', e);
       }

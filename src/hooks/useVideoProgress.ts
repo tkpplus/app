@@ -213,7 +213,8 @@ export function useVideoProgress(episodeId: string | null) {
 
     const handleUpdate = (e: Event) => {
       const custom = e as CustomEvent;
-      if (custom.detail?.episodeId === episodeId) {
+      // Only reload if the update is for a different video or explicit reset/clear
+      if (custom.detail?.episodeId === episodeId && (custom.detail?.isReset || custom.detail?.cleared)) {
         loadData();
       }
     };
