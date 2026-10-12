@@ -125,7 +125,7 @@ export function SeriesDetail() {
                alt={seriesInfo.title}
                className="w-full h-full object-cover blur-sm"
                onError={(e) => {
-                 (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542157585-ef20bbcce178?q=80&w=2000&auto=format&fit=crop";
+                 (e.target as HTMLImageElement).src = BASIC_COVER;
                }}
              />
            </div>

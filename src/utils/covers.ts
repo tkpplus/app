@@ -64,8 +64,7 @@ export function getSeriesCover(id: string, defaultThumbnail?: string): string {
   const cleanId = id.toLowerCase().trim();
   const validPrefixes = ID_ALIASES[cleanId] || [cleanId];
 
-  // Filter coverModules for files that match validPrefixes
-  const matched = Object.entries(coverModules)
+  const rawMatched = Object.entries(coverModules)
     .filter(([filePath]) => {
       const filename = filePath.split('/').pop()?.toLowerCase() || '';
       if (filename === 'basic.jpg') return false;
@@ -80,6 +79,8 @@ export function getSeriesCover(id: string, defaultThumbnail?: string): string {
     })
     .map(([_, mod]) => resolveModuleUrl(mod))
     .filter(url => Boolean(url) && url.length > 0 && !url.includes('[object Object]'));
+
+  const matched = Array.from(new Set(rawMatched));
 
   if (matched.length > 0) {
     const storageKey = `series_cover_persisted_${cleanId}`;
